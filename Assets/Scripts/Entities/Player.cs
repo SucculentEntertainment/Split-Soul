@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private GameObject sprite;
     private Animator animator;
 
+    private bool disableMovement = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,7 +44,15 @@ public class Player : MonoBehaviour
 
     private void OnMove(InputValue dirVal)
     {
+        if (disableMovement) return;
+
         dir = dirVal.Get<Vector2>();
         Debug.Log(dir);
+    }
+
+    private void OnConsole(InputValue val)
+    {
+        disableMovement = !disableMovement;
+        dir = new Vector2(0, 0);
     }
 }

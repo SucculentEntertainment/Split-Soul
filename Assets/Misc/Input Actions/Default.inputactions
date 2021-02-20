@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Menu",
+                    "name": "Escape",
                     "type": "Button",
                     "id": "e8768f4f-09c2-470b-abe0-1a09e98e495d",
                     "expectedControlType": "Button",
@@ -33,6 +33,14 @@
                     "name": "Console",
                     "type": "Button",
                     "id": "b83cbc68-9e70-4019-9379-c93aa6e3f4c1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Return",
+                    "type": "Button",
+                    "id": "6d1d5b68-983c-42b9-b1f4-4dce9aacff19",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -101,7 +109,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Menu",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -119,11 +127,22 @@
                 {
                     "name": "",
                     "id": "c69e9a70-d663-42b4-a160-845359a123b4",
-                    "path": "<Keyboard>/t",
+                    "path": "<Keyboard>/backslash",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Console",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8f4f8d0-c7be-43f2-b783-b370c5841222",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Return",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
