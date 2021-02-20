@@ -55,4 +55,9 @@ public class Player : MonoBehaviour
         disableMovement = !disableMovement;
         dir = new Vector2(0, 0);
     }
+
+    private void OnEscape(InputValue val)
+    {
+        disableMovement = false;
+    }
 }
