@@ -33,4 +33,13 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onReceiveDamage != null) onReceiveDamage(id, damage);
     }
+    
+    // --------------------------------
+    //  Heal Event
+    // --------------------------------
+    public event Action<string, float> onReceiveHeal;
+    public void Heal(string id, float damage)
+    {
+        if (onReceiveHeal != null) onReceiveHeal(id, damage);
+    }
 }

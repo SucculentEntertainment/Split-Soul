@@ -90,6 +90,27 @@ public class Player : MonoBehaviour
             GameEventSystem.current.GiveDamage(enemy.name, baseAttack);
 		}
 	}
+	
+	public void OnReceiveDamage(float damage)
+	{
+	    health -= damage;
+	    if(health <= 0) die();
+	}
+	
+	public void OnReceiveHeal(float amount)
+	{
+	    health += amount;
+	    if(health > maxHealth) health = maxHealth;
+	}
+	
+	private void die()
+	{
+	    if(deathState == 0) health = maxHealth;
+	    if(deathState == 1) { /*Really Really Dead*/ }
+	    
+	    deathState++;
+	    animator.setInt("DeathState", deathState);
+    }
 
     // ================================
     //  Input
