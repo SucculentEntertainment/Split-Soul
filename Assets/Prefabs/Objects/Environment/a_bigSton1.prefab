@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1492029995204146838}
   - component: {fileID: 4621912001022428421}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2563576288164667162}
   - component: {fileID: 5226995063414529075}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BotRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1826576529050031407}
   - component: {fileID: 4640073178927336744}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BotLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1933596620907946136}
   - component: {fileID: 8204214353941012873}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - component: {fileID: 1965969674113432793}
   - component: {fileID: 197279950674750686}
   - component: {fileID: 4209044799658048017}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: a_bigSton1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
