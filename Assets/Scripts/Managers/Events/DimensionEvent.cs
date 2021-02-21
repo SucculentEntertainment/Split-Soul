@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DimensionEvent : MonoBehaviour
 {
-    public string dimension = "alive";
+    public List<string> dimensions;
 
     private void Start()
     {
@@ -13,7 +14,7 @@ public class DimensionEvent : MonoBehaviour
 
     private void onDimensionChange(string dimension)
     {
-        if (dimension == this.dimension) gameObject.SetActive(true);
-        else gameObject.SetActive(false);
+        if (dimensions.Contains(dimension)) gameObject.SendMessage("OnDimensionEnable", dimension);
+        else gameObject.SendMessage("OnDimensionDisable", dimension);
     }
 }

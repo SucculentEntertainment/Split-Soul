@@ -13,12 +13,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Tiles
+  - Objects
+  - Player
+  - Enemies
+  - Interactables
+  - Pickups
   - 
   - 
   - 
@@ -40,4 +40,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Dimension
+    uniqueID: 2073887349
+    locked: 0
+  - name: Tiles
+    uniqueID: 1240311781
+    locked: 0
+  - name: Objects
+    uniqueID: 2568943767
     locked: 0
