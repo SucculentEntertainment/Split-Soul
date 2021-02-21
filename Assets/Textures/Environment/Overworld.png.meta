@@ -1220,6 +1220,24 @@ TextureImporter:
   - first:
       213: 5980618616452281246
     second: Overworld_269
+  - first:
+      213: 203811899350848871
+    second: Overworld_270
+  - first:
+      213: 7128209107532779743
+    second: Overworld_271
+  - first:
+      213: 3852898564354768834
+    second: Overworld_272
+  - first:
+      213: -5235066265404238456
+    second: Overworld_273
+  - first:
+      213: -2999265917765170199
+    second: Overworld_274
+  - first:
+      213: -6345048819319619034
+    second: Overworld_275
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -2253,8 +2271,8 @@ TextureImporter:
       name: Overworld_45
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 720
+        y: 80
         width: 16
         height: 16
       alignment: 0
@@ -2274,7 +2292,7 @@ TextureImporter:
       name: Overworld_46
       rect:
         serializedVersion: 2
-        x: 16
+        x: 0
         y: 64
         width: 16
         height: 16
@@ -2295,7 +2313,7 @@ TextureImporter:
       name: Overworld_47
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 64
         width: 16
         height: 16
@@ -2316,7 +2334,7 @@ TextureImporter:
       name: Overworld_48
       rect:
         serializedVersion: 2
-        x: 48
+        x: 32
         y: 64
         width: 16
         height: 16
@@ -2337,7 +2355,7 @@ TextureImporter:
       name: Overworld_49
       rect:
         serializedVersion: 2
-        x: 64
+        x: 48
         y: 64
         width: 16
         height: 16
@@ -2358,7 +2376,7 @@ TextureImporter:
       name: Overworld_50
       rect:
         serializedVersion: 2
-        x: 80
+        x: 64
         y: 64
         width: 16
         height: 16
@@ -2379,7 +2397,7 @@ TextureImporter:
       name: Overworld_51
       rect:
         serializedVersion: 2
-        x: 96
+        x: 80
         y: 64
         width: 16
         height: 16
@@ -2400,7 +2418,7 @@ TextureImporter:
       name: Overworld_52
       rect:
         serializedVersion: 2
-        x: 112
+        x: 96
         y: 64
         width: 16
         height: 16
@@ -2421,7 +2439,7 @@ TextureImporter:
       name: Overworld_53
       rect:
         serializedVersion: 2
-        x: 128
+        x: 112
         y: 64
         width: 16
         height: 16
@@ -2442,7 +2460,7 @@ TextureImporter:
       name: Overworld_54
       rect:
         serializedVersion: 2
-        x: 144
+        x: 128
         y: 64
         width: 16
         height: 16
@@ -2463,7 +2481,7 @@ TextureImporter:
       name: Overworld_55
       rect:
         serializedVersion: 2
-        x: 160
+        x: 144
         y: 64
         width: 16
         height: 16
@@ -2484,7 +2502,7 @@ TextureImporter:
       name: Overworld_56
       rect:
         serializedVersion: 2
-        x: 176
+        x: 160
         y: 64
         width: 16
         height: 16
@@ -2505,7 +2523,7 @@ TextureImporter:
       name: Overworld_57
       rect:
         serializedVersion: 2
-        x: 192
+        x: 176
         y: 64
         width: 16
         height: 16
@@ -2526,7 +2544,7 @@ TextureImporter:
       name: Overworld_58
       rect:
         serializedVersion: 2
-        x: 208
+        x: 192
         y: 64
         width: 16
         height: 16
@@ -2547,7 +2565,7 @@ TextureImporter:
       name: Overworld_59
       rect:
         serializedVersion: 2
-        x: 224
+        x: 208
         y: 64
         width: 16
         height: 16
@@ -2568,7 +2586,7 @@ TextureImporter:
       name: Overworld_60
       rect:
         serializedVersion: 2
-        x: 240
+        x: 224
         y: 64
         width: 16
         height: 16
@@ -2589,7 +2607,7 @@ TextureImporter:
       name: Overworld_61
       rect:
         serializedVersion: 2
-        x: 256
+        x: 240
         y: 64
         width: 16
         height: 16
@@ -2610,7 +2628,7 @@ TextureImporter:
       name: Overworld_62
       rect:
         serializedVersion: 2
-        x: 272
+        x: 256
         y: 64
         width: 16
         height: 16
@@ -2631,7 +2649,7 @@ TextureImporter:
       name: Overworld_63
       rect:
         serializedVersion: 2
-        x: 288
+        x: 272
         y: 64
         width: 16
         height: 16
@@ -2652,7 +2670,7 @@ TextureImporter:
       name: Overworld_64
       rect:
         serializedVersion: 2
-        x: 304
+        x: 288
         y: 64
         width: 16
         height: 16
@@ -2673,7 +2691,7 @@ TextureImporter:
       name: Overworld_65
       rect:
         serializedVersion: 2
-        x: 320
+        x: 304
         y: 64
         width: 16
         height: 16
@@ -2694,7 +2712,7 @@ TextureImporter:
       name: Overworld_66
       rect:
         serializedVersion: 2
-        x: 336
+        x: 320
         y: 64
         width: 16
         height: 16
@@ -2715,7 +2733,7 @@ TextureImporter:
       name: Overworld_67
       rect:
         serializedVersion: 2
-        x: 352
+        x: 336
         y: 64
         width: 16
         height: 16
@@ -2736,7 +2754,7 @@ TextureImporter:
       name: Overworld_68
       rect:
         serializedVersion: 2
-        x: 368
+        x: 352
         y: 64
         width: 16
         height: 16
@@ -2757,7 +2775,7 @@ TextureImporter:
       name: Overworld_69
       rect:
         serializedVersion: 2
-        x: 384
+        x: 368
         y: 64
         width: 16
         height: 16
@@ -2778,7 +2796,7 @@ TextureImporter:
       name: Overworld_70
       rect:
         serializedVersion: 2
-        x: 400
+        x: 384
         y: 64
         width: 16
         height: 16
@@ -2799,7 +2817,7 @@ TextureImporter:
       name: Overworld_71
       rect:
         serializedVersion: 2
-        x: 416
+        x: 400
         y: 64
         width: 16
         height: 16
@@ -2820,7 +2838,7 @@ TextureImporter:
       name: Overworld_72
       rect:
         serializedVersion: 2
-        x: 432
+        x: 416
         y: 64
         width: 16
         height: 16
@@ -2841,7 +2859,7 @@ TextureImporter:
       name: Overworld_73
       rect:
         serializedVersion: 2
-        x: 448
+        x: 432
         y: 64
         width: 16
         height: 16
@@ -2862,7 +2880,7 @@ TextureImporter:
       name: Overworld_74
       rect:
         serializedVersion: 2
-        x: 464
+        x: 448
         y: 64
         width: 16
         height: 16
@@ -2883,7 +2901,7 @@ TextureImporter:
       name: Overworld_75
       rect:
         serializedVersion: 2
-        x: 480
+        x: 464
         y: 64
         width: 16
         height: 16
@@ -2904,7 +2922,7 @@ TextureImporter:
       name: Overworld_76
       rect:
         serializedVersion: 2
-        x: 496
+        x: 480
         y: 64
         width: 16
         height: 16
@@ -2925,7 +2943,7 @@ TextureImporter:
       name: Overworld_77
       rect:
         serializedVersion: 2
-        x: 512
+        x: 496
         y: 64
         width: 16
         height: 16
@@ -2946,7 +2964,7 @@ TextureImporter:
       name: Overworld_78
       rect:
         serializedVersion: 2
-        x: 528
+        x: 512
         y: 64
         width: 16
         height: 16
@@ -2967,7 +2985,7 @@ TextureImporter:
       name: Overworld_79
       rect:
         serializedVersion: 2
-        x: 544
+        x: 528
         y: 64
         width: 16
         height: 16
@@ -2988,7 +3006,7 @@ TextureImporter:
       name: Overworld_80
       rect:
         serializedVersion: 2
-        x: 560
+        x: 544
         y: 64
         width: 16
         height: 16
@@ -3009,7 +3027,7 @@ TextureImporter:
       name: Overworld_81
       rect:
         serializedVersion: 2
-        x: 576
+        x: 560
         y: 64
         width: 16
         height: 16
@@ -3030,7 +3048,7 @@ TextureImporter:
       name: Overworld_82
       rect:
         serializedVersion: 2
-        x: 592
+        x: 576
         y: 64
         width: 16
         height: 16
@@ -3051,7 +3069,7 @@ TextureImporter:
       name: Overworld_83
       rect:
         serializedVersion: 2
-        x: 608
+        x: 592
         y: 64
         width: 16
         height: 16
@@ -3072,7 +3090,7 @@ TextureImporter:
       name: Overworld_84
       rect:
         serializedVersion: 2
-        x: 624
+        x: 608
         y: 64
         width: 16
         height: 16
@@ -3093,7 +3111,7 @@ TextureImporter:
       name: Overworld_85
       rect:
         serializedVersion: 2
-        x: 640
+        x: 624
         y: 64
         width: 16
         height: 16
@@ -3114,7 +3132,7 @@ TextureImporter:
       name: Overworld_86
       rect:
         serializedVersion: 2
-        x: 656
+        x: 640
         y: 64
         width: 16
         height: 16
@@ -3135,7 +3153,7 @@ TextureImporter:
       name: Overworld_87
       rect:
         serializedVersion: 2
-        x: 672
+        x: 656
         y: 64
         width: 16
         height: 16
@@ -3156,7 +3174,7 @@ TextureImporter:
       name: Overworld_88
       rect:
         serializedVersion: 2
-        x: 688
+        x: 672
         y: 64
         width: 16
         height: 16
@@ -3177,7 +3195,7 @@ TextureImporter:
       name: Overworld_89
       rect:
         serializedVersion: 2
-        x: 704
+        x: 688
         y: 64
         width: 16
         height: 16
@@ -3198,8 +3216,8 @@ TextureImporter:
       name: Overworld_90
       rect:
         serializedVersion: 2
-        x: 0
-        y: 48
+        x: 704
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -3219,8 +3237,8 @@ TextureImporter:
       name: Overworld_91
       rect:
         serializedVersion: 2
-        x: 16
-        y: 48
+        x: 720
+        y: 64
         width: 16
         height: 16
       alignment: 0
@@ -3240,7 +3258,7 @@ TextureImporter:
       name: Overworld_92
       rect:
         serializedVersion: 2
-        x: 32
+        x: 0
         y: 48
         width: 16
         height: 16
@@ -3261,7 +3279,7 @@ TextureImporter:
       name: Overworld_93
       rect:
         serializedVersion: 2
-        x: 48
+        x: 16
         y: 48
         width: 16
         height: 16
@@ -3282,7 +3300,7 @@ TextureImporter:
       name: Overworld_94
       rect:
         serializedVersion: 2
-        x: 64
+        x: 32
         y: 48
         width: 16
         height: 16
@@ -3303,7 +3321,7 @@ TextureImporter:
       name: Overworld_95
       rect:
         serializedVersion: 2
-        x: 80
+        x: 48
         y: 48
         width: 16
         height: 16
@@ -3324,7 +3342,7 @@ TextureImporter:
       name: Overworld_96
       rect:
         serializedVersion: 2
-        x: 96
+        x: 64
         y: 48
         width: 16
         height: 16
@@ -3345,7 +3363,7 @@ TextureImporter:
       name: Overworld_97
       rect:
         serializedVersion: 2
-        x: 112
+        x: 80
         y: 48
         width: 16
         height: 16
@@ -3366,7 +3384,7 @@ TextureImporter:
       name: Overworld_98
       rect:
         serializedVersion: 2
-        x: 128
+        x: 96
         y: 48
         width: 16
         height: 16
@@ -3387,7 +3405,7 @@ TextureImporter:
       name: Overworld_99
       rect:
         serializedVersion: 2
-        x: 144
+        x: 112
         y: 48
         width: 16
         height: 16
@@ -3408,7 +3426,7 @@ TextureImporter:
       name: Overworld_100
       rect:
         serializedVersion: 2
-        x: 160
+        x: 128
         y: 48
         width: 16
         height: 16
@@ -3429,7 +3447,7 @@ TextureImporter:
       name: Overworld_101
       rect:
         serializedVersion: 2
-        x: 176
+        x: 144
         y: 48
         width: 16
         height: 16
@@ -3450,7 +3468,7 @@ TextureImporter:
       name: Overworld_102
       rect:
         serializedVersion: 2
-        x: 192
+        x: 160
         y: 48
         width: 16
         height: 16
@@ -3471,7 +3489,7 @@ TextureImporter:
       name: Overworld_103
       rect:
         serializedVersion: 2
-        x: 208
+        x: 176
         y: 48
         width: 16
         height: 16
@@ -3492,7 +3510,7 @@ TextureImporter:
       name: Overworld_104
       rect:
         serializedVersion: 2
-        x: 224
+        x: 192
         y: 48
         width: 16
         height: 16
@@ -3513,7 +3531,7 @@ TextureImporter:
       name: Overworld_105
       rect:
         serializedVersion: 2
-        x: 240
+        x: 208
         y: 48
         width: 16
         height: 16
@@ -3534,7 +3552,7 @@ TextureImporter:
       name: Overworld_106
       rect:
         serializedVersion: 2
-        x: 256
+        x: 224
         y: 48
         width: 16
         height: 16
@@ -3555,7 +3573,7 @@ TextureImporter:
       name: Overworld_107
       rect:
         serializedVersion: 2
-        x: 272
+        x: 240
         y: 48
         width: 16
         height: 16
@@ -3576,7 +3594,7 @@ TextureImporter:
       name: Overworld_108
       rect:
         serializedVersion: 2
-        x: 288
+        x: 256
         y: 48
         width: 16
         height: 16
@@ -3597,7 +3615,7 @@ TextureImporter:
       name: Overworld_109
       rect:
         serializedVersion: 2
-        x: 304
+        x: 272
         y: 48
         width: 16
         height: 16
@@ -3618,7 +3636,7 @@ TextureImporter:
       name: Overworld_110
       rect:
         serializedVersion: 2
-        x: 320
+        x: 288
         y: 48
         width: 16
         height: 16
@@ -3639,7 +3657,7 @@ TextureImporter:
       name: Overworld_111
       rect:
         serializedVersion: 2
-        x: 336
+        x: 304
         y: 48
         width: 16
         height: 16
@@ -3660,7 +3678,7 @@ TextureImporter:
       name: Overworld_112
       rect:
         serializedVersion: 2
-        x: 352
+        x: 320
         y: 48
         width: 16
         height: 16
@@ -3681,7 +3699,7 @@ TextureImporter:
       name: Overworld_113
       rect:
         serializedVersion: 2
-        x: 368
+        x: 336
         y: 48
         width: 16
         height: 16
@@ -3702,7 +3720,7 @@ TextureImporter:
       name: Overworld_114
       rect:
         serializedVersion: 2
-        x: 384
+        x: 352
         y: 48
         width: 16
         height: 16
@@ -3723,7 +3741,7 @@ TextureImporter:
       name: Overworld_115
       rect:
         serializedVersion: 2
-        x: 400
+        x: 368
         y: 48
         width: 16
         height: 16
@@ -3744,7 +3762,7 @@ TextureImporter:
       name: Overworld_116
       rect:
         serializedVersion: 2
-        x: 416
+        x: 384
         y: 48
         width: 16
         height: 16
@@ -3765,7 +3783,7 @@ TextureImporter:
       name: Overworld_117
       rect:
         serializedVersion: 2
-        x: 432
+        x: 400
         y: 48
         width: 16
         height: 16
@@ -3786,7 +3804,7 @@ TextureImporter:
       name: Overworld_118
       rect:
         serializedVersion: 2
-        x: 448
+        x: 416
         y: 48
         width: 16
         height: 16
@@ -3807,7 +3825,7 @@ TextureImporter:
       name: Overworld_119
       rect:
         serializedVersion: 2
-        x: 464
+        x: 432
         y: 48
         width: 16
         height: 16
@@ -3828,7 +3846,7 @@ TextureImporter:
       name: Overworld_120
       rect:
         serializedVersion: 2
-        x: 480
+        x: 448
         y: 48
         width: 16
         height: 16
@@ -3849,7 +3867,7 @@ TextureImporter:
       name: Overworld_121
       rect:
         serializedVersion: 2
-        x: 496
+        x: 464
         y: 48
         width: 16
         height: 16
@@ -3870,7 +3888,7 @@ TextureImporter:
       name: Overworld_122
       rect:
         serializedVersion: 2
-        x: 512
+        x: 480
         y: 48
         width: 16
         height: 16
@@ -3891,7 +3909,7 @@ TextureImporter:
       name: Overworld_123
       rect:
         serializedVersion: 2
-        x: 528
+        x: 496
         y: 48
         width: 16
         height: 16
@@ -3912,7 +3930,7 @@ TextureImporter:
       name: Overworld_124
       rect:
         serializedVersion: 2
-        x: 544
+        x: 512
         y: 48
         width: 16
         height: 16
@@ -3933,7 +3951,7 @@ TextureImporter:
       name: Overworld_125
       rect:
         serializedVersion: 2
-        x: 560
+        x: 528
         y: 48
         width: 16
         height: 16
@@ -3954,7 +3972,7 @@ TextureImporter:
       name: Overworld_126
       rect:
         serializedVersion: 2
-        x: 576
+        x: 544
         y: 48
         width: 16
         height: 16
@@ -3975,7 +3993,7 @@ TextureImporter:
       name: Overworld_127
       rect:
         serializedVersion: 2
-        x: 592
+        x: 560
         y: 48
         width: 16
         height: 16
@@ -3996,7 +4014,7 @@ TextureImporter:
       name: Overworld_128
       rect:
         serializedVersion: 2
-        x: 608
+        x: 576
         y: 48
         width: 16
         height: 16
@@ -4017,7 +4035,7 @@ TextureImporter:
       name: Overworld_129
       rect:
         serializedVersion: 2
-        x: 624
+        x: 592
         y: 48
         width: 16
         height: 16
@@ -4038,7 +4056,7 @@ TextureImporter:
       name: Overworld_130
       rect:
         serializedVersion: 2
-        x: 640
+        x: 608
         y: 48
         width: 16
         height: 16
@@ -4059,7 +4077,7 @@ TextureImporter:
       name: Overworld_131
       rect:
         serializedVersion: 2
-        x: 656
+        x: 624
         y: 48
         width: 16
         height: 16
@@ -4080,7 +4098,7 @@ TextureImporter:
       name: Overworld_132
       rect:
         serializedVersion: 2
-        x: 672
+        x: 640
         y: 48
         width: 16
         height: 16
@@ -4101,7 +4119,7 @@ TextureImporter:
       name: Overworld_133
       rect:
         serializedVersion: 2
-        x: 688
+        x: 656
         y: 48
         width: 16
         height: 16
@@ -4122,7 +4140,7 @@ TextureImporter:
       name: Overworld_134
       rect:
         serializedVersion: 2
-        x: 704
+        x: 672
         y: 48
         width: 16
         height: 16
@@ -4143,8 +4161,8 @@ TextureImporter:
       name: Overworld_135
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 688
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -4164,8 +4182,8 @@ TextureImporter:
       name: Overworld_136
       rect:
         serializedVersion: 2
-        x: 16
-        y: 32
+        x: 704
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -4185,8 +4203,8 @@ TextureImporter:
       name: Overworld_137
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 720
+        y: 48
         width: 16
         height: 16
       alignment: 0
@@ -4206,7 +4224,7 @@ TextureImporter:
       name: Overworld_138
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 32
         width: 16
         height: 16
@@ -4227,7 +4245,7 @@ TextureImporter:
       name: Overworld_139
       rect:
         serializedVersion: 2
-        x: 64
+        x: 16
         y: 32
         width: 16
         height: 16
@@ -4248,7 +4266,7 @@ TextureImporter:
       name: Overworld_140
       rect:
         serializedVersion: 2
-        x: 80
+        x: 32
         y: 32
         width: 16
         height: 16
@@ -4269,7 +4287,7 @@ TextureImporter:
       name: Overworld_141
       rect:
         serializedVersion: 2
-        x: 96
+        x: 48
         y: 32
         width: 16
         height: 16
@@ -4290,7 +4308,7 @@ TextureImporter:
       name: Overworld_142
       rect:
         serializedVersion: 2
-        x: 112
+        x: 64
         y: 32
         width: 16
         height: 16
@@ -4311,7 +4329,7 @@ TextureImporter:
       name: Overworld_143
       rect:
         serializedVersion: 2
-        x: 128
+        x: 80
         y: 32
         width: 16
         height: 16
@@ -4332,7 +4350,7 @@ TextureImporter:
       name: Overworld_144
       rect:
         serializedVersion: 2
-        x: 144
+        x: 96
         y: 32
         width: 16
         height: 16
@@ -4353,7 +4371,7 @@ TextureImporter:
       name: Overworld_145
       rect:
         serializedVersion: 2
-        x: 160
+        x: 112
         y: 32
         width: 16
         height: 16
@@ -4374,7 +4392,7 @@ TextureImporter:
       name: Overworld_146
       rect:
         serializedVersion: 2
-        x: 176
+        x: 128
         y: 32
         width: 16
         height: 16
@@ -4395,7 +4413,7 @@ TextureImporter:
       name: Overworld_147
       rect:
         serializedVersion: 2
-        x: 192
+        x: 144
         y: 32
         width: 16
         height: 16
@@ -4416,7 +4434,7 @@ TextureImporter:
       name: Overworld_148
       rect:
         serializedVersion: 2
-        x: 208
+        x: 160
         y: 32
         width: 16
         height: 16
@@ -4437,7 +4455,7 @@ TextureImporter:
       name: Overworld_149
       rect:
         serializedVersion: 2
-        x: 224
+        x: 176
         y: 32
         width: 16
         height: 16
@@ -4458,7 +4476,7 @@ TextureImporter:
       name: Overworld_150
       rect:
         serializedVersion: 2
-        x: 240
+        x: 192
         y: 32
         width: 16
         height: 16
@@ -4479,7 +4497,7 @@ TextureImporter:
       name: Overworld_151
       rect:
         serializedVersion: 2
-        x: 256
+        x: 208
         y: 32
         width: 16
         height: 16
@@ -4500,7 +4518,7 @@ TextureImporter:
       name: Overworld_152
       rect:
         serializedVersion: 2
-        x: 272
+        x: 224
         y: 32
         width: 16
         height: 16
@@ -4521,7 +4539,7 @@ TextureImporter:
       name: Overworld_153
       rect:
         serializedVersion: 2
-        x: 288
+        x: 240
         y: 32
         width: 16
         height: 16
@@ -4542,7 +4560,7 @@ TextureImporter:
       name: Overworld_154
       rect:
         serializedVersion: 2
-        x: 304
+        x: 256
         y: 32
         width: 16
         height: 16
@@ -4563,7 +4581,7 @@ TextureImporter:
       name: Overworld_155
       rect:
         serializedVersion: 2
-        x: 320
+        x: 272
         y: 32
         width: 16
         height: 16
@@ -4584,7 +4602,7 @@ TextureImporter:
       name: Overworld_156
       rect:
         serializedVersion: 2
-        x: 336
+        x: 288
         y: 32
         width: 16
         height: 16
@@ -4605,7 +4623,7 @@ TextureImporter:
       name: Overworld_157
       rect:
         serializedVersion: 2
-        x: 352
+        x: 304
         y: 32
         width: 16
         height: 16
@@ -4626,7 +4644,7 @@ TextureImporter:
       name: Overworld_158
       rect:
         serializedVersion: 2
-        x: 368
+        x: 320
         y: 32
         width: 16
         height: 16
@@ -4647,7 +4665,7 @@ TextureImporter:
       name: Overworld_159
       rect:
         serializedVersion: 2
-        x: 384
+        x: 336
         y: 32
         width: 16
         height: 16
@@ -4668,7 +4686,7 @@ TextureImporter:
       name: Overworld_160
       rect:
         serializedVersion: 2
-        x: 400
+        x: 352
         y: 32
         width: 16
         height: 16
@@ -4689,7 +4707,7 @@ TextureImporter:
       name: Overworld_161
       rect:
         serializedVersion: 2
-        x: 416
+        x: 368
         y: 32
         width: 16
         height: 16
@@ -4710,7 +4728,7 @@ TextureImporter:
       name: Overworld_162
       rect:
         serializedVersion: 2
-        x: 432
+        x: 384
         y: 32
         width: 16
         height: 16
@@ -4731,7 +4749,7 @@ TextureImporter:
       name: Overworld_163
       rect:
         serializedVersion: 2
-        x: 448
+        x: 400
         y: 32
         width: 16
         height: 16
@@ -4752,7 +4770,7 @@ TextureImporter:
       name: Overworld_164
       rect:
         serializedVersion: 2
-        x: 464
+        x: 416
         y: 32
         width: 16
         height: 16
@@ -4773,7 +4791,7 @@ TextureImporter:
       name: Overworld_165
       rect:
         serializedVersion: 2
-        x: 480
+        x: 432
         y: 32
         width: 16
         height: 16
@@ -4794,7 +4812,7 @@ TextureImporter:
       name: Overworld_166
       rect:
         serializedVersion: 2
-        x: 496
+        x: 448
         y: 32
         width: 16
         height: 16
@@ -4815,7 +4833,7 @@ TextureImporter:
       name: Overworld_167
       rect:
         serializedVersion: 2
-        x: 512
+        x: 464
         y: 32
         width: 16
         height: 16
@@ -4836,7 +4854,7 @@ TextureImporter:
       name: Overworld_168
       rect:
         serializedVersion: 2
-        x: 528
+        x: 480
         y: 32
         width: 16
         height: 16
@@ -4857,7 +4875,7 @@ TextureImporter:
       name: Overworld_169
       rect:
         serializedVersion: 2
-        x: 544
+        x: 496
         y: 32
         width: 16
         height: 16
@@ -4878,7 +4896,7 @@ TextureImporter:
       name: Overworld_170
       rect:
         serializedVersion: 2
-        x: 560
+        x: 512
         y: 32
         width: 16
         height: 16
@@ -4899,7 +4917,7 @@ TextureImporter:
       name: Overworld_171
       rect:
         serializedVersion: 2
-        x: 576
+        x: 528
         y: 32
         width: 16
         height: 16
@@ -4920,7 +4938,7 @@ TextureImporter:
       name: Overworld_172
       rect:
         serializedVersion: 2
-        x: 592
+        x: 544
         y: 32
         width: 16
         height: 16
@@ -4941,7 +4959,7 @@ TextureImporter:
       name: Overworld_173
       rect:
         serializedVersion: 2
-        x: 608
+        x: 560
         y: 32
         width: 16
         height: 16
@@ -4962,7 +4980,7 @@ TextureImporter:
       name: Overworld_174
       rect:
         serializedVersion: 2
-        x: 624
+        x: 576
         y: 32
         width: 16
         height: 16
@@ -4983,7 +5001,7 @@ TextureImporter:
       name: Overworld_175
       rect:
         serializedVersion: 2
-        x: 640
+        x: 592
         y: 32
         width: 16
         height: 16
@@ -5004,7 +5022,7 @@ TextureImporter:
       name: Overworld_176
       rect:
         serializedVersion: 2
-        x: 656
+        x: 608
         y: 32
         width: 16
         height: 16
@@ -5025,7 +5043,7 @@ TextureImporter:
       name: Overworld_177
       rect:
         serializedVersion: 2
-        x: 672
+        x: 624
         y: 32
         width: 16
         height: 16
@@ -5046,7 +5064,7 @@ TextureImporter:
       name: Overworld_178
       rect:
         serializedVersion: 2
-        x: 688
+        x: 640
         y: 32
         width: 16
         height: 16
@@ -5067,7 +5085,7 @@ TextureImporter:
       name: Overworld_179
       rect:
         serializedVersion: 2
-        x: 704
+        x: 656
         y: 32
         width: 16
         height: 16
@@ -5088,8 +5106,8 @@ TextureImporter:
       name: Overworld_180
       rect:
         serializedVersion: 2
-        x: 0
-        y: 16
+        x: 672
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -5109,8 +5127,8 @@ TextureImporter:
       name: Overworld_181
       rect:
         serializedVersion: 2
-        x: 16
-        y: 16
+        x: 688
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -5130,8 +5148,8 @@ TextureImporter:
       name: Overworld_182
       rect:
         serializedVersion: 2
-        x: 32
-        y: 16
+        x: 704
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -5151,8 +5169,8 @@ TextureImporter:
       name: Overworld_183
       rect:
         serializedVersion: 2
-        x: 48
-        y: 16
+        x: 720
+        y: 32
         width: 16
         height: 16
       alignment: 0
@@ -5172,7 +5190,7 @@ TextureImporter:
       name: Overworld_184
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 16
         width: 16
         height: 16
@@ -5193,7 +5211,7 @@ TextureImporter:
       name: Overworld_185
       rect:
         serializedVersion: 2
-        x: 80
+        x: 16
         y: 16
         width: 16
         height: 16
@@ -5214,7 +5232,7 @@ TextureImporter:
       name: Overworld_186
       rect:
         serializedVersion: 2
-        x: 96
+        x: 32
         y: 16
         width: 16
         height: 16
@@ -5235,7 +5253,7 @@ TextureImporter:
       name: Overworld_187
       rect:
         serializedVersion: 2
-        x: 112
+        x: 48
         y: 16
         width: 16
         height: 16
@@ -5256,7 +5274,7 @@ TextureImporter:
       name: Overworld_188
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 16
         width: 16
         height: 16
@@ -5277,7 +5295,7 @@ TextureImporter:
       name: Overworld_189
       rect:
         serializedVersion: 2
-        x: 144
+        x: 80
         y: 16
         width: 16
         height: 16
@@ -5298,7 +5316,7 @@ TextureImporter:
       name: Overworld_190
       rect:
         serializedVersion: 2
-        x: 160
+        x: 96
         y: 16
         width: 16
         height: 16
@@ -5319,7 +5337,7 @@ TextureImporter:
       name: Overworld_191
       rect:
         serializedVersion: 2
-        x: 176
+        x: 112
         y: 16
         width: 16
         height: 16
@@ -5340,7 +5358,7 @@ TextureImporter:
       name: Overworld_192
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 16
         width: 16
         height: 16
@@ -5361,7 +5379,7 @@ TextureImporter:
       name: Overworld_193
       rect:
         serializedVersion: 2
-        x: 208
+        x: 144
         y: 16
         width: 16
         height: 16
@@ -5382,7 +5400,7 @@ TextureImporter:
       name: Overworld_194
       rect:
         serializedVersion: 2
-        x: 224
+        x: 160
         y: 16
         width: 16
         height: 16
@@ -5403,7 +5421,7 @@ TextureImporter:
       name: Overworld_195
       rect:
         serializedVersion: 2
-        x: 240
+        x: 176
         y: 16
         width: 16
         height: 16
@@ -5424,7 +5442,7 @@ TextureImporter:
       name: Overworld_196
       rect:
         serializedVersion: 2
-        x: 256
+        x: 192
         y: 16
         width: 16
         height: 16
@@ -5445,7 +5463,7 @@ TextureImporter:
       name: Overworld_197
       rect:
         serializedVersion: 2
-        x: 272
+        x: 208
         y: 16
         width: 16
         height: 16
@@ -5466,7 +5484,7 @@ TextureImporter:
       name: Overworld_198
       rect:
         serializedVersion: 2
-        x: 288
+        x: 224
         y: 16
         width: 16
         height: 16
@@ -5487,7 +5505,7 @@ TextureImporter:
       name: Overworld_199
       rect:
         serializedVersion: 2
-        x: 304
+        x: 240
         y: 16
         width: 16
         height: 16
@@ -5508,7 +5526,7 @@ TextureImporter:
       name: Overworld_200
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 16
         width: 16
         height: 16
@@ -5529,7 +5547,7 @@ TextureImporter:
       name: Overworld_201
       rect:
         serializedVersion: 2
-        x: 336
+        x: 272
         y: 16
         width: 16
         height: 16
@@ -5550,7 +5568,7 @@ TextureImporter:
       name: Overworld_202
       rect:
         serializedVersion: 2
-        x: 352
+        x: 288
         y: 16
         width: 16
         height: 16
@@ -5571,7 +5589,7 @@ TextureImporter:
       name: Overworld_203
       rect:
         serializedVersion: 2
-        x: 368
+        x: 304
         y: 16
         width: 16
         height: 16
@@ -5592,7 +5610,7 @@ TextureImporter:
       name: Overworld_204
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 16
         width: 16
         height: 16
@@ -5613,7 +5631,7 @@ TextureImporter:
       name: Overworld_205
       rect:
         serializedVersion: 2
-        x: 400
+        x: 336
         y: 16
         width: 16
         height: 16
@@ -5634,7 +5652,7 @@ TextureImporter:
       name: Overworld_206
       rect:
         serializedVersion: 2
-        x: 416
+        x: 352
         y: 16
         width: 16
         height: 16
@@ -5655,7 +5673,7 @@ TextureImporter:
       name: Overworld_207
       rect:
         serializedVersion: 2
-        x: 432
+        x: 368
         y: 16
         width: 16
         height: 16
@@ -5676,7 +5694,7 @@ TextureImporter:
       name: Overworld_208
       rect:
         serializedVersion: 2
-        x: 448
+        x: 384
         y: 16
         width: 16
         height: 16
@@ -5697,7 +5715,7 @@ TextureImporter:
       name: Overworld_209
       rect:
         serializedVersion: 2
-        x: 464
+        x: 400
         y: 16
         width: 16
         height: 16
@@ -5718,7 +5736,7 @@ TextureImporter:
       name: Overworld_210
       rect:
         serializedVersion: 2
-        x: 480
+        x: 416
         y: 16
         width: 16
         height: 16
@@ -5739,7 +5757,7 @@ TextureImporter:
       name: Overworld_211
       rect:
         serializedVersion: 2
-        x: 496
+        x: 432
         y: 16
         width: 16
         height: 16
@@ -5760,7 +5778,7 @@ TextureImporter:
       name: Overworld_212
       rect:
         serializedVersion: 2
-        x: 512
+        x: 448
         y: 16
         width: 16
         height: 16
@@ -5781,7 +5799,7 @@ TextureImporter:
       name: Overworld_213
       rect:
         serializedVersion: 2
-        x: 528
+        x: 464
         y: 16
         width: 16
         height: 16
@@ -5802,7 +5820,7 @@ TextureImporter:
       name: Overworld_214
       rect:
         serializedVersion: 2
-        x: 544
+        x: 480
         y: 16
         width: 16
         height: 16
@@ -5823,7 +5841,7 @@ TextureImporter:
       name: Overworld_215
       rect:
         serializedVersion: 2
-        x: 560
+        x: 496
         y: 16
         width: 16
         height: 16
@@ -5844,7 +5862,7 @@ TextureImporter:
       name: Overworld_216
       rect:
         serializedVersion: 2
-        x: 576
+        x: 512
         y: 16
         width: 16
         height: 16
@@ -5865,7 +5883,7 @@ TextureImporter:
       name: Overworld_217
       rect:
         serializedVersion: 2
-        x: 592
+        x: 528
         y: 16
         width: 16
         height: 16
@@ -5886,7 +5904,7 @@ TextureImporter:
       name: Overworld_218
       rect:
         serializedVersion: 2
-        x: 608
+        x: 544
         y: 16
         width: 16
         height: 16
@@ -5907,7 +5925,7 @@ TextureImporter:
       name: Overworld_219
       rect:
         serializedVersion: 2
-        x: 624
+        x: 560
         y: 16
         width: 16
         height: 16
@@ -5928,7 +5946,7 @@ TextureImporter:
       name: Overworld_220
       rect:
         serializedVersion: 2
-        x: 640
+        x: 576
         y: 16
         width: 16
         height: 16
@@ -5949,7 +5967,7 @@ TextureImporter:
       name: Overworld_221
       rect:
         serializedVersion: 2
-        x: 656
+        x: 592
         y: 16
         width: 16
         height: 16
@@ -5970,7 +5988,7 @@ TextureImporter:
       name: Overworld_222
       rect:
         serializedVersion: 2
-        x: 672
+        x: 608
         y: 16
         width: 16
         height: 16
@@ -5991,7 +6009,7 @@ TextureImporter:
       name: Overworld_223
       rect:
         serializedVersion: 2
-        x: 688
+        x: 624
         y: 16
         width: 16
         height: 16
@@ -6012,7 +6030,7 @@ TextureImporter:
       name: Overworld_224
       rect:
         serializedVersion: 2
-        x: 704
+        x: 640
         y: 16
         width: 16
         height: 16
@@ -6033,8 +6051,8 @@ TextureImporter:
       name: Overworld_225
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 656
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -6054,8 +6072,8 @@ TextureImporter:
       name: Overworld_226
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
+        x: 672
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -6075,8 +6093,8 @@ TextureImporter:
       name: Overworld_227
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
+        x: 688
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -6096,8 +6114,8 @@ TextureImporter:
       name: Overworld_228
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
+        x: 704
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -6117,8 +6135,8 @@ TextureImporter:
       name: Overworld_229
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
+        x: 720
+        y: 16
         width: 16
         height: 16
       alignment: 0
@@ -6138,7 +6156,7 @@ TextureImporter:
       name: Overworld_230
       rect:
         serializedVersion: 2
-        x: 80
+        x: 0
         y: 0
         width: 16
         height: 16
@@ -6159,7 +6177,7 @@ TextureImporter:
       name: Overworld_231
       rect:
         serializedVersion: 2
-        x: 96
+        x: 16
         y: 0
         width: 16
         height: 16
@@ -6180,7 +6198,7 @@ TextureImporter:
       name: Overworld_232
       rect:
         serializedVersion: 2
-        x: 112
+        x: 32
         y: 0
         width: 16
         height: 16
@@ -6201,7 +6219,7 @@ TextureImporter:
       name: Overworld_233
       rect:
         serializedVersion: 2
-        x: 128
+        x: 48
         y: 0
         width: 16
         height: 16
@@ -6222,7 +6240,7 @@ TextureImporter:
       name: Overworld_234
       rect:
         serializedVersion: 2
-        x: 144
+        x: 64
         y: 0
         width: 16
         height: 16
@@ -6243,7 +6261,7 @@ TextureImporter:
       name: Overworld_235
       rect:
         serializedVersion: 2
-        x: 160
+        x: 80
         y: 0
         width: 16
         height: 16
@@ -6264,7 +6282,7 @@ TextureImporter:
       name: Overworld_236
       rect:
         serializedVersion: 2
-        x: 176
+        x: 96
         y: 0
         width: 16
         height: 16
@@ -6285,7 +6303,7 @@ TextureImporter:
       name: Overworld_237
       rect:
         serializedVersion: 2
-        x: 192
+        x: 112
         y: 0
         width: 16
         height: 16
@@ -6306,7 +6324,7 @@ TextureImporter:
       name: Overworld_238
       rect:
         serializedVersion: 2
-        x: 208
+        x: 128
         y: 0
         width: 16
         height: 16
@@ -6327,7 +6345,7 @@ TextureImporter:
       name: Overworld_239
       rect:
         serializedVersion: 2
-        x: 224
+        x: 144
         y: 0
         width: 16
         height: 16
@@ -6348,7 +6366,7 @@ TextureImporter:
       name: Overworld_240
       rect:
         serializedVersion: 2
-        x: 240
+        x: 160
         y: 0
         width: 16
         height: 16
@@ -6369,7 +6387,7 @@ TextureImporter:
       name: Overworld_241
       rect:
         serializedVersion: 2
-        x: 256
+        x: 176
         y: 0
         width: 16
         height: 16
@@ -6390,7 +6408,7 @@ TextureImporter:
       name: Overworld_242
       rect:
         serializedVersion: 2
-        x: 272
+        x: 192
         y: 0
         width: 16
         height: 16
@@ -6411,7 +6429,7 @@ TextureImporter:
       name: Overworld_243
       rect:
         serializedVersion: 2
-        x: 288
+        x: 208
         y: 0
         width: 16
         height: 16
@@ -6432,7 +6450,7 @@ TextureImporter:
       name: Overworld_244
       rect:
         serializedVersion: 2
-        x: 304
+        x: 224
         y: 0
         width: 16
         height: 16
@@ -6453,7 +6471,7 @@ TextureImporter:
       name: Overworld_245
       rect:
         serializedVersion: 2
-        x: 320
+        x: 240
         y: 0
         width: 16
         height: 16
@@ -6474,7 +6492,7 @@ TextureImporter:
       name: Overworld_246
       rect:
         serializedVersion: 2
-        x: 336
+        x: 256
         y: 0
         width: 16
         height: 16
@@ -6495,7 +6513,7 @@ TextureImporter:
       name: Overworld_247
       rect:
         serializedVersion: 2
-        x: 352
+        x: 272
         y: 0
         width: 16
         height: 16
@@ -6516,7 +6534,7 @@ TextureImporter:
       name: Overworld_248
       rect:
         serializedVersion: 2
-        x: 368
+        x: 288
         y: 0
         width: 16
         height: 16
@@ -6537,7 +6555,7 @@ TextureImporter:
       name: Overworld_249
       rect:
         serializedVersion: 2
-        x: 384
+        x: 304
         y: 0
         width: 16
         height: 16
@@ -6558,7 +6576,7 @@ TextureImporter:
       name: Overworld_250
       rect:
         serializedVersion: 2
-        x: 400
+        x: 320
         y: 0
         width: 16
         height: 16
@@ -6579,7 +6597,7 @@ TextureImporter:
       name: Overworld_251
       rect:
         serializedVersion: 2
-        x: 416
+        x: 336
         y: 0
         width: 16
         height: 16
@@ -6600,7 +6618,7 @@ TextureImporter:
       name: Overworld_252
       rect:
         serializedVersion: 2
-        x: 432
+        x: 352
         y: 0
         width: 16
         height: 16
@@ -6621,7 +6639,7 @@ TextureImporter:
       name: Overworld_253
       rect:
         serializedVersion: 2
-        x: 448
+        x: 368
         y: 0
         width: 16
         height: 16
@@ -6642,7 +6660,7 @@ TextureImporter:
       name: Overworld_254
       rect:
         serializedVersion: 2
-        x: 464
+        x: 384
         y: 0
         width: 16
         height: 16
@@ -6663,7 +6681,7 @@ TextureImporter:
       name: Overworld_255
       rect:
         serializedVersion: 2
-        x: 480
+        x: 400
         y: 0
         width: 16
         height: 16
@@ -6684,7 +6702,7 @@ TextureImporter:
       name: Overworld_256
       rect:
         serializedVersion: 2
-        x: 496
+        x: 416
         y: 0
         width: 16
         height: 16
@@ -6705,7 +6723,7 @@ TextureImporter:
       name: Overworld_257
       rect:
         serializedVersion: 2
-        x: 512
+        x: 432
         y: 0
         width: 16
         height: 16
@@ -6726,7 +6744,7 @@ TextureImporter:
       name: Overworld_258
       rect:
         serializedVersion: 2
-        x: 528
+        x: 448
         y: 0
         width: 16
         height: 16
@@ -6747,7 +6765,7 @@ TextureImporter:
       name: Overworld_259
       rect:
         serializedVersion: 2
-        x: 544
+        x: 464
         y: 0
         width: 16
         height: 16
@@ -6768,7 +6786,7 @@ TextureImporter:
       name: Overworld_260
       rect:
         serializedVersion: 2
-        x: 560
+        x: 480
         y: 0
         width: 16
         height: 16
@@ -6789,7 +6807,7 @@ TextureImporter:
       name: Overworld_261
       rect:
         serializedVersion: 2
-        x: 576
+        x: 496
         y: 0
         width: 16
         height: 16
@@ -6810,7 +6828,7 @@ TextureImporter:
       name: Overworld_262
       rect:
         serializedVersion: 2
-        x: 592
+        x: 512
         y: 0
         width: 16
         height: 16
@@ -6831,7 +6849,7 @@ TextureImporter:
       name: Overworld_263
       rect:
         serializedVersion: 2
-        x: 608
+        x: 528
         y: 0
         width: 16
         height: 16
@@ -6852,7 +6870,7 @@ TextureImporter:
       name: Overworld_264
       rect:
         serializedVersion: 2
-        x: 624
+        x: 544
         y: 0
         width: 16
         height: 16
@@ -6873,7 +6891,7 @@ TextureImporter:
       name: Overworld_265
       rect:
         serializedVersion: 2
-        x: 640
+        x: 560
         y: 0
         width: 16
         height: 16
@@ -6894,7 +6912,7 @@ TextureImporter:
       name: Overworld_266
       rect:
         serializedVersion: 2
-        x: 656
+        x: 576
         y: 0
         width: 16
         height: 16
@@ -6915,7 +6933,7 @@ TextureImporter:
       name: Overworld_267
       rect:
         serializedVersion: 2
-        x: 672
+        x: 592
         y: 0
         width: 16
         height: 16
@@ -6936,7 +6954,7 @@ TextureImporter:
       name: Overworld_268
       rect:
         serializedVersion: 2
-        x: 688
+        x: 608
         y: 0
         width: 16
         height: 16
@@ -6957,7 +6975,7 @@ TextureImporter:
       name: Overworld_269
       rect:
         serializedVersion: 2
-        x: 704
+        x: 624
         y: 0
         width: 16
         height: 16
@@ -6970,6 +6988,132 @@ TextureImporter:
       bones: []
       spriteID: e93f9bae1fc6ff250800000000000000
       internalID: 5980618616452281246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overworld_270
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7651ec5b7d514d200800000000000000
+      internalID: 203811899350848871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overworld_271
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd0123b9a6c7ce260800000000000000
+      internalID: 7128209107532779743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overworld_272
+      rect:
+        serializedVersion: 2
+        x: 672
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cf7afba4de387530800000000000000
+      internalID: 3852898564354768834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overworld_273
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88513fad7fe4957b0800000000000000
+      internalID: -5235066265404238456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overworld_274
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ebcba0e9877066d0800000000000000
+      internalID: -2999265917765170199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overworld_275
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62241f167bbd1f7a0800000000000000
+      internalID: -6345048819319619034
       vertices: []
       indices: 
       edges: []

@@ -84,17 +84,17 @@ public class DebugController : MonoBehaviour
         
         Kill = new DebugCommand<string>("kill", "Kills the specified entity", "kill <entity ID>", (id) =>
         {
-            GameEventManager.current.GiveDamage(id, 999999999f);
+            GameEventSystem.current.GiveDamage(id, 999999999f);
         });
         
         Damage = new DebugCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage entity ID> <damage>", (id, damage) =>
         {
-            GameEventManager.current.GiveDamage(id, damage);
+            GameEventSystem.current.GiveDamage(id, damage);
         });
         
         Heal = new DebugCommand<string, float>("heal", "Heals the specified entity by amount", "heal <entity ID> <amount>", (id, damage) =>
         {
-            GameEventManager.current.Heal(id, damage);
+            GameEventSystem.current.Heal(id, damage);
         });
 
         ChangeDimension = new DebugCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension <dimension>", (dim) =>
@@ -131,7 +131,7 @@ public class DebugController : MonoBehaviour
                 }
                 else if (commandList[i] as DebugCommand<string, float> != null)
                 {
-                    (commandlist[i] as DebugCommand<string, float>).Invoke(args[1], args[2]);
+                    (commandList[i] as DebugCommand<string, float>).Invoke(args[1], float.Parse(args[2]));
                 }
             }
         }
