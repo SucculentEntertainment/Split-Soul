@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageEvent : MonoBehaviour
+public class HealEvent : MonoBehaviour
 {
     private void Start()
     {

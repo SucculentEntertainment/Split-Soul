@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     // --------------------------------
 
     private float health;
+    private int deathState;
 
     private Vector2 dir;
     private Rigidbody2D rb;
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        deathState = 0;
 
         rb = GetComponent<Rigidbody2D>();
         sprite = transform.GetChild(0).gameObject;
@@ -109,7 +111,7 @@ public class Player : MonoBehaviour
 	    if(deathState == 1) { /*Really Really Dead*/ }
 	    
 	    deathState++;
-	    animator.setInt("DeathState", deathState);
+	    animator.SetInteger("DeathState", deathState);
     }
 
     // ================================
