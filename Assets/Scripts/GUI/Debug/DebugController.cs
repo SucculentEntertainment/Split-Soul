@@ -18,7 +18,6 @@ public class DebugController : MonoBehaviour
     // ================================
     //  Events
     // ================================
-
     public void OnConsole(InputValue val)
     {
         showConsole = !showConsole;

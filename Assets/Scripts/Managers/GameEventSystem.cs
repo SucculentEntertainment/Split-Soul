@@ -12,9 +12,25 @@ public class GameEventSystem : MonoBehaviour
         current = this;
     }
 
+    // ================================
+    //  Events
+    // ================================
+
+    // --------------------------------
+    //  Dimension Change
+    // --------------------------------
     public event Action<string> onDimensionChange;
     public void DimensionChange(string dimension)
     {
         if (onDimensionChange != null) onDimensionChange(dimension);
+    }
+
+    // --------------------------------
+    //  Damage Event
+    // --------------------------------
+    public event Action<string, float> onReceiveDamage;
+    public void GiveDamage(string id, float damage)
+    {
+        if (onReceiveDamage != null) onReceiveDamage(id, damage);
     }
 }
