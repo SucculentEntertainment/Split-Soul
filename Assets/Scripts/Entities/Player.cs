@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     public float maxHealth = 100f;
     public float baseAttack = 1f;
+    public float baseAttackRate = 2f;
     public float speed = 1f;
 
     public float attackRange = 0.5f;
@@ -24,6 +25,8 @@ public class Player : MonoBehaviour
 
     private float health;
     private int deathState;
+
+    private float nextAttackTime = 0f;
 
     private Vector2 dir;
     private Rigidbody2D rb;
@@ -42,6 +45,7 @@ public class Player : MonoBehaviour
     // --------------------------------
 
     public Transform attackPoint;
+    public GUIManager guiManager;
 
     // ================================
     //  Functions
@@ -60,6 +64,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = transform.GetChild(0).gameObject;
         animator = sprite.GetComponent<Animator>();
+
+        guiManager.init(maxHealth, 10, 10);
     }
 
     void Update()
@@ -96,23 +102,51 @@ public class Player : MonoBehaviour
 	public void OnReceiveDamage(float damage)
 	{
 	    health -= damage;
+        guiManager.healthBar.setValue(health);
+
 	    if(health <= 0) die();
 	}
 	
 	public void OnReceiveHeal(float amount)
 	{
 	    health += amount;
-	    if(health > maxHealth) health = maxHealth;
+        guiManager.healthBar.setValue(health);
+
+        if (health > maxHealth) health = maxHealth;
 	}
 	
 	private void die()
 	{
-	    if(deathState == 0) health = maxHealth;
-	    if(deathState == 1) { /*Really Really Dead*/ }
-	    
-	    deathState++;
-	    animator.SetInteger("DeathState", deathState);
+	    if(deathState > 0)
+        {
+            animator.SetTrigger("Die4Real");
+            deathState++;
+            return;
+        }
+
+        health = maxHealth;
+        deathState++;
+
+        guiManager.healthBar.setValue(health);
+
+        animator.SetTrigger("Die");
+        LevelManager.dimension = "dead";
     }
+
+    // ================================
+    //  Events
+    // ================================
+
+    private void OnRevive()
+	{
+        health = maxHealth;
+        deathState--;
+
+        guiManager.healthBar.setValue(health);
+
+        animator.SetTrigger("Revive");
+        LevelManager.dimension = "alive";
+	}
 
     // ================================
     //  Input
@@ -120,7 +154,11 @@ public class Player : MonoBehaviour
 
     private void OnAttack(InputValue val)
     {
-        attack();
+        if (Time.time >= nextAttackTime)
+        {   
+            attack();
+            nextAttackTime = Time.time + 1f / baseAttackRate;
+        }
     }
 
     private void OnMove(InputValue dirVal)
