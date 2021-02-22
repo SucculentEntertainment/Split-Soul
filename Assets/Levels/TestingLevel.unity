@@ -275,6 +275,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   attackPoint: {fileID: 1098152910}
+  guiManager: {fileID: 0}
 --- !u!114 &71806756
 MonoBehaviour:
   m_ObjectHideFlags: 0
