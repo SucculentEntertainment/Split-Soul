@@ -45,6 +45,7 @@ public class Player : MonoBehaviour
     // --------------------------------
 
     public Transform attackPoint;
+    public GUIManager guiManager;
 
     // ================================
     //  Functions
@@ -63,6 +64,8 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = transform.GetChild(0).gameObject;
         animator = sprite.GetComponent<Animator>();
+
+        guiManager.init(maxHealth, 10, 10);
     }
 
     void Update()
@@ -99,13 +102,17 @@ public class Player : MonoBehaviour
 	public void OnReceiveDamage(float damage)
 	{
 	    health -= damage;
+        guiManager.healthBar.setValue(health);
+
 	    if(health <= 0) die();
 	}
 	
 	public void OnReceiveHeal(float amount)
 	{
 	    health += amount;
-	    if(health > maxHealth) health = maxHealth;
+        guiManager.healthBar.setValue(health);
+
+        if (health > maxHealth) health = maxHealth;
 	}
 	
 	private void die()
@@ -120,7 +127,9 @@ public class Player : MonoBehaviour
         health = maxHealth;
         deathState++;
 
-	    animator.SetTrigger("Die");
+        guiManager.healthBar.setValue(health);
+
+        animator.SetTrigger("Die");
         LevelManager.dimension = "dead";
     }
 
@@ -132,6 +141,8 @@ public class Player : MonoBehaviour
 	{
         health = maxHealth;
         deathState--;
+
+        guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Revive");
         LevelManager.dimension = "alive";
