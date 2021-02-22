@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TilemapController : MonoBehaviour
 {
-    public void OnDimensionEnable(string dimension)
+    private void OnDimensionEnable(string dimension)
     {
-        gameObject.SetActive(true);
+        foreach (Transform child in transform) { child.gameObject.SetActive(true); }
     }
 
-    public void OnDimensionDisable(string dimension)
+    private void OnDimensionDisable(string dimension)
     {
-        gameObject.SetActive(false);
+        foreach (Transform child in transform) { child.gameObject.SetActive(false); }
     }
 }

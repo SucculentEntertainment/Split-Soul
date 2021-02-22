@@ -14,6 +14,7 @@ public class DebugController : MonoBehaviour
     public List<object> commandList;
     public static DebugCommand Help;
     public static DebugCommand<string> Kill;
+    public static DebugCommand<string> Revive;
     public static DebugCommand<string, float> Damage;
     public static DebugCommand<string, float> Heal;
     public static DebugCommand<string> ChangeDimension;
@@ -86,7 +87,12 @@ public class DebugController : MonoBehaviour
         {
             GameEventSystem.current.GiveDamage(id, 999999999f);
         });
-        
+
+        Revive = new DebugCommand<string>("revive", "Revives the specified entity", "revive <entity ID>", (id) =>
+        {
+            GameEventSystem.current.Revive(id);
+        });
+
         Damage = new DebugCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage entity ID> <damage>", (id, damage) =>
         {
             GameEventSystem.current.GiveDamage(id, damage);
@@ -106,6 +112,7 @@ public class DebugController : MonoBehaviour
         {
             Help,
             Kill,
+            Revive,
             Damage,
             Heal,
             ChangeDimension,
