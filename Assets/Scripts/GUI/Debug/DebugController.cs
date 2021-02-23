@@ -132,11 +132,11 @@ public class DebugController : MonoBehaviour
                 {
                     (commandList[i] as DebugCommand).Invoke();
                 }
-                else if (commandList[i] as DebugCommand<string> != null)
+                else if (commandList[i] as DebugCommand<string> != null && args.Length == 2)
                 {
                     (commandList[i] as DebugCommand<string>).Invoke(args[1]);
                 }
-                else if (commandList[i] as DebugCommand<string, float> != null)
+                else if (commandList[i] as DebugCommand<string, float> != null && args.Length == 3)
                 {
                     (commandList[i] as DebugCommand<string, float>).Invoke(args[1], float.Parse(args[2]));
                 }
