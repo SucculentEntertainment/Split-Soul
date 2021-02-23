@@ -14,6 +14,7 @@ public class DebugController : MonoBehaviour
     public List<object> commandList;
     public static DebugCommand Help;
     public static DebugCommand<string> Kill;
+    public static DebugCommand<string> Revive;
     public static DebugCommand<string, float> Damage;
     public static DebugCommand<string, float> Heal;
     public static DebugCommand<string> ChangeDimension;
@@ -84,17 +85,22 @@ public class DebugController : MonoBehaviour
         
         Kill = new DebugCommand<string>("kill", "Kills the specified entity", "kill <entity ID>", (id) =>
         {
-            GameEventManager.current.GiveDamage(id, 999999999f);
+            GameEventSystem.current.GiveDamage(id, 999999999f);
         });
-        
+
+        Revive = new DebugCommand<string>("revive", "Revives the specified entity", "revive <entity ID>", (id) =>
+        {
+            GameEventSystem.current.Revive(id);
+        });
+
         Damage = new DebugCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage entity ID> <damage>", (id, damage) =>
         {
-            GameEventManager.current.GiveDamage(id, damage);
+            GameEventSystem.current.GiveDamage(id, damage);
         });
         
         Heal = new DebugCommand<string, float>("heal", "Heals the specified entity by amount", "heal <entity ID> <amount>", (id, damage) =>
         {
-            GameEventManager.current.Heal(id, damage);
+            GameEventSystem.current.Heal(id, damage);
         });
 
         ChangeDimension = new DebugCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension <dimension>", (dim) =>
@@ -106,6 +112,7 @@ public class DebugController : MonoBehaviour
         {
             Help,
             Kill,
+            Revive,
             Damage,
             Heal,
             ChangeDimension,
@@ -125,13 +132,13 @@ public class DebugController : MonoBehaviour
                 {
                     (commandList[i] as DebugCommand).Invoke();
                 }
-                else if (commandList[i] as DebugCommand<string> != null)
+                else if (commandList[i] as DebugCommand<string> != null && args.Length == 2)
                 {
                     (commandList[i] as DebugCommand<string>).Invoke(args[1]);
                 }
-                else if (commandList[i] as DebugCommand<string, float> != null)
+                else if (commandList[i] as DebugCommand<string, float> != null && args.Length == 3)
                 {
-                    (commandlist[i] as DebugCommand<string, float>).Invoke(args[1], args[2]);
+                    (commandList[i] as DebugCommand<string, float>).Invoke(args[1], float.Parse(args[2]));
                 }
             }
         }
