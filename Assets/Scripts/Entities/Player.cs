@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
     private GameObject sprite;
     private Animator animator;
 
+    private int coins = 0;
+    private int souls = 0;
+
     // --------------------------------
     //  Flags
     // --------------------------------
@@ -94,7 +97,6 @@ public class Player : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
 		{
-            Debug.Log(enemy.name);
             GameEventSystem.current.GiveDamage(enemy.name, baseAttack);
 		}
 	}
@@ -146,6 +148,21 @@ public class Player : MonoBehaviour
 
         animator.SetTrigger("Revive");
         LevelManager.dimension = "alive";
+	}
+
+    private void OnPickup(Item item)
+	{
+        // IMPORTANT! Move this into inventory Item Handler
+        if (item.type == "coin")
+        {
+            coins++;
+            guiManager.coinCounter.setValue(coins);
+        }
+        else if(item.type == "soul")
+		{
+            souls++;
+            guiManager.soulCounter.setValue(souls);
+        }
 	}
 
     // ================================

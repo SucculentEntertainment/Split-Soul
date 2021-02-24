@@ -12,6 +12,9 @@ public class GUIManager : MonoBehaviour
     public UIBar manaBar;
     public UIBar staminaBar;
 
+    public UICounter coinCounter;
+    public UICounter soulCounter;
+
     // ================================
     //  Functions
     // ================================

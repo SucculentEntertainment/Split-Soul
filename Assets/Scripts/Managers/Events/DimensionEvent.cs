@@ -17,4 +17,9 @@ public class DimensionEvent : MonoBehaviour
         if (dimensions.Contains(dimension)) gameObject.SendMessage("OnDimensionEnable", dimension);
         else gameObject.SendMessage("OnDimensionDisable", dimension);
     }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onDimensionChange -= onDimensionChange;
+    }
 }
