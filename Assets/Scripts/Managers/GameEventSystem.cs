@@ -60,4 +60,13 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onPickup != null) onPickup(id, item);
     }
+
+    // --------------------------------
+    //  Interact Event
+    // --------------------------------
+    public event Action<string> onInteract;
+    public void Interact(string id)
+    {
+        if (onInteract != null) onInteract(id);
+    }
 }
