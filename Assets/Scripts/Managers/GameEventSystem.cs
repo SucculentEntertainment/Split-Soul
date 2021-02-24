@@ -51,4 +51,13 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onRevive != null) onRevive(id);
     }
+
+    // --------------------------------
+    //  Pickup Event
+    // --------------------------------
+    public event Action<string, Item> onPickup;
+    public void Pickup(string id, Item item)
+    {
+        if (onPickup != null) onPickup(id, item);
+    }
 }
