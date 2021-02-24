@@ -166,6 +166,20 @@ public class Player : MonoBehaviour
 	}
 
     // ================================
+    //  Interact
+    // ================================
+
+    private void interact()
+	{
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        foreach (Collider2D enemy in hitEnemies)
+        {
+            GameEventSystem.current.GiveDamage(enemy.name, baseAttack);
+        }
+    }
+
+    // ================================
     //  Input
     // ================================
 
@@ -194,6 +208,11 @@ public class Player : MonoBehaviour
     {
         disableMovement = false;
     }
+
+    private void OnInteract(InputValue val)
+	{
+        interact();
+	}
 
     // ================================
     //  Gizmos
