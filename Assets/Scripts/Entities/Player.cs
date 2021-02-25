@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
 
+    public float interactRange = 0.5f;
+    public LayerMask interactLayers;
+
     // --------------------------------
     //  Internal Values
     // --------------------------------
@@ -37,6 +40,8 @@ public class Player : MonoBehaviour
     private int coins = 0;
     private int souls = 0;
 
+    private Collider2D interactable;
+
     // --------------------------------
     //  Flags
     // --------------------------------
@@ -48,6 +53,7 @@ public class Player : MonoBehaviour
     // --------------------------------
 
     public Transform attackPoint;
+    public Transform interactPoint;
     public GUIManager guiManager;
 
     // ================================
@@ -65,7 +71,7 @@ public class Player : MonoBehaviour
         deathState = 0;
 
         rb = GetComponent<Rigidbody2D>();
-        sprite = transform.GetChild(0).gameObject;
+        sprite = transform.Find("Sprite").gameObject;
         animator = sprite.GetComponent<Animator>();
 
         guiManager.init(maxHealth, 10, 10);
@@ -79,6 +85,15 @@ public class Player : MonoBehaviour
         {
             animator.SetFloat("DirX", dir.x);
             animator.SetFloat("DirY", dir.y);
+        }
+
+        //Scan for interactables
+        Collider2D newInteractable = Physics2D.OverlapCircle(interactPoint.position, interactRange, interactLayers);
+        if (newInteractable != interactable)
+        {
+            if (interactable != null) GameEventSystem.current.InteractHighlight(interactable.name, false);
+            interactable = newInteractable;
+            if (interactable != null) GameEventSystem.current.InteractHighlight(interactable.name, true);
         }
     }
 
@@ -171,12 +186,7 @@ public class Player : MonoBehaviour
 
     private void interact()
 	{
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-        foreach (Collider2D enemy in hitEnemies)
-        {
-            GameEventSystem.current.GiveDamage(enemy.name, baseAttack);
-        }
+        if(interactable != null) GameEventSystem.current.Interact(interactable.name);
     }
 
     // ================================
@@ -220,7 +230,10 @@ public class Player : MonoBehaviour
 
     void OnDrawGizmosSelected()
 	{
-        if (attackPoint == null) return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-	}
+        Gizmos.color = new Color(255, 0, 0);
+        if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+
+        Gizmos.color = new Color(0, 255, 0);
+        if (interactPoint != null) Gizmos.DrawWireSphere(interactPoint.position, interactRange);
+    }
 }

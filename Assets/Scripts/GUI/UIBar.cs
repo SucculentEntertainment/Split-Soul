@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class UIBar : MonoBehaviour
 {
     public float speed;
-    public Color fillColor;
 
     public Slider slider;
     public Slider effectSlider;
@@ -16,11 +15,6 @@ public class UIBar : MonoBehaviour
     private float value = 0f;
 
     private float lerpTimer;
-
-	private void Start()
-	{
-        transform.Find("Fill").GetComponent<Image>().color = fillColor;
-	}
 
 	public void setMaxValue(float maxValue)
     {
@@ -57,8 +51,6 @@ public class UIBar : MonoBehaviour
 
         if(value < prevValue)
 		{
-            Debug.Log("Succ");
-
             slider.value = value;
             lerpTimer += Time.time;
             float progress = lerpTimer / speed;

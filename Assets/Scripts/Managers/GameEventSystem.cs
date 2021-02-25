@@ -69,4 +69,10 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onInteract != null) onInteract(id);
     }
+
+    public event Action<string, bool> onInteractHighlight;
+    public void InteractHighlight(string id, bool activate = true)
+    {
+        if (onInteractHighlight != null) onInteractHighlight(id, activate);
+    }
 }
