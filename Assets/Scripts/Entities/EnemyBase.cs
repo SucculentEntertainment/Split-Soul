@@ -57,6 +57,7 @@ public class EnemyBase : MonoBehaviour
     private Vector2 targetPosition;
 
     private Animator animator;
+    private LineRenderer pathLine;
 
     // ================================
     //  Functions
@@ -67,10 +68,11 @@ public class EnemyBase : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.stoppingDistance = attackRange - attackRangePadding;
 
         health = maxHealth;
         animator = GetComponent<Animator>();
+
+        pathLine = GetComponent<LineRenderer>();
 
         additionalStart();
     }
@@ -95,6 +97,7 @@ public class EnemyBase : MonoBehaviour
             targetObject = null;
             targetPosition = Vector2.zero;
             interestTimer = 0f;
+            agent.SetDestination(transform.position);
 
             setState(State.IDLE);
         }
@@ -151,9 +154,8 @@ public class EnemyBase : MonoBehaviour
             
             if((int) Random.Range(1, 100) <= roamingProbability)
 			{
-                Vector2 dir = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-                Vector2 vel = dir * Random.Range(1, 2);
-                targetPosition = (Vector2) transform.position * dir;
+                Vector2 dir = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+                targetPosition = (Vector2) transform.position + dir;
 
                 setState(State.MOVE);
             }
@@ -163,6 +165,13 @@ public class EnemyBase : MonoBehaviour
     private void moveState()
     {
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
+
+        pathLine.positionCount = agent.path.corners.Length;
+        if (agent.path.corners != null && agent.path.corners.Length > 1)
+        {
+            for(int i = 0; i < agent.path.corners.Length; i++) pathLine.SetPosition(i, agent.path.corners[i]);
+        }
+
         move();
     }
 
@@ -252,6 +261,11 @@ public class EnemyBase : MonoBehaviour
 	{
         health -= damage;
         if (health <= 0) die();
+	}
+
+    private void OnDebug(string debugType)
+	{
+        if(debugType == "path") pathLine.enabled = !pathLine.enabled;
 	}
 
     // ================================
