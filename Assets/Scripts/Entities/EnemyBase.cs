@@ -22,6 +22,15 @@ public class EnemyBase : MonoBehaviour
     // --------------------------------
 
     public float maxHealth;
+    public float baseAttack;
+    
+    public float roamingCooldown;
+    public float interestCooldown;
+    public float attackCooldown;
+    
+    public Transform detectPoint;
+    public float detectRange;
+    public LayerMask detectLayers;
 
     // --------------------------------
     //  Internal Values
@@ -29,6 +38,12 @@ public class EnemyBase : MonoBehaviour
 
     private float health;
     private State state = State.IDLE;
+    
+    private float roamingTimer;
+    private float interestTimer;
+    private float attackTimer;
+    
+    private GameObject target;
 
     // ================================
     //  Functions
@@ -69,7 +84,16 @@ public class EnemyBase : MonoBehaviour
 	{
         idle();
 
-
+        Collider2D target = Physics2D.OverlapCircle(detectPoint.position, detectRange, detectLayers);
+        
+        if(target != null)
+        {
+            this.target = target.gameObject;
+            interestTimer = 0f;
+            state = State.MOVE;
+        }
+        
+        
 	}
 
     private void moveState()
