@@ -1,8 +1,49 @@
-﻿using System.Collections;
+﻿using System.Xml.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Slime : EnemyBase
 {
+    public float impulse;
+    public float drag;
 
+    public bool enableMovement = false;
+    private bool impulseGiven = false;
+
+    private Rigidbody2D rb;
+
+	public override void additionalStart()
+	{
+		rb = GetComponent<Rigidbody2D>();
+	}
+
+	public override void additionalUpdate()
+	{
+		if(enableMovement) rb.drag = 0;
+        else
+        {
+            rb.drag = drag;
+            impulseGiven = false;
+        }
+	}
+
+	public override void move(bool isInRange)
+	{
+        agent.isStopped = true;
+        base.move(isInRange);
+
+        if(isInRange || agent.path.corners.Length == 0) return;
+        if(!enableMovement) return;
+
+        Vector2 prevPos = transform.position;
+
+        Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
+        if(!impulseGiven)
+        {
+            rb.AddForce(dir * impulse, ForceMode2D.Impulse);
+            impulseGiven = true;
+        }
+	}
 }
