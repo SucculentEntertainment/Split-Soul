@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1498298814}
+  font: {fileID: 12800000, guid: 371e096a00db712419dbcdc660517084, type: 3}
   player: {fileID: 71806752}
   enemies: {fileID: 904207581}
   npcs: {fileID: 638498637}
@@ -56001,6 +56002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 012cf1eb4b077b149970a9d787e9a56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isRanged: 0
   maxHealth: 10
   baseAttack: 2
   roamingProbability: 5
@@ -56013,8 +56015,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   attackPoint: {fileID: 1893194503}
-  attackRange: 0.5
-  attackRangePadding: 0.1
+  attackRange: 1
+  attackRangePadding: 0.2
   impulse: 10
   drag: 100
   enableMovement: 0

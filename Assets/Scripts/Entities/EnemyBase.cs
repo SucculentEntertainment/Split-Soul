@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -22,6 +22,8 @@ public class EnemyBase : MonoBehaviour
     // --------------------------------
     //  Parameters
     // --------------------------------
+
+    public bool isRanged = false;
 
     public float maxHealth;
     public float baseAttack;
@@ -171,24 +173,18 @@ public class EnemyBase : MonoBehaviour
         if(isDead) return;
 
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
+
         pathLine.positionCount = agent.path.corners.Length;
 
-        bool isInRange = Vector2.Distance(attackPoint.position, targetPosition) <= attackRange - attackRangePadding;
+        bool isInRange = Vector2.Distance(attackPoint.position, targetPosition) <= attackRange;
+        bool isTooClose = Vector2.Distance(attackPoint.position, targetPosition) <= attackRangePadding && isRanged;
 
-        if(isInRange)
-		{
-            if (targetObject != null && attackTimer >= attackCooldown)
-            {
-                attackTimer = 0f;
-
-                setState(State.ATTACK);
-                StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.MOVE));
-            }
-            else
-			{
-                setState(State.IDLE);
-            }
-		}
+        if(targetObject != null && isRanged && !isInRange)
+        {
+            Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
+            float scalar = Vector2.Distance(targetPosition, transform.position) - attackRangePadding * 1.25f;
+            targetPosition = (Vector2) transform.position + dir * scalar;
+        }
 
         if (agent.path.corners != null && agent.path.corners.Length > 1)
         {
@@ -196,13 +192,28 @@ public class EnemyBase : MonoBehaviour
         }
         else pathLine.positionCount = 0;
 
-        move(isInRange);
+        if(isInRange && !isTooClose)
+		{
+            if (targetObject != null && attackTimer >= attackCooldown)
+            {
+                attackTimer = 0f;
+                setState(State.ATTACK);
+                StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.MOVE));
+            }
+            else setState(State.IDLE);
+            return;
+		}
+
+        if(isTooClose) targetPosition -= (targetPosition - (Vector2) transform.position).normalized * attackRangePadding * 2;
+        move();
     }
 
     protected void attackState()
     {
         if(isDead) return;
-        attack();
+        
+        if(!isRanged) attack();
+        else attackRanged();
     }
 
     protected void deadState()
@@ -227,16 +238,20 @@ public class EnemyBase : MonoBehaviour
         
     }
 
-    public virtual void move(bool isInRange)
+    public virtual void move()
     {
-        if(isInRange) return;
-		agent.SetDestination(targetPosition);
+        agent.SetDestination(targetPosition);
     }
 
     public virtual void attack()
     {
         GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
         setState(State.MOVE);
+    }
+
+    public virtual void attackRanged()
+    {
+
     }
 
     public virtual void dead()
@@ -294,7 +309,7 @@ public class EnemyBase : MonoBehaviour
         if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRange);
 
         Gizmos.color = new Color(255, 255, 0);
-        if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRange - attackRangePadding);
+        if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRangePadding);
 
         Gizmos.color = new Color(0, 0, 255);
         if (detectPoint != null) Gizmos.DrawWireSphere(detectPoint.position, detectRange);

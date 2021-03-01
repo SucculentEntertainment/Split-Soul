@@ -29,15 +29,13 @@ public class Slime : EnemyBase
         }
 	}
 
-	public override void move(bool isInRange)
+	public override void move()
 	{
         agent.isStopped = true;
-        base.move(isInRange);
+        base.move();
 
-        if(isInRange || agent.path.corners.Length == 0) return;
+        if(agent.path.corners.Length == 0) return;
         if(!enableMovement) return;
-
-        Vector2 prevPos = transform.position;
 
         Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
         if(!impulseGiven)
