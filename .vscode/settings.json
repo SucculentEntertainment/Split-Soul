@@ -7,7 +7,6 @@
         "**/.DS_Store": true,
         "**/*.meta": true,
         "**/*.csproj": true,
-        "**/.vs": true,
         "**/.vscode": true
     }
 }
