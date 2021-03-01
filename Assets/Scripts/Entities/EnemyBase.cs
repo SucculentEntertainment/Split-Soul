@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,7 +9,7 @@ public class EnemyBase : MonoBehaviour
     //  States
     // --------------------------------
 
-    private enum State
+    protected enum State
 	{
         IDLE,
         MOVE,
@@ -17,7 +17,7 @@ public class EnemyBase : MonoBehaviour
         DEAD
 	}
 
-    private string[] animationTrigger = { "Idle", "Move", "Attack", "Die" };
+    protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die" };
 
     // --------------------------------
     //  Parameters
@@ -44,38 +44,42 @@ public class EnemyBase : MonoBehaviour
     //  Internal Values
     // --------------------------------
 
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
 
-    private float health;
-    private State state = State.IDLE;
+    protected float health;
+    protected State state = State.IDLE;
     
-    private float roamingTimer = 0f;
-    private float interestTimer = 0f;
-    private float attackTimer = 0f;
+    protected float roamingTimer = 0f;
+    protected float interestTimer = 0f;
+    protected float attackTimer = 0f;
     
-    private GameObject targetObject;
-    private Vector2 targetPosition;
+    protected GameObject targetObject;
+    protected Vector2 targetPosition;
 
-    private Animator animator;
+    protected Animator animator;
+    protected LineRenderer pathLine;
+
+    private bool isDead = false;
 
     // ================================
     //  Functions
     // ================================
 
-    private void Start()
+    protected void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        agent.stoppingDistance = attackRange - attackRangePadding;
 
         health = maxHealth;
         animator = GetComponent<Animator>();
 
+        pathLine = GetComponent<LineRenderer>();
+
         additionalStart();
     }
 
-    private void Update()
+    protected void Update()
     {
         Collider2D target = Physics2D.OverlapCircle(detectPoint.position, detectRange, detectLayers);
 
@@ -95,6 +99,8 @@ public class EnemyBase : MonoBehaviour
             targetObject = null;
             targetPosition = Vector2.zero;
             interestTimer = 0f;
+            pathLine.positionCount = 0;
+            agent.SetDestination(transform.position);
 
             setState(State.IDLE);
         }
@@ -105,7 +111,7 @@ public class EnemyBase : MonoBehaviour
         additionalUpdate();
     }
 
-	private void FixedUpdate()
+	protected void FixedUpdate()
 	{
 		switch(state)
 		{
@@ -127,12 +133,12 @@ public class EnemyBase : MonoBehaviour
         }
 	}
 
-    private void additionalStart()
+    public virtual void additionalStart()
 	{
 
 	}
 
-    private void additionalUpdate()
+    public virtual void additionalUpdate()
 	{
 
 	}
@@ -141,8 +147,9 @@ public class EnemyBase : MonoBehaviour
     //  State Handler
     // ================================
 
-    private void idleState()
+    protected void idleState()
 	{
+        if(isDead) return;
         idle();
         
         if(roamingTimer >= roamingCooldown)
@@ -151,34 +158,63 @@ public class EnemyBase : MonoBehaviour
             
             if((int) Random.Range(1, 100) <= roamingProbability)
 			{
-                Vector2 dir = new Vector2(Random.Range(-1, 1), Random.Range(-1, 1));
-                Vector2 vel = dir * Random.Range(1, 2);
-                targetPosition = (Vector2) transform.position * dir;
+                Vector2 dir = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+                targetPosition = (Vector2) transform.position + dir;
 
                 setState(State.MOVE);
             }
 		}
 	}
 
-    private void moveState()
+    protected void moveState()
     {
+        if(isDead) return;
+
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
-        move();
+        pathLine.positionCount = agent.path.corners.Length;
+
+        bool isInRange = Vector2.Distance(attackPoint.position, targetPosition) <= attackRange - attackRangePadding;
+
+        if(isInRange)
+		{
+            if (targetObject != null && attackTimer >= attackCooldown)
+            {
+                attackTimer = 0f;
+
+                setState(State.ATTACK);
+                StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.MOVE));
+            }
+            else
+			{
+                setState(State.IDLE);
+            }
+		}
+
+        if (agent.path.corners != null && agent.path.corners.Length > 1)
+        {
+            for(int i = 0; i < agent.path.corners.Length; i++) pathLine.SetPosition(i, agent.path.corners[i]);
+        }
+        else pathLine.positionCount = 0;
+
+        move(isInRange);
     }
 
-    private void attackState()
+    protected void attackState()
     {
+        if(isDead) return;
         attack();
     }
 
-    private void deadState()
+    protected void deadState()
     {
         dead();
     }
 
-    private void setState(State state)
+    protected void setState(State state, bool changeAnim = true)
 	{
-        animator.SetTrigger(animationTrigger[(int) state]);
+        if(isDead && state != State.DEAD) return;
+
+        if(changeAnim) animator.SetTrigger(animationTrigger[(int) state]);
         this.state = state;
 	}
 
@@ -186,40 +222,24 @@ public class EnemyBase : MonoBehaviour
     //  States
     // ================================
 
-    private void idle()
+    public virtual void idle()
     {
         
     }
 
-    private void move()
+    public virtual void move(bool isInRange)
     {
-        if(Vector2.Distance(attackPoint.position, targetPosition) <= attackRange - attackRangePadding)
-		{
-            if (targetObject != null && attackTimer >= attackCooldown)
-            {
-                attackTimer = 0f;
-
-                setState(State.ATTACK);
-                StartCoroutine(WaitForAnimation(animator.GetCurrentAnimatorStateInfo(0).length, State.MOVE));
-            }
-            else
-			{
-                setState(State.IDLE);
-            }
-		}
-        else
-		{
-            agent.SetDestination(targetPosition);
-        }
+        if(isInRange) return;
+		agent.SetDestination(targetPosition);
     }
 
-    private void attack()
+    public virtual void attack()
     {
         GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
         setState(State.MOVE);
     }
 
-    private void dead()
+    public virtual void dead()
     {
         //TODO: Spwan Loot
         Destroy(gameObject);
@@ -229,10 +249,10 @@ public class EnemyBase : MonoBehaviour
     //  Coroutines
     // ================================
 
-    private IEnumerator WaitForAnimation(float _delay = 0, State _state = State.IDLE)
+    protected IEnumerator Wait(float _delay = 0, bool setStateOnFinish = false, State _state = State.IDLE, bool changeAnim = true)
 	{
         yield return new WaitForSeconds(_delay);
-        setState(_state);
+        if(setStateOnFinish) setState(_state, changeAnim);
     }
 
     // ================================
@@ -241,7 +261,12 @@ public class EnemyBase : MonoBehaviour
 
     void die()
     {
-        StartCoroutine(WaitForAnimation(animator.GetCurrentAnimatorStateInfo(0).length, State.DEAD));
+        if(isDead) return;
+
+        isDead = true;
+        animator.SetTrigger(animationTrigger[(int) State.DEAD]);
+
+        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.DEAD, false));
     }
 
     // ================================
@@ -252,6 +277,11 @@ public class EnemyBase : MonoBehaviour
 	{
         health -= damage;
         if (health <= 0) die();
+	}
+
+    protected void OnDebug(string debugType)
+	{
+        if(debugType == "path") pathLine.enabled = !pathLine.enabled;
 	}
 
     // ================================

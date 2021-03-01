@@ -75,4 +75,14 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onInteractHighlight != null) onInteractHighlight(id, activate);
     }
+
+    // --------------------------------
+    //  Debug Event
+    // --------------------------------
+
+    public event Action<string> onDebug;
+    public void Debug(string debugType)
+    {
+        if (onDebug != null) onDebug(debugType);
+    }
 }
