@@ -85,4 +85,13 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onDebug != null) onDebug(debugType);
     }
+
+    // --------------------------------
+    //  Projectile Hit Event
+    // --------------------------------
+    public event Action<string, ProjectileData> onProjectileHit;
+    public void ProjectileHit(string id, ProjectileData data)
+    {
+        if (onProjectileHit != null) onProjectileHit(id, data);
+    }
 }

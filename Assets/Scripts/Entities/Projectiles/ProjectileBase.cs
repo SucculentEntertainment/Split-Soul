@@ -21,6 +21,9 @@ public class ProjectileBase : MonoBehaviour
     //  Parameters
     // --------------------------------
 
+    public string projectileName;
+    public string element;
+
     public float lifespan;
     public float baseAttack;
 
@@ -37,14 +40,18 @@ public class ProjectileBase : MonoBehaviour
     protected State state = State.CREATE; 
     protected float lifeTimer = 0;
 
+    protected Animator animator;
     protected bool isDestroyed = false;
+
+    protected ProjectileData data;
 
     // ================================
     //  Functions
     // ================================
 
     protected void Start() {
-        
+        data = new ProjectileData(projectileName, element, baseAttack);
+        animator = GetComponent<Animator>();
     }
 
     protected void Update() {
@@ -81,39 +88,50 @@ public class ProjectileBase : MonoBehaviour
 
     protected void createState()
     {
-
+        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.TRAVEL));
     }
 
     protected void travelState()
     {
-        
+        if(hit()) setState(State.DESTROY);
     }
 
     protected void destroyState()
     {
-        
+        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length));
+        Destroy(gameObject);
     }
 
     protected void setState(State state, bool changeAnim = true)
 	{
-        if(isDestroyed && state != State.DEAD) return;
-
         if(changeAnim) animator.SetTrigger(animationTrigger[(int) state]);
         this.state = state;
 	}
 
     // ================================
-    //  Damage
+    //  Hit
     // ================================    
 
-    public virtual void damage()
+    public virtual bool hit()
     {
         Collider2D[] hitEntities = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, attackLayers);
         foreach(Collider2D hit in hitEntities)
         {
-            GameEventSystem.current.GiveDamage(hit.name, baseAttack);
-            if(!canHitMultiple) break;
+            GameEventSystem.current.ProjectileHit(hit.name, data);
+            if(!canHitMultiple) return true;
         }
+
+        return false;
+    }
+
+    // ================================
+    //  Coroutines
+    // ================================
+
+    protected IEnumerator Wait(float _delay = 0, bool setStateOnFinish = false, State _state = State.TRAVEL, bool changeAnim = true)
+	{
+        yield return new WaitForSeconds(_delay);
+        if(setStateOnFinish) setState(_state, changeAnim);
     }
 
     // ================================
