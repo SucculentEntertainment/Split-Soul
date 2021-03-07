@@ -12,6 +12,10 @@ public class LevelManager : MonoBehaviour
         get { return _dimension; }
     }
 
+	// ================================
+	//  Functions
+	// ================================
+
     private void Start()
     {
         _dimension = "alive";
@@ -24,5 +28,14 @@ public class LevelManager : MonoBehaviour
             firstUpdate = false;
             dimension = "alive";
 		}
+	}
+	
+	// ================================
+	//  Actions
+	// ================================
+	
+	public void spawnProjectile(string name, Vector2 dir, string creator)
+	{
+		GameObject projectile = Instantiate();
 	}
 }
