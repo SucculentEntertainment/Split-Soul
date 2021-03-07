@@ -68,8 +68,6 @@ public class ProjectileBase : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
-        init(new Vector2(1, 0), "Player");
     }
 
     protected void Update() {
@@ -131,7 +129,7 @@ public class ProjectileBase : MonoBehaviour
 	{
         if(isDestroyed && state != State.DESTROY) return;
 
-        if(changeAnim) animator.SetTrigger(animationTrigger[(int) state]);
+        if(changeAnim && animationTrigger[(int) state] != "") animator.SetTrigger(animationTrigger[(int) state]);
         this.state = state;
 	}
 

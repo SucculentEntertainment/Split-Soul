@@ -11,12 +11,6 @@ public class LevelManager : MonoBehaviour
 	public List<string> dimensionInit;
 	public static List<string> dimensions;
 
-	public GameObject projectileContainer;
-	public GameObject[] projectiles;
-
-	public GameObject enemyContainer;
-	public GameObject[] enemies;
-
 	// ================================
 	//  Private values
 	// ================================
@@ -46,14 +40,5 @@ public class LevelManager : MonoBehaviour
             firstUpdate = false;
             dimension = "alive";
 		}
-	}
-	
-	// ================================
-	//  Actions
-	// ================================
-	
-	public void spawnProjectile(string name, Vector2 dir, string creator)
-	{
-		//GameObject projectile = Instantiate();
 	}
 }

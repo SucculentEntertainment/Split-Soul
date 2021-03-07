@@ -9,7 +9,7 @@ public class Slime : EnemyBase
     public float impulse;
     public float drag;
 
-    public bool enableMovement = false;
+    [HideInInspector] public bool enableMovement = false;
     private bool impulseGiven = false;
 
     private Rigidbody2D rb;

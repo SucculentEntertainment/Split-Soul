@@ -25,6 +25,8 @@ public class EnemyBase : MonoBehaviour
     // --------------------------------
 
     public bool isRanged = false;
+    public GameObject projectileContainer;
+    public GameObject projectile;
 
     public float maxHealth;
     public float baseAttack;
@@ -62,7 +64,8 @@ public class EnemyBase : MonoBehaviour
     protected Animator animator;
     protected LineRenderer pathLine;
 
-    private bool isDead = false;
+    protected bool isDead = false;
+    [HideInInspector] public bool spawnProjectile = false;
 
     // ================================
     //  Functions
@@ -171,6 +174,8 @@ public class EnemyBase : MonoBehaviour
 
     protected void moveState()
     {
+        //FIXME: Fix Target detection for ranged
+
         if(isDead) return;
 
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
@@ -252,7 +257,15 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void attackRanged()
     {
+        //FIXME: Only spawn one, not multiple
 
+        if(!spawnProjectile) return;
+        spawnProjectile = false;
+
+        GameObject instance = Instantiate(projectile, transform.position, Quaternion.identity, projectileContainer.transform);
+
+        Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
+        instance.GetComponent<ProjectileBase>().init(dir, this.name);
     }
 
     public virtual void dead()
