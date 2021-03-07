@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.IO;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -257,6 +258,11 @@ public class EnemyBase : MonoBehaviour
     public virtual void dead()
     {
         //TODO: Spwan Loot
+
+        GetComponent<DimensionEvent>().unregister();
+        GetComponent<DamageEvent>().unregister();
+        GetComponent<DebugEvent>().unregister();
+
         Destroy(gameObject);
     }
 
@@ -271,10 +277,10 @@ public class EnemyBase : MonoBehaviour
     }
 
     // ================================
-    //  Damage
+    //  Actions
     // ================================
 
-    void die()
+    protected void die()
     {
         if(isDead) return;
 
@@ -282,6 +288,15 @@ public class EnemyBase : MonoBehaviour
         animator.SetTrigger(animationTrigger[(int) State.DEAD]);
 
         StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.DEAD, false));
+    }
+
+    protected void setEnabled(bool active)
+    {
+        GetComponent<CapsuleCollider2D>().enabled = active;
+        GetComponent<DamageEvent>().enabled = active;
+        animator.enabled = active;
+        agent.enabled = active;
+        transform.Find("Sprite").gameObject.SetActive(active);
     }
 
     // ================================
@@ -298,6 +313,21 @@ public class EnemyBase : MonoBehaviour
 	{
         if(debugType == "path") pathLine.enabled = !pathLine.enabled;
 	}
+
+    protected virtual void OnDimensionEnable(string dimension)
+    {
+        int index = LevelManager.dimensions.FindIndex(x => x.Contains(dimension));
+        if(index == -1) index = 0;
+
+        animator.SetInteger("Dim", index);
+        animator.SetTrigger(animationTrigger[(int) state]);
+        setEnabled(true);
+    }
+
+    public virtual void OnDimensionDisable(string dimension)
+    {
+        setEnabled(false);
+    }
 
     // ================================
     //  Gizmos

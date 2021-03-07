@@ -14,4 +14,9 @@ public class HealEvent : MonoBehaviour
     {
         if (id == gameObject.name) gameObject.SendMessage("OnReceiveHeal", amount);
     }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onReceiveHeal -= onReceiveHeal;
+    }
 }

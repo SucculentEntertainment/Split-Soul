@@ -20,4 +20,10 @@ public class InteractEvent : MonoBehaviour
     {
         if (id == gameObject.name) gameObject.SendMessage("OnInteractHighlight", activate);
     }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onInteractHighlight -= onInteractHighlight;
+        GameEventSystem.current.onInteract -= onInteract;
+    }
 }

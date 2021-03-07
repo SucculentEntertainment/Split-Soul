@@ -44,4 +44,11 @@ public class Slime : EnemyBase
             impulseGiven = true;
         }
 	}
+
+    public override void OnDimensionDisable(string dimension)
+    {
+        rb.drag = drag;
+
+        base.OnDimensionDisable(dimension);
+    }
 }

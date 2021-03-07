@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+	// ================================
+	//  Parameters
+	// ================================
+
+	public List<string> dimensionInit;
+	public static List<string> dimensions;
+
+	public GameObject projectileContainer;
+	public GameObject[] projectiles;
+
+	public GameObject enemyContainer;
+	public GameObject[] enemies;
+
+	// ================================
+	//  Private values
+	// ================================
+
     private bool firstUpdate = true;
 
     private static string _dimension;
@@ -19,6 +36,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         _dimension = "alive";
+		dimensions = dimensionInit;
     }
 
 	private void Update()
@@ -36,6 +54,6 @@ public class LevelManager : MonoBehaviour
 	
 	public void spawnProjectile(string name, Vector2 dir, string creator)
 	{
-		GameObject projectile = Instantiate();
+		//GameObject projectile = Instantiate();
 	}
 }
