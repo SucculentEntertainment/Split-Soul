@@ -129,7 +129,7 @@ public class ProjectileBase : MonoBehaviour
 	{
         if(isDestroyed && state != State.DESTROY) return;
 
-        if(changeAnim && animationTrigger[(int) state] != "") animator.SetTrigger(animationTrigger[(int) state]);
+        if(changeAnim && animator != null) animator.SetTrigger(animationTrigger[(int) state]);
         this.state = state;
 	}
 

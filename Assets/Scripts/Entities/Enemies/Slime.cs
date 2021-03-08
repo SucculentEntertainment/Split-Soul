@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class Slime : EnemyBase
 {
+    [Header("Slime Movement")]
     public float impulse;
     public float drag;
 

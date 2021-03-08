@@ -74,7 +74,8 @@ public class EnemyBase : MonoBehaviour
     protected LineRenderer pathLine;
 
     protected bool isDead = false;
-    [HideInInspector] public bool spawnProjectile = false;
+    protected bool isInRange = false;
+    protected bool isTooClose = false;
 
     // ================================
     //  Functions
@@ -108,7 +109,15 @@ public class EnemyBase : MonoBehaviour
             }
         }
 
-        if (targetObject != null) interestTimer += Time.deltaTime;
+        if(targetObject != null)
+        {
+            interestTimer += Time.deltaTime;
+
+            isInRange = Vector2.Distance(attackPoint.position, targetPosition) <= attackRange && Vector2.Distance(attackPoint.position, targetPosition) > attackRangePadding;
+            isTooClose = Vector2.Distance(attackPoint.position, targetPosition) <= attackRangePadding && isRanged;
+        }
+        else isInRange = isTooClose = false;
+
         if (interestTimer >= interestCooldown)
         {
             targetObject = null;
@@ -165,6 +174,8 @@ public class EnemyBase : MonoBehaviour
     protected void idleState()
 	{
         if(isDead) return;
+        if(isTooClose || isInRange) setState(State.MOVE);
+        
         idle();
         
         if(roamingTimer >= roamingCooldown)
@@ -186,13 +197,9 @@ public class EnemyBase : MonoBehaviour
         //FIXME: Fix Target detection for ranged
 
         if(isDead) return;
-
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
 
         pathLine.positionCount = agent.path.corners.Length;
-
-        bool isInRange = Vector2.Distance(attackPoint.position, targetPosition) <= attackRange;
-        bool isTooClose = Vector2.Distance(attackPoint.position, targetPosition) <= attackRangePadding && isRanged;
 
         if(targetObject != null && isRanged && !isInRange)
         {
@@ -207,11 +214,10 @@ public class EnemyBase : MonoBehaviour
         }
         else pathLine.positionCount = 0;
 
-        if(isInRange && !isTooClose)
+        if(isInRange && !isTooClose && targetObject != null)
 		{
-            if (targetObject != null && attackTimer >= attackCooldown)
+            if (attackTimer >= attackCooldown)
             {
-                attackTimer = 0f;
                 setState(State.ATTACK);
                 StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.MOVE));
             }
@@ -227,8 +233,11 @@ public class EnemyBase : MonoBehaviour
     {
         if(isDead) return;
         
+        attackTimer = 0f;
         if(!isRanged) attack();
         else attackRanged();
+
+        setState(State.IDLE);
     }
 
     protected void deadState()
@@ -261,16 +270,15 @@ public class EnemyBase : MonoBehaviour
     public virtual void attack()
     {
         GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
-        setState(State.MOVE);
     }
 
     public virtual void attackRanged()
     {
-        //FIXME: Only spawn one, not multiple
+        
+    }
 
-        if(!spawnProjectile) return;
-        spawnProjectile = false;
-
+    public virtual void spawnProjectile()
+    {
         GameObject instance = Instantiate(projectile, transform.position, Quaternion.identity, projectileContainer.transform);
 
         Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
