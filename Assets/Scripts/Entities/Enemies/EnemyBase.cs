@@ -24,19 +24,24 @@ public class EnemyBase : MonoBehaviour
     //  Parameters
     // --------------------------------
 
+	[Header("Ranged")]
     public bool isRanged = false;
     public GameObject projectileContainer;
     public GameObject projectile;
 
+	[Header("Base")]
     public float maxHealth;
     public float baseAttack;
+    public string damageType;
 
+	[Header("Cooldowns")]
     public float roamingProbability;
 
     public float roamingCooldown;
     public float interestCooldown;
     public float attackCooldown;
     
+    [Header("Ranges")]
     public Transform detectPoint;
     public float detectRange;
     public LayerMask detectLayers;
@@ -44,6 +49,10 @@ public class EnemyBase : MonoBehaviour
     public Transform attackPoint;
     public float attackRange;
     public float attackRangePadding;
+
+	[Header("Transformation")]
+	public bool canTransform;
+	public Dictionary<string, GameObject> transfomations;
 
     // --------------------------------
     //  Internal Values
