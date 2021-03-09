@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ProjectileHitEvent : MonoBehaviour
 {
+    public List<string> ignored;
+
     private void Start()
     {
         GameEventSystem.current.onProjectileHit += onProjectileHit;
@@ -12,6 +14,7 @@ public class ProjectileHitEvent : MonoBehaviour
 
     private void onProjectileHit(string id, ProjectileData data)
     {
+        if(ignored.Contains(data.name)) return;
         if (id == gameObject.name) gameObject.SendMessage("OnProjectileHit", data);
     }
 

@@ -49,6 +49,7 @@ GameObject:
   - component: {fileID: 4385341670023164598}
   - component: {fileID: 3845118781017456725}
   - component: {fileID: 4385341670023164603}
+  - component: {fileID: 9154972013223684904}
   - component: {fileID: 4385341670023164602}
   m_Layer: 11
   m_Name: Slime
@@ -314,6 +315,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a237a13df1b66d2488893dfc0dcfa964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9154972013223684904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4385341670023164606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821062a5c8e393f4fb26e07a6175d4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4385341670023164602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,7 +357,8 @@ MonoBehaviour:
   attackPoint: {fileID: 4385341670550307081}
   attackRange: 1
   attackRangePadding: 0.2
-  canTransform: 0
+  canMutate: 0
+  mutations: []
   impulse: 5
   drag: 100
   enableMovement: 0

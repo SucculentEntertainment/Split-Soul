@@ -23,6 +23,7 @@ public class ProjectileBase : MonoBehaviour
     // --------------------------------
 
     [Header("Projectile Attributes")]
+    public string projectileID;
     public string element;
     public bool canHitMultiple = false;
     public float lifespan;
@@ -68,7 +69,7 @@ public class ProjectileBase : MonoBehaviour
     }
 
     protected void Start() {
-        data = new ProjectileData(gameObject.name, element, baseAttack);
+        data = new ProjectileData(projectileID, element, baseAttack);
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();

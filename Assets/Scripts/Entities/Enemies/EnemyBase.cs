@@ -51,8 +51,8 @@ public class EnemyBase : MonoBehaviour
     public float attackRangePadding;
 
 	[Header("Transformation")]
-	public bool canTransform;
-	public Dictionary<string, GameObject> transfomations;
+	public bool canMutate;
+	public List<EnemyMutationData> mutations;
 
     // --------------------------------
     //  Internal Values
@@ -294,6 +294,7 @@ public class EnemyBase : MonoBehaviour
     {
         //TODO: Spwan Loot
 
+        GetComponent<ProjectileHitEvent>().unregister();
         GetComponent<DimensionEvent>().unregister();
         GetComponent<DamageEvent>().unregister();
         GetComponent<DebugEvent>().unregister();
@@ -359,9 +360,32 @@ public class EnemyBase : MonoBehaviour
         setEnabled(true);
     }
 
+    protected virtual void OnProjectileHit(ProjectileData pData)
+    {
+        if(canMutate)
+        {
+            foreach(EnemyMutationData mData in mutations)
+            {
+                if(mData.useElement && pData.element == mData.element) mutate(mData.target);
+                else if(pData.name == mData.projectileID) mutate(mData.target);
+            }
+        }
+
+        OnReceiveDamage(pData.damage);
+    }
+
     public virtual void OnDimensionDisable(string dimension)
     {
         setEnabled(false);
+    }
+
+    // ================================
+    //  Mutations
+    // ================================
+
+    protected virtual void mutate(GameObject target)
+    {
+        //TODO: Mutation Code
     }
 
     // ================================
