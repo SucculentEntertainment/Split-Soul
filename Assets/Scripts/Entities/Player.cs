@@ -180,6 +180,11 @@ public class Player : MonoBehaviour
         }
 	}
 
+    private void OnProjectileHit(ProjectileData data)
+    {
+        OnReceiveDamage(data.damage);
+    }
+
     // ================================
     //  Interact
     // ================================

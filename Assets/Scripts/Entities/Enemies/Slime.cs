@@ -6,10 +6,11 @@ using UnityEngine.AI;
 
 public class Slime : EnemyBase
 {
+    [Header("Slime Movement")]
     public float impulse;
     public float drag;
 
-    public bool enableMovement = false;
+    [HideInInspector] public bool enableMovement = false;
     private bool impulseGiven = false;
 
     private Rigidbody2D rb;
@@ -34,7 +35,7 @@ public class Slime : EnemyBase
         agent.isStopped = true;
         base.move();
 
-        if(agent.path.corners.Length == 0) return;
+        if(agent.path.corners.Length < 2) return;
         if(!enableMovement) return;
 
         Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
@@ -44,4 +45,11 @@ public class Slime : EnemyBase
             impulseGiven = true;
         }
 	}
+
+    public override void OnDimensionDisable(string dimension)
+    {
+        rb.drag = drag;
+
+        base.OnDimensionDisable(dimension);
+    }
 }

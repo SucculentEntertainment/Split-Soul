@@ -14,4 +14,9 @@ public class PickupEvent : MonoBehaviour
     {
         if (id == gameObject.name) gameObject.SendMessage("OnPickup", item);
     }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onPickup -= onPickup;
+    }
 }

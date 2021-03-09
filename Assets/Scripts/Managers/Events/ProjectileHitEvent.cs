@@ -14,4 +14,9 @@ public class ProjectileHitEvent : MonoBehaviour
     {
         if (id == gameObject.name) gameObject.SendMessage("OnProjectileHit", data);
     }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onProjectileHit -= onProjectileHit;
+    }
 }

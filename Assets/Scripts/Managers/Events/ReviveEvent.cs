@@ -14,4 +14,9 @@ public class ReviveEvent : MonoBehaviour
     {
         if (id == gameObject.name) gameObject.SendMessage("OnRevive");
     }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onRevive -= onRevive;
+    }
 }

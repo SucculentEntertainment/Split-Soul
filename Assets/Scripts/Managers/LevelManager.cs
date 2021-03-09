@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+	// ================================
+	//  Parameters
+	// ================================
+
+	public List<string> dimensionInit;
+	public static List<string> dimensions;
+
+	// ================================
+	//  Private values
+	// ================================
+
     private bool firstUpdate = true;
 
     private static string _dimension;
@@ -12,9 +23,14 @@ public class LevelManager : MonoBehaviour
         get { return _dimension; }
     }
 
+	// ================================
+	//  Functions
+	// ================================
+
     private void Start()
     {
         _dimension = "alive";
+		dimensions = dimensionInit;
     }
 
 	private void Update()
