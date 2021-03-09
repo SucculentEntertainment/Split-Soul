@@ -6,8 +6,12 @@ using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
+    // ================================
+    //  Parameters
+    // ================================
+
     // --------------------------------
-    //  States
+    //  Parameters -> States
     // --------------------------------
 
     protected enum State
@@ -17,13 +21,14 @@ public class EnemyBase : MonoBehaviour
         ATTACK,
         DEAD,
         MUTATE_INIT,
-        MUTATE
+        MUTATE,
+        SPECIAL_ATTACK
 	}
 
-    protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die", "MutateInit", "" };
+    protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die", "MutateInit", "", "SpecialAttack" };
 
     // --------------------------------
-    //  Parameters
+    //  Parameters -> Attributes
     // --------------------------------
 
 	[Header("Ranged")]
@@ -41,6 +46,7 @@ public class EnemyBase : MonoBehaviour
     public float roamingCooldown;
     public float interestCooldown;
     public float attackCooldown;
+    public float specialAttackCooldown;
     
     [Header("Ranges")]
     public Transform detectPoint;
@@ -56,7 +62,7 @@ public class EnemyBase : MonoBehaviour
 	public List<EnemyMutationData> mutations;
 
     // --------------------------------
-    //  Internal Values
+    //  Parameters -> Internal Values
     // --------------------------------
 
     protected NavMeshAgent agent;
@@ -67,6 +73,7 @@ public class EnemyBase : MonoBehaviour
     protected float roamingTimer = 0f;
     protected float interestTimer = 0f;
     protected float attackTimer = 0f;
+    protected float specialAttackTimer = 0f;
     
     protected GameObject targetObject;
     protected Vector2 targetPosition;
@@ -137,6 +144,7 @@ public class EnemyBase : MonoBehaviour
         }
 
         attackTimer += Time.deltaTime;
+        specialAttackTimer += Time.deltaTime;
         roamingTimer += Time.deltaTime;
 
         additionalUpdate();
@@ -169,6 +177,10 @@ public class EnemyBase : MonoBehaviour
             case State.MUTATE:
                 mutateState();
                 break;
+            
+            case State.SPECIAL_ATTACK:
+                specialAttackState();
+                break;
         }
 	}
 
@@ -186,6 +198,10 @@ public class EnemyBase : MonoBehaviour
     //  State Handler
     // ================================
 
+    // --------------------------------
+    //  State Handler -> Idle
+    // --------------------------------
+
     protected void idleState()
 	{
         if(isDead || isMutating) return;
@@ -193,6 +209,12 @@ public class EnemyBase : MonoBehaviour
         {
             if(isInRange) setState(State.ATTACK);
             else setState(State.MOVE);
+            return;
+        }
+
+        if(targetObject != null && isSpecialAttackEligable(targetObject))
+        {
+            setState(State.SPECIAL_ATTACK);
             return;
         }
         
@@ -211,6 +233,10 @@ public class EnemyBase : MonoBehaviour
             }
 		}
 	}
+
+    // --------------------------------
+    //  State Handler -> Move
+    // --------------------------------
 
     protected void moveState()
     {
@@ -238,6 +264,12 @@ public class EnemyBase : MonoBehaviour
             return;
 		}
 
+        if(targetObject != null && isSpecialAttackEligable(targetObject))
+        {
+            setState(State.SPECIAL_ATTACK);
+            return;
+        }
+
         if(isTooClose)
         {
             Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
@@ -246,6 +278,10 @@ public class EnemyBase : MonoBehaviour
         
         move();
     }
+
+    // --------------------------------
+    //  State Handler -> Attack
+    // --------------------------------
 
     protected void attackState()
     {
@@ -259,10 +295,18 @@ public class EnemyBase : MonoBehaviour
         setState(State.IDLE);
     }
 
+    // --------------------------------
+    //  State Handler -> Death
+    // --------------------------------
+
     protected void deadState()
     {
         dead();
     }
+
+    // --------------------------------
+    //  State Handler -> Mutation
+    // --------------------------------
 
     protected void mutateInitState()
     {
@@ -281,6 +325,25 @@ public class EnemyBase : MonoBehaviour
         dead();
     }
 
+    // --------------------------------
+    //  State Handler -> Special Attack
+    // --------------------------------
+
+    protected void specialAttackState()
+    {
+        if(isDead || isMutating) return;
+        if(specialAttackTimer < specialAttackCooldown) return;
+        
+        specialAttackTimer = 0f;
+        specialAttack();
+
+        setState(State.IDLE);
+    }
+
+    // --------------------------------
+    //  State Handler -> Helper
+    // --------------------------------
+
     protected void setState(State state, bool changeAnim = true)
 	{
         if(isDead && state != State.DEAD) return;
@@ -290,28 +353,34 @@ public class EnemyBase : MonoBehaviour
 	}
 
     // ================================
-    //  States
+    //  States (To be overriden)
     // ================================
 
-    public virtual void idle()
-    {
-        
-    }
+    // --------------------------------
+    //  States -> Idle
+    // --------------------------------
+
+    public virtual void idle() { }
+
+    // --------------------------------
+    //  States -> Move
+    // --------------------------------
 
     public virtual void move()
     {
         agent.SetDestination(targetPosition);
     }
 
+    // --------------------------------
+    //  States -> Attack
+    // --------------------------------
+
     public virtual void attack()
     {
         GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
     }
 
-    public virtual void attackRanged()
-    {
-        
-    }
+    public virtual void attackRanged() { }
 
     public virtual void spawnProjectile()
     {
@@ -321,6 +390,10 @@ public class EnemyBase : MonoBehaviour
         Vector2 dir = (aimPosition - (Vector2) transform.position).normalized;
         instance.GetComponent<ProjectileBase>().init(dir, this.name);
     }
+
+    // --------------------------------
+    //  States -> Death
+    // --------------------------------
 
     public virtual void dead()
     {
@@ -334,6 +407,10 @@ public class EnemyBase : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // --------------------------------
+    //  States -> Mutation
+    // --------------------------------
+
     public virtual void mutateInit()
     {
         animator.SetInteger("MutationID", mutationID);
@@ -345,6 +422,12 @@ public class EnemyBase : MonoBehaviour
     {
         Instantiate(mutationTarget, transform.position, Quaternion.identity, transform.parent);
     }
+
+    // --------------------------------
+    //  States -> Special Attack
+    // --------------------------------
+
+    public virtual void specialAttack() { }
 
     // ================================
     //  Coroutines
@@ -383,16 +466,28 @@ public class EnemyBase : MonoBehaviour
     //  Events
     // ================================
 
+    // --------------------------------
+    //  Events -> Damage
+    // --------------------------------
+
     public void OnReceiveDamage(float damage)
 	{
         health -= damage;
         if (health <= 0) die();
 	}
 
+    // --------------------------------
+    //  Events -> Debug
+    // --------------------------------
+
     protected void OnDebug(string debugType)
 	{
         if(debugType == "path") pathLine.enabled = !pathLine.enabled;
 	}
+
+    // --------------------------------
+    //  Events -> Dimension
+    // --------------------------------
 
     protected virtual void OnDimensionEnable(string dimension)
     {
@@ -403,6 +498,15 @@ public class EnemyBase : MonoBehaviour
         animator.SetTrigger(animationTrigger[(int) state]);
         setEnabled(true);
     }
+
+    public virtual void OnDimensionDisable(string dimension)
+    {
+        setEnabled(false);
+    }
+
+    // --------------------------------
+    //  Events -> Projectile
+    // --------------------------------
 
     protected virtual void OnProjectileHit(ProjectileData pData)
     {
@@ -423,11 +527,6 @@ public class EnemyBase : MonoBehaviour
         OnReceiveDamage(pData.damage);
     }
 
-    public virtual void OnDimensionDisable(string dimension)
-    {
-        setEnabled(false);
-    }
-
     // ================================
     //  Mutations
     // ================================
@@ -440,6 +539,15 @@ public class EnemyBase : MonoBehaviour
         isMutating = true;
         animator.SetTrigger(animationTrigger[(int) State.MUTATE_INIT]);
         StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE_INIT, false));
+    }
+
+    // ================================
+    //  Special Attack
+    // ================================
+
+    public virtual bool isSpecialAttackEligable(GameObject targetObject)
+    {
+        return false;
     }
 
     // ================================

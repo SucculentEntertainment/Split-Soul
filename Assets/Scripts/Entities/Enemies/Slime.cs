@@ -6,14 +6,30 @@ using UnityEngine.AI;
 
 public class Slime : EnemyBase
 {
+    // ================================
+    //  Parameters
+    // ================================
+
+    // --------------------------------
+    //  Parameters -> Attributes
+    // --------------------------------
+
     [Header("Slime Movement")]
     public float impulse;
     public float drag;
+
+    // --------------------------------
+    //  Parameters -> Internal Values
+    // --------------------------------
 
     [HideInInspector] public bool enableMovement = false;
     private bool impulseGiven = false;
 
     private Rigidbody2D rb;
+
+    // ================================
+    //  Functions (overriden)
+    // ================================
 
 	public override void additionalStart()
 	{
@@ -29,6 +45,10 @@ public class Slime : EnemyBase
             impulseGiven = false;
         }
 	}
+
+    // ================================
+    //  States (overriden)
+    // ================================
 
 	public override void move()
 	{
@@ -46,10 +66,29 @@ public class Slime : EnemyBase
         }
 	}
 
+	public override void specialAttack()
+	{
+		//TODO: Add Superjump code here
+	}
+
+    // ================================
+    //  Events (overriden)
+    // ================================
+
     public override void OnDimensionDisable(string dimension)
     {
         rb.drag = drag;
 
         base.OnDimensionDisable(dimension);
+    }
+
+    // ================================
+    //  Special Attack (overriden)
+    // ================================
+
+    public override bool isSpecialAttackEligable(GameObject targetObject)
+    {
+        //TODO: Add Superjump condition here
+        return false;
     }
 }
