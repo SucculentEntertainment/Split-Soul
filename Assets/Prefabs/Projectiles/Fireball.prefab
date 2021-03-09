@@ -5171,7 +5171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e645c6c6754d9b54e8e6e3c2e9cc04e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileID: 
+  projectileID: Fireball
   element: Fire
   canHitMultiple: 0
   lifespan: 4

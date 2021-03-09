@@ -15,10 +15,12 @@ public class EnemyBase : MonoBehaviour
         IDLE,
         MOVE,
         ATTACK,
-        DEAD
+        DEAD,
+        MUTATE_INIT,
+        MUTATE
 	}
 
-    protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die" };
+    protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die", "MutateInit", "" };
 
     // --------------------------------
     //  Parameters
@@ -26,7 +28,6 @@ public class EnemyBase : MonoBehaviour
 
 	[Header("Ranged")]
     public bool isRanged = false;
-    public GameObject projectileContainer;
     public GameObject projectile;
 
 	[Header("Base")]
@@ -77,6 +78,11 @@ public class EnemyBase : MonoBehaviour
     protected bool isDead = false;
     protected bool isInRange = false;
     protected bool isTooClose = false;
+
+    protected GameObject mutationTarget;
+    protected int mutationID; 
+    protected bool isMutating = false;
+    protected bool isMutateInit = false;
 
     // ================================
     //  Functions
@@ -155,6 +161,14 @@ public class EnemyBase : MonoBehaviour
             case State.DEAD:
                 deadState();
                 break;
+            
+            case State.MUTATE_INIT:
+                mutateInitState();
+                break;
+
+            case State.MUTATE:
+                mutateState();
+                break;
         }
 	}
 
@@ -174,7 +188,7 @@ public class EnemyBase : MonoBehaviour
 
     protected void idleState()
 	{
-        if(isDead) return;
+        if(isDead || isMutating) return;
         if(isTooClose)
         {
             if(isInRange) setState(State.ATTACK);
@@ -200,7 +214,7 @@ public class EnemyBase : MonoBehaviour
 
     protected void moveState()
     {
-        if(isDead) return;
+        if(isDead || isMutating) return;
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
         aimPosition = targetPosition;
 
@@ -235,7 +249,7 @@ public class EnemyBase : MonoBehaviour
 
     protected void attackState()
     {
-        if(isDead) return;
+        if(isDead || isMutating) return;
         if(attackTimer < attackCooldown) return;
         
         attackTimer = 0f;
@@ -247,6 +261,23 @@ public class EnemyBase : MonoBehaviour
 
     protected void deadState()
     {
+        dead();
+    }
+
+    protected void mutateInitState()
+    {
+        if(isDead) return;
+
+        if(isMutateInit) return;
+        isMutateInit = true;
+
+        mutateInit();
+    }
+
+    protected void mutateState()
+    {
+        if(isDead) return;
+        mutate();
         dead();
     }
 
@@ -284,7 +315,8 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void spawnProjectile()
     {
-        GameObject instance = Instantiate(projectile, transform.position, Quaternion.identity, projectileContainer.transform);
+        GameObject instance = Instantiate(projectile, transform.position, Quaternion.identity, LevelManager.current.projectileContainer.transform);
+        if (targetObject != null) aimPosition = (Vector2) targetObject.transform.position;
 
         Vector2 dir = (aimPosition - (Vector2) transform.position).normalized;
         instance.GetComponent<ProjectileBase>().init(dir, this.name);
@@ -300,6 +332,18 @@ public class EnemyBase : MonoBehaviour
         GetComponent<DebugEvent>().unregister();
 
         Destroy(gameObject);
+    }
+
+    public virtual void mutateInit()
+    {
+        animator.SetInteger("MutationID", mutationID);
+        animator.SetTrigger("Mutate");
+        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE, false));
+    }
+
+    public virtual void mutate()
+    {
+        Instantiate(mutationTarget, transform.position, Quaternion.identity, transform.parent);
     }
 
     // ================================
@@ -364,11 +408,16 @@ public class EnemyBase : MonoBehaviour
     {
         if(canMutate)
         {
+            int i = 0;
             foreach(EnemyMutationData mData in mutations)
             {
-                if(mData.useElement && pData.element == mData.element) mutate(mData.target);
-                else if(pData.name == mData.projectileID) mutate(mData.target);
+                if(mData.useElement && pData.element == mData.element) mutateAction(i, mData.target);
+                else if(pData.name == mData.projectileID) mutateAction(i, mData.target);
+
+                i++;
             }
+
+            return;
         }
 
         OnReceiveDamage(pData.damage);
@@ -383,9 +432,14 @@ public class EnemyBase : MonoBehaviour
     //  Mutations
     // ================================
 
-    protected virtual void mutate(GameObject target)
+    protected virtual void mutateAction(int mutationID, GameObject target)
     {
-        //TODO: Mutation Code
+        mutationTarget = target;
+        this.mutationID = mutationID;
+
+        isMutating = true;
+        animator.SetTrigger(animationTrigger[(int) State.MUTATE_INIT]);
+        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE_INIT, false));
     }
 
     // ================================
