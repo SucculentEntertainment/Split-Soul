@@ -8,8 +8,12 @@ public class LevelManager : MonoBehaviour
 	//  Parameters
 	// ================================
 
+	public static LevelManager current;
+
 	public List<string> dimensionInit;
 	public static List<string> dimensions;
+
+	public GameObject projectileContainer;
 
 	// ================================
 	//  Private values
@@ -26,6 +30,11 @@ public class LevelManager : MonoBehaviour
 	// ================================
 	//  Functions
 	// ================================
+
+	private void Awake()
+    {
+        current = this;
+    }
 
     private void Start()
     {
