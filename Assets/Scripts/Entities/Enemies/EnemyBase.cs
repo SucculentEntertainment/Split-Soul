@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.IO;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -69,6 +69,7 @@ public class EnemyBase : MonoBehaviour
     
     protected GameObject targetObject;
     protected Vector2 targetPosition;
+    protected Vector2 aimPosition;
 
     protected Animator animator;
     protected LineRenderer pathLine;
@@ -113,15 +114,15 @@ public class EnemyBase : MonoBehaviour
         {
             interestTimer += Time.deltaTime;
 
-            isInRange = Vector2.Distance(attackPoint.position, targetPosition) <= attackRange && Vector2.Distance(attackPoint.position, targetPosition) > attackRangePadding;
-            isTooClose = Vector2.Distance(attackPoint.position, targetPosition) <= attackRangePadding && isRanged;
+            isTooClose = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRangePadding && isRanged;
+            isInRange = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRange && !isTooClose;
         }
         else isInRange = isTooClose = false;
 
         if (interestTimer >= interestCooldown)
         {
             targetObject = null;
-            targetPosition = Vector2.zero;
+            targetPosition = aimPosition = Vector2.zero;
             interestTimer = 0f;
             pathLine.positionCount = 0;
             agent.SetDestination(transform.position);
@@ -174,7 +175,11 @@ public class EnemyBase : MonoBehaviour
     protected void idleState()
 	{
         if(isDead) return;
-        if(isTooClose || isInRange) setState(State.MOVE);
+        if(isTooClose || !isInRange)
+        {
+            setState(State.MOVE);
+            return;
+        }
         
         idle();
         
@@ -182,9 +187,9 @@ public class EnemyBase : MonoBehaviour
 		{
             roamingTimer = 0f;
             
-            if((int) Random.Range(1, 100) <= roamingProbability)
+            if((int) UnityEngine.Random.Range(1, 100) <= roamingProbability)
 			{
-                Vector2 dir = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 0.5f));
+                Vector2 dir = new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f));
                 targetPosition = (Vector2) transform.position + dir;
 
                 setState(State.MOVE);
@@ -194,14 +199,13 @@ public class EnemyBase : MonoBehaviour
 
     protected void moveState()
     {
-        //FIXME: Fix Target detection for ranged
-
         if(isDead) return;
         if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
+        aimPosition = targetPosition;
 
         pathLine.positionCount = agent.path.corners.Length;
 
-        if(targetObject != null && isRanged && !isInRange)
+        if(targetObject != null && !isInRange)
         {
             Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
             float scalar = Vector2.Distance(targetPosition, transform.position) - attackRangePadding * 1.25f;
@@ -212,20 +216,20 @@ public class EnemyBase : MonoBehaviour
         {
             for(int i = 0; i < agent.path.corners.Length; i++) pathLine.SetPosition(i, agent.path.corners[i]);
         }
-        else pathLine.positionCount = 0;
 
         if(isInRange && !isTooClose && targetObject != null)
 		{
-            if (attackTimer >= attackCooldown)
-            {
-                setState(State.ATTACK);
-                StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.MOVE));
-            }
+            if (attackTimer >= attackCooldown) setState(State.ATTACK);
             else setState(State.IDLE);
             return;
 		}
 
-        if(isTooClose) targetPosition -= (targetPosition - (Vector2) transform.position).normalized * attackRangePadding * 2;
+        if(isTooClose)
+        {
+            Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
+            targetPosition += dir * attackRangePadding * 2;
+        }
+        
         move();
     }
 
@@ -281,7 +285,7 @@ public class EnemyBase : MonoBehaviour
     {
         GameObject instance = Instantiate(projectile, transform.position, Quaternion.identity, projectileContainer.transform);
 
-        Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
+        Vector2 dir = (aimPosition - (Vector2) transform.position).normalized;
         instance.GetComponent<ProjectileBase>().init(dir, this.name);
     }
 
@@ -300,10 +304,10 @@ public class EnemyBase : MonoBehaviour
     //  Coroutines
     // ================================
 
-    protected IEnumerator Wait(float _delay = 0, bool setStateOnFinish = false, State _state = State.IDLE, bool changeAnim = true)
+    protected IEnumerator Wait(float _delay = 0, State _state = State.IDLE, bool changeAnim = true)
 	{
         yield return new WaitForSeconds(_delay);
-        if(setStateOnFinish) setState(_state, changeAnim);
+        setState(_state, changeAnim);
     }
 
     // ================================
@@ -317,7 +321,7 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         animator.SetTrigger(animationTrigger[(int) State.DEAD]);
 
-        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.DEAD, false));
+        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.DEAD, false));
     }
 
     protected void setEnabled(bool active)

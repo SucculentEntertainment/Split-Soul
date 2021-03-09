@@ -327,8 +327,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRanged: 0
+  projectileContainer: {fileID: 0}
+  projectile: {fileID: 0}
   maxHealth: 10
   baseAttack: 2
+  damageType: 
   roamingProbability: 5
   roamingCooldown: 0.5
   interestCooldown: 4
@@ -341,7 +344,8 @@ MonoBehaviour:
   attackPoint: {fileID: 4385341670550307081}
   attackRange: 1
   attackRangePadding: 0.2
-  impulse: 10
+  canTransform: 0
+  impulse: 5
   drag: 100
   enableMovement: 0
 --- !u!1 &4385341670550307080

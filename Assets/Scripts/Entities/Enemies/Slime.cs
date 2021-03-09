@@ -35,7 +35,7 @@ public class Slime : EnemyBase
         agent.isStopped = true;
         base.move();
 
-        if(agent.path.corners.Length == 0) return;
+        if(agent.path.corners.Length < 2) return;
         if(!enableMovement) return;
 
         Vector2 dir = (agent.path.corners[1] - transform.position).normalized;

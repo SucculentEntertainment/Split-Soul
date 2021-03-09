@@ -22,17 +22,21 @@ public class ProjectileBase : MonoBehaviour
     //  Parameters
     // --------------------------------
 
+    [Header("Projectile Attributes")]
     public string element;
-
+    public bool canHitMultiple = false;
     public float lifespan;
     public float baseAttack;
     public float speed;
 
-    public bool canHitMultiple = false;
-
+    [Header("Ranges")]
     public Transform attackPoint;
     public float attackRange;
     public LayerMask attackLayers;
+
+    [Header("Particles")]
+    public bool useParticles = false;
+    public ParticleSystem particles;
 
     // --------------------------------
     //  Internal Values
@@ -105,6 +109,7 @@ public class ProjectileBase : MonoBehaviour
     {
         if(isDestroyed) return;
         StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, true, State.TRAVEL));
+        if(useParticles) particles.Play();
     }
 
     protected void travelState()
@@ -122,6 +127,9 @@ public class ProjectileBase : MonoBehaviour
 
     protected void destroyState()
     {
+        animator.speed = 0;
+
+        if(useParticles && particles.particleCount > 0) return;
         Destroy(gameObject);
     }
 
@@ -155,6 +163,7 @@ public class ProjectileBase : MonoBehaviour
     {
         if(isDestroyed) return;
         isDestroyed = true;
+        if(useParticles) particles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
 
         rb.drag = 5f;
 
