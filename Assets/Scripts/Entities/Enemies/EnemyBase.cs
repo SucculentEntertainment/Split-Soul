@@ -175,9 +175,10 @@ public class EnemyBase : MonoBehaviour
     protected void idleState()
 	{
         if(isDead) return;
-        if(isTooClose || !isInRange)
+        if(isTooClose)
         {
-            setState(State.MOVE);
+            if(isInRange) setState(State.ATTACK);
+            else setState(State.MOVE);
             return;
         }
         
@@ -212,15 +213,14 @@ public class EnemyBase : MonoBehaviour
             targetPosition = (Vector2) transform.position + dir * scalar;
         }
 
-        if (agent.path.corners != null && agent.path.corners.Length > 1)
+        if(agent.path.corners != null && agent.path.corners.Length > 1)
         {
             for(int i = 0; i < agent.path.corners.Length; i++) pathLine.SetPosition(i, agent.path.corners[i]);
         }
 
         if(isInRange && !isTooClose && targetObject != null)
 		{
-            if (attackTimer >= attackCooldown) setState(State.ATTACK);
-            else setState(State.IDLE);
+            setState(State.ATTACK);
             return;
 		}
 
@@ -236,6 +236,7 @@ public class EnemyBase : MonoBehaviour
     protected void attackState()
     {
         if(isDead) return;
+        if(attackTimer < attackCooldown) return;
         
         attackTimer = 0f;
         if(!isRanged) attack();
