@@ -62132,7 +62132,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &621910272
 Transform:
   m_ObjectHideFlags: 0
@@ -74600,7 +74600,7 @@ MonoBehaviour:
   attackRange: 4
   attackRangePadding: 2
   canTransform: 0
-  impulse: 10
+  impulse: 5
   drag: 100
   enableMovement: 0
 --- !u!50 &440271628055670764
