@@ -90,6 +90,8 @@ public class EnemyBase : MonoBehaviour
     protected int mutationID; 
     protected bool isMutating = false;
     protected bool isMutateInit = false;
+    
+    protected bool specialAttackEnded = true;
 
     // ================================
     //  Functions
@@ -328,16 +330,27 @@ public class EnemyBase : MonoBehaviour
     // --------------------------------
     //  State Handler -> Special Attack
     // --------------------------------
+    
+    bool isFirstExec = false;
 
     protected void specialAttackState()
     {
         if(isDead || isMutating) return;
         if(specialAttackTimer < specialAttackCooldown) return;
         
-        specialAttackTimer = 0f;
+        if(isFirstExec)
+        {
+        		specialAttackTimer = 0f;
+        		specialAttackEnded = false;
+        	}
+        		
         specialAttack();
 
-        setState(State.IDLE);
+        if(specialAttackEnded)
+        {
+        		setState(State.IDLE);
+        		isFirstExec = false;
+        	}
     }
 
     // --------------------------------

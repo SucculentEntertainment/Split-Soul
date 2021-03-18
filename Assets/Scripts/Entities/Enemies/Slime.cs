@@ -18,6 +18,11 @@ public class Slime : EnemyBase
     public float impulse;
     public float drag;
 
+	[Header("Special Attack")]
+	public bool isBase = false;
+	public float impulseFactor = 1;
+	public float attackFactor = 1;
+
     // --------------------------------
     //  Parameters -> Internal Values
     // --------------------------------
@@ -52,23 +57,12 @@ public class Slime : EnemyBase
 
 	public override void move()
 	{
-        agent.isStopped = true;
-        base.move();
-
-        if(agent.path.corners.Length < 2) return;
-        if(!enableMovement) return;
-
-        Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
-        if(!impulseGiven)
-        {
-            rb.AddForce(dir * impulse, ForceMode2D.Impulse);
-            impulseGiven = true;
-        }
+		moveHelper();
 	}
 
 	public override void specialAttack()
 	{
-		//TODO: Add Superjump code here
+		moveHelper(impulseFactor);
 	}
 
     // ================================
@@ -88,7 +82,34 @@ public class Slime : EnemyBase
 
     public override bool isSpecialAttackEligable(GameObject targetObject)
     {
-        //TODO: Add Superjump condition here
+        Vector2 dist = transform.position - targetPosition;
+        
+        if(dist >= detectRange * 1.5f && isBase) return true;
         return false;
     }
+    
+    // ================================
+    //  Helper Functions
+    // ================================
+    
+    private bool moveHelper(float impulseFactor = 1)
+    {
+    		agent.SetDestination(targetPosition);
+        agent.isStopped = true;
+
+        if(agent.path.corners.Length < 2) return;
+        if(!enableMovement) return;
+
+        Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
+        if(!impulseGiven)
+        {
+            rb.AddForce(dir * impulse * impulseFactor, ForceMode2D.Impulse);
+            impulseGiven = true;
+        }
+    }
+    
+    public void OnSpecialAttackEnd()
+    {
+    		specialAttackEnded = true;
+    	}
 }
