@@ -57,9 +57,9 @@ public class EnemyBase : MonoBehaviour
     public float attackRange;
     public float attackRangePadding;
 
-	[Header("Transformation")]
+	[Header("Mutation")]
 	public bool canMutate;
-	public List<EnemyMutationData> mutations;
+	public List<Mutation> mutations;
 
     // --------------------------------
     //  Parameters -> Internal Values
@@ -428,7 +428,7 @@ public class EnemyBase : MonoBehaviour
     {
         animator.SetInteger("MutationID", mutationID);
         animator.SetTrigger("Mutate");
-        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE, false));
+        startCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE, false));
     }
 
     public virtual void mutate()
@@ -445,6 +445,12 @@ public class EnemyBase : MonoBehaviour
     // ================================
     //  Coroutines
     // ================================
+
+    protected void startCoroutine(IEnumerator function)
+    {
+        StopAllCoroutines();
+        StartCoroutine(function);
+    }
 
     protected IEnumerator Wait(float _delay = 0, State _state = State.IDLE, bool changeAnim = true)
 	{
@@ -463,7 +469,7 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         animator.SetTrigger(animationTrigger[(int) State.DEAD]);
 
-        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.DEAD, false));
+        startCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.DEAD, false));
     }
 
     protected void setEnabled(bool active)
@@ -526,7 +532,7 @@ public class EnemyBase : MonoBehaviour
         if(canMutate)
         {
             int i = 0;
-            foreach(EnemyMutationData mData in mutations)
+            foreach(Mutation mData in mutations)
             {
                 if(mData.useElement && pData.element == mData.element) mutateAction(i, mData.target);
                 else if(pData.name == mData.projectileID) mutateAction(i, mData.target);
@@ -551,7 +557,7 @@ public class EnemyBase : MonoBehaviour
 
         isMutating = true;
         animator.SetTrigger(animationTrigger[(int) State.MUTATE_INIT]);
-        StartCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE_INIT, false));
+        startCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE_INIT, false));
     }
 
     // ================================
