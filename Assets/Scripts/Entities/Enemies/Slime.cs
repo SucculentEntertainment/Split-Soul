@@ -22,6 +22,7 @@ public class Slime : EnemyBase
 	public bool isBase = false;
 	public float impulseFactor = 1;
 	public float attackFactor = 1;
+    public float rangeTriggerFactor = 1.5f;
 
     // --------------------------------
     //  Parameters -> Internal Values
@@ -82,9 +83,9 @@ public class Slime : EnemyBase
 
     public override bool isSpecialAttackEligable(GameObject targetObject)
     {
-        Vector2 dist = (Vector2) transform.position - targetPosition;
+        Vector2 dist = (Vector2) transform.position - (Vector2) targetObject.transform.position;
         
-        if(dist.magnitude >= detectRange * 1.5f && isBase) return true;
+        if(dist.magnitude >= detectRange * rangeTriggerFactor && isBase) return true;
         return false;
     }
     
