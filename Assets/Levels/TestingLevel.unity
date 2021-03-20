@@ -73456,6 +73456,12 @@ PrefabInstance:
       propertyPath: impulseFactor
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4385341670023164602, guid: f7a13555a3c90974ebc84394cb1e1523,
+        type: 3}
+      propertyPath: mutations.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: f5696233b77952947a89311be9baf72a,
+        type: 2}
     - target: {fileID: 4385341670023164605, guid: f7a13555a3c90974ebc84394cb1e1523,
         type: 3}
       propertyPath: m_Size.x

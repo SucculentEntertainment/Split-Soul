@@ -21,7 +21,6 @@ public class Slime : EnemyBase
 	[Header("Special Attack")]
 	public bool isBase = false;
 	public float impulseFactor = 1;
-	public float attackFactor = 1;
     public float rangeTriggerFactor = 1.5f;
 
     // --------------------------------
@@ -83,7 +82,7 @@ public class Slime : EnemyBase
 
     public override bool isSpecialAttackEligable(GameObject targetObject)
     {
-        Vector2 dist = (Vector2) transform.position - (Vector2) targetObject.transform.position;
+        Vector2 dist = (Vector2) transform.position - targetPosition;
         
         if(dist.magnitude >= detectRange * rangeTriggerFactor && isBase) return true;
         return false;
@@ -95,7 +94,7 @@ public class Slime : EnemyBase
     
     private bool moveHelper(float impulseFactor = 1)
     {
-    		agent.SetDestination(targetPosition);
+    	agent.SetDestination(targetPosition);
         agent.isStopped = true;
 
         if(agent.path.corners.Length < 2) return true;
@@ -113,6 +112,6 @@ public class Slime : EnemyBase
     
     public void OnSpecialAttackEnd()
     {
-    		specialAttackEnded = true;
-    	}
+    	specialAttackEnded = true;
+    }
 }

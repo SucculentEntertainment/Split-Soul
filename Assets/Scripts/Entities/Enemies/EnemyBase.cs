@@ -61,6 +61,9 @@ public class EnemyBase : MonoBehaviour
 	public bool canMutate;
 	public List<Mutation> mutations;
 
+    [Header("Common Special Attack")]
+    public float damageFactor = 1;
+
     // --------------------------------
     //  Parameters -> Internal Values
     // --------------------------------
@@ -91,7 +94,7 @@ public class EnemyBase : MonoBehaviour
     protected bool isMutating = false;
     protected bool isMutateInit = false;
     
-    protected bool specialAttackEnded = true;
+    [HideInInspector] public bool specialAttackEnded = true;
 
     // ================================
     //  Functions
@@ -121,13 +124,13 @@ public class EnemyBase : MonoBehaviour
             else
             {
                 targetObject = target.gameObject;
-                setState(State.MOVE);
+                StartCoroutine(setState(State.MOVE));
             }
         }
 
         if(targetObject != null)
         {
-            interestTimer += Time.deltaTime;
+            if(state != State.SPECIAL_ATTACK) interestTimer += Time.deltaTime;
 
             isTooClose = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRangePadding && isRanged;
             isInRange = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRange && !isTooClose;
@@ -142,7 +145,7 @@ public class EnemyBase : MonoBehaviour
             pathLine.positionCount = 0;
             agent.SetDestination(transform.position);
 
-            setState(State.IDLE);
+            StartCoroutine(setState(State.IDLE));
         }
 
         attackTimer += Time.deltaTime;
@@ -209,14 +212,14 @@ public class EnemyBase : MonoBehaviour
         if(isDead || isMutating) return;
         if(isTooClose)
         {
-            if(isInRange) setState(State.ATTACK);
-            else setState(State.MOVE);
+            if(isInRange) StartCoroutine(setState(State.ATTACK));
+            else StartCoroutine(setState(State.MOVE));
             return;
         }
 
         if(targetObject != null && isSpecialAttackEligable(targetObject))
         {
-            setState(State.SPECIAL_ATTACK);
+            StartCoroutine(setState(State.SPECIAL_ATTACK));
             return;
         }
         
@@ -231,7 +234,7 @@ public class EnemyBase : MonoBehaviour
                 Vector2 dir = new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f));
                 targetPosition = (Vector2) transform.position + dir;
 
-                setState(State.MOVE);
+                StartCoroutine(setState(State.MOVE));
             }
 		}
 	}
@@ -262,13 +265,13 @@ public class EnemyBase : MonoBehaviour
 
         if(isInRange && !isTooClose && targetObject != null)
 		{
-            setState(State.ATTACK);
+            StartCoroutine(setState(State.ATTACK));
             return;
 		}
 
         if(targetObject != null && isSpecialAttackEligable(targetObject))
         {
-            setState(State.SPECIAL_ATTACK);
+            StartCoroutine(setState(State.SPECIAL_ATTACK));
             return;
         }
 
@@ -294,7 +297,7 @@ public class EnemyBase : MonoBehaviour
         if(!isRanged) attack();
         else attackRanged();
 
-        setState(State.IDLE);
+        StartCoroutine(setState(State.IDLE));
     }
 
     // --------------------------------
@@ -331,7 +334,7 @@ public class EnemyBase : MonoBehaviour
     //  State Handler -> Special Attack
     // --------------------------------
     
-    bool isFirstExec = false;
+    protected bool isFirstExec = true;
 
     protected void specialAttackState()
     {
@@ -340,30 +343,19 @@ public class EnemyBase : MonoBehaviour
         
         if(isFirstExec)
         {
-        		specialAttackTimer = 0f;
-        		specialAttackEnded = false;
-        	}
+        	specialAttackTimer = 0f;
+        	specialAttackEnded = false;
+            isFirstExec = false;
+        }
         		
         specialAttack();
 
         if(specialAttackEnded)
         {
-        		setState(State.IDLE);
-        		isFirstExec = false;
-        	}
+        	StartCoroutine(setState(State.IDLE));
+        	isFirstExec = true;
+        }
     }
-
-    // --------------------------------
-    //  State Handler -> Helper
-    // --------------------------------
-
-    protected void setState(State state, bool changeAnim = true)
-	{
-        if(isDead && state != State.DEAD) return;
-
-        if(changeAnim) animator.SetTrigger(animationTrigger[(int) state]);
-        this.state = state;
-	}
 
     // ================================
     //  States (To be overriden)
@@ -390,6 +382,9 @@ public class EnemyBase : MonoBehaviour
 
     public virtual void attack()
     {
+        float damage = baseAttack;
+        if(state == State.SPECIAL_ATTACK) damage *= damageFactor;
+
         GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
     }
 
@@ -428,7 +423,7 @@ public class EnemyBase : MonoBehaviour
     {
         animator.SetInteger("MutationID", mutationID);
         animator.SetTrigger("Mutate");
-        startCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE, false));
+        StartCoroutine(setState(State.MUTATE, animator.GetCurrentAnimatorStateInfo(0).length, false));
     }
 
     public virtual void mutate()
@@ -446,16 +441,14 @@ public class EnemyBase : MonoBehaviour
     //  Coroutines
     // ================================
 
-    protected void startCoroutine(IEnumerator function)
-    {
-        StopAllCoroutines();
-        StartCoroutine(function);
-    }
-
-    protected IEnumerator Wait(float _delay = 0, State _state = State.IDLE, bool changeAnim = true)
+    protected IEnumerator setState(State _state = State.IDLE, float _delay = 0, bool changeAnim = true)
 	{
         yield return new WaitForSeconds(_delay);
-        setState(_state, changeAnim);
+        
+        if(isDead && _state != State.DEAD) yield break;
+
+        if(changeAnim) animator.SetTrigger(animationTrigger[(int) _state]);
+        state = _state;
     }
 
     // ================================
@@ -469,7 +462,7 @@ public class EnemyBase : MonoBehaviour
         isDead = true;
         animator.SetTrigger(animationTrigger[(int) State.DEAD]);
 
-        startCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.DEAD, false));
+        StartCoroutine(setState(State.DEAD, animator.GetCurrentAnimatorStateInfo(0).length, false));
     }
 
     protected void setEnabled(bool active)
@@ -557,7 +550,7 @@ public class EnemyBase : MonoBehaviour
 
         isMutating = true;
         animator.SetTrigger(animationTrigger[(int) State.MUTATE_INIT]);
-        startCoroutine(Wait(animator.GetCurrentAnimatorStateInfo(0).length, State.MUTATE_INIT, false));
+        StartCoroutine(setState(State.MUTATE_INIT, animator.GetCurrentAnimatorStateInfo(0).length, false));
     }
 
     // ================================

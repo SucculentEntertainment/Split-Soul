@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FireSlime
   m_EditorClassIdentifier: 
   useElement: 0
-  projectileID: Direball
+  projectileID: Fireball
   element: 
   target: {fileID: 1903271181905937512, guid: b750bc60f68561c41b1f112a1516bd09, type: 3}
