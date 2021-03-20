@@ -57,12 +57,12 @@ public class Slime : EnemyBase
 
 	public override void move()
 	{
-		moveHelper();
+		if(moveHelper()) return;
 	}
 
 	public override void specialAttack()
 	{
-		moveHelper(impulseFactor);
+		if(moveHelper(impulseFactor)) return;
 	}
 
     // ================================
@@ -82,9 +82,9 @@ public class Slime : EnemyBase
 
     public override bool isSpecialAttackEligable(GameObject targetObject)
     {
-        Vector2 dist = transform.position - targetPosition;
+        Vector2 dist = (Vector2) transform.position - targetPosition;
         
-        if(dist >= detectRange * 1.5f && isBase) return true;
+        if(dist.magnitude >= detectRange * 1.5f && isBase) return true;
         return false;
     }
     
@@ -97,8 +97,8 @@ public class Slime : EnemyBase
     		agent.SetDestination(targetPosition);
         agent.isStopped = true;
 
-        if(agent.path.corners.Length < 2) return;
-        if(!enableMovement) return;
+        if(agent.path.corners.Length < 2) return true;
+        if(!enableMovement) return true;
 
         Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
         if(!impulseGiven)
@@ -106,6 +106,8 @@ public class Slime : EnemyBase
             rb.AddForce(dir * impulse * impulseFactor, ForceMode2D.Impulse);
             impulseGiven = true;
         }
+
+        return false;
     }
     
     public void OnSpecialAttackEnd()
