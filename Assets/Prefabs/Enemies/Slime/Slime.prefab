@@ -196,6 +196,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -341,15 +342,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRanged: 0
-  projectileContainer: {fileID: 0}
   projectile: {fileID: 0}
   maxHealth: 10
   baseAttack: 2
-  damageType: 
+  damageType: Physical
   roamingProbability: 5
   roamingCooldown: 0.5
   interestCooldown: 4
   attackCooldown: 1
+  specialAttackCooldown: 0
   detectPoint: {fileID: 4385341670757820112}
   detectRange: 3
   detectLayers:
@@ -367,6 +368,9 @@ MonoBehaviour:
       type: 3}
   impulse: 5
   drag: 100
+  isBase: 0
+  impulseFactor: 1
+  attackFactor: 1
   enableMovement: 0
 --- !u!1 &4385341670550307080
 GameObject:
@@ -444,6 +448,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

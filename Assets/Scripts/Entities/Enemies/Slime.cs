@@ -18,6 +18,11 @@ public class Slime : EnemyBase
     public float impulse;
     public float drag;
 
+	[Header("Special Attack")]
+	public bool isBase = false;
+	public float impulseFactor = 1;
+    public float rangeTriggerFactor = 1.5f;
+
     // --------------------------------
     //  Parameters -> Internal Values
     // --------------------------------
@@ -52,23 +57,12 @@ public class Slime : EnemyBase
 
 	public override void move()
 	{
-        agent.isStopped = true;
-        base.move();
-
-        if(agent.path.corners.Length < 2) return;
-        if(!enableMovement) return;
-
-        Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
-        if(!impulseGiven)
-        {
-            rb.AddForce(dir * impulse, ForceMode2D.Impulse);
-            impulseGiven = true;
-        }
+		if(moveHelper()) return;
 	}
 
 	public override void specialAttack()
 	{
-		//TODO: Add Superjump code here
+		if(moveHelper(impulseFactor)) return;
 	}
 
     // ================================
@@ -88,7 +82,36 @@ public class Slime : EnemyBase
 
     public override bool isSpecialAttackEligable(GameObject targetObject)
     {
-        //TODO: Add Superjump condition here
+        Vector2 dist = (Vector2) transform.position - targetPosition;
+        
+        if(dist.magnitude >= detectRange * rangeTriggerFactor && isBase) return true;
         return false;
+    }
+    
+    // ================================
+    //  Helper Functions
+    // ================================
+    
+    private bool moveHelper(float impulseFactor = 1)
+    {
+    	agent.SetDestination(targetPosition);
+        agent.isStopped = true;
+
+        if(agent.path.corners.Length < 2) return true;
+        if(!enableMovement) return true;
+
+        Vector2 dir = (agent.path.corners[1] - transform.position).normalized;
+        if(!impulseGiven)
+        {
+            rb.AddForce(dir * impulse * impulseFactor, ForceMode2D.Impulse);
+            impulseGiven = true;
+        }
+
+        return false;
+    }
+    
+    public void OnSpecialAttackEnd()
+    {
+    	specialAttackEnded = true;
     }
 }
