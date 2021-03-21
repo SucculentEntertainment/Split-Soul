@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Levels/Manager/PersistentGameManager.unity
     guid: 261f1da5427de414ebef96a77fd86416
   - enabled: 1
-    path: Assets/Levels/GUI/MainMenu.unity
+    path: Assets/Levels/GUI/TitleScreen.unity
     guid: dd3fedba3c2b8434ca90508f08604343
   - enabled: 1
     path: Assets/Levels/TestingLevel.unity
