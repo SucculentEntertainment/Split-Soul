@@ -15,7 +15,7 @@ public class DayNightCycle : MonoBehaviour
 
     [Header("Cycle Parameter")]
     [Tooltip("Specifies the amount of seconds per full cycle (Midnight to Midnight)")]
-    public int cycleDuration = 60;
+    public float cycleDuration = 60;
 
     public Gradient colorOverTime;
 
