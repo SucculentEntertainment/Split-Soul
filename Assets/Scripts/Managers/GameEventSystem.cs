@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class GameEventSystem : MonoBehaviour
 {
@@ -93,5 +94,47 @@ public class GameEventSystem : MonoBehaviour
     public void ProjectileHit(string id, ProjectileData data)
     {
         if (onProjectileHit != null) onProjectileHit(id, data);
+    }
+
+    // --------------------------------
+    //  Light Register Event
+    // --------------------------------
+    public event Action<Light2D> onLightRegister;
+    public void RegisterLight(Light2D light)
+    {
+        if (onLightRegister != null) onLightRegister(light);
+    }
+
+    public event Action<Light2D> onLightUnregister;
+    public void UnregisterLight(Light2D light)
+    {
+        if (onLightUnregister != null) onLightUnregister(light);
+    }
+
+    // --------------------------------
+    //  Time Event
+    // --------------------------------
+    public event Action onSunrise;
+    public void Sunrise()
+    {
+        if (onSunrise != null) onSunrise();
+    }
+
+    public event Action onDayTime;
+    public void DayTime()
+    {
+        if (onDayTime != null) onDayTime();
+    }
+
+    public event Action onSunset;
+    public void Sunset()
+    {
+        if (onSunset != null) onSunset();
+    }
+
+    public event Action onNightTime;
+    public void NightTime()
+    {
+        if (onNightTime != null) onNightTime();
     }
 }

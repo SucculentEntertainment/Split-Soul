@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -64,6 +65,9 @@ public class EnemyBase : MonoBehaviour
     [Header("Common Special Attack")]
     public float damageFactor = 1;
 
+    [Header("References")]
+    public Light2D lamp;
+
     // --------------------------------
     //  Parameters -> Internal Values
     // --------------------------------
@@ -117,6 +121,7 @@ public class EnemyBase : MonoBehaviour
     protected void Update()
     {
         Collider2D target = Physics2D.OverlapCircle(detectPoint.position, detectRange, detectLayers);
+        if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
 
         if (target != null)
         {
@@ -411,6 +416,8 @@ public class EnemyBase : MonoBehaviour
         GetComponent<DimensionEvent>().unregister();
         GetComponent<DamageEvent>().unregister();
         GetComponent<DebugEvent>().unregister();
+
+        if(lamp != null) GameEventSystem.current.UnregisterLight(lamp);
 
         Destroy(gameObject);
     }

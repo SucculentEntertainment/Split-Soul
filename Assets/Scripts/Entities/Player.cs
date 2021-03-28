@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     public Transform attackPoint;
     public Transform interactPoint;
     public GUIManager guiManager;
+    public Light2D lamp;
 
     // ================================
     //  Functions
@@ -75,6 +77,7 @@ public class Player : MonoBehaviour
         animator = sprite.GetComponent<Animator>();
 
         guiManager.init(maxHealth, 10, 10);
+        if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
     }
 
     void Update()
@@ -138,6 +141,7 @@ public class Player : MonoBehaviour
         {
             animator.SetTrigger("Die4Real");
             deathState++;
+            if(lamp != null) GameEventSystem.current.UnregisterLight(lamp);
             return;
         }
 
