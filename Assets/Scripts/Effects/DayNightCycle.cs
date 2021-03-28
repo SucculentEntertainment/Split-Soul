@@ -66,7 +66,7 @@ public class DayNightCycle : MonoBehaviour
 
     private float cycleTimer = 0f;
     private bool lightState = false;
-    private bool changingLights = false;
+    private bool changedLights = false;
 
     // ================================
     //  Functions
@@ -96,11 +96,16 @@ public class DayNightCycle : MonoBehaviour
         rig.rotation = Quaternion.Euler(0, 0, t * -360);
 
         //Toggle lights
-        float roundedT = (float) Math.Round(t, 1, MidpointRounding.AwayFromZero);
-        if((roundedT == onTime || roundedT == offTime) && !changingLights)
+        float roundedT = (float) Math.Round(t, 2, MidpointRounding.AwayFromZero);
+        if(roundedT == onTime || roundedT == offTime)
         {
-            StartCoroutine(toggleLights());
+            if(!changedLights)
+            {
+                changedLights = true;
+                StartCoroutine(toggleLights());
+            }
         }
+        else changedLights = false;
 
         //Throw events
         if(roundedT == sunriseTime) GameEventSystem.current.Sunrise();
@@ -115,8 +120,6 @@ public class DayNightCycle : MonoBehaviour
 
     private IEnumerator toggleLights()
     {
-        changingLights = true;
-
         foreach(Light2D l in lights)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0f, maxDelay / lights.Count));
@@ -124,7 +127,6 @@ public class DayNightCycle : MonoBehaviour
         }
 
         lightState = !lightState;
-        changingLights = false;
     }
 
     // ================================
