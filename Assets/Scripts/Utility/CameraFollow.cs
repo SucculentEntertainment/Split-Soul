@@ -11,12 +11,16 @@ public class CameraFollow : MonoBehaviour
 
     void Start()
     {
+        if(targetObject == null) return;
+
         transform.position = targetObject.position + new Vector3(0, 0, -10);
         initalOffset = transform.position - targetObject.position;
     }
 
     void FixedUpdate()
     {
+        if(targetObject == null) return;
+
         cameraPosition = targetObject.position + initalOffset;
         transform.position = Vector3.Lerp(transform.position, cameraPosition, smoothness * Time.fixedDeltaTime);
     }
