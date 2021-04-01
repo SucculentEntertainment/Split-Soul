@@ -441,12 +441,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1903271181905937512}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc17a9dd6c96bbd4680f13a050bf1453, type: 3}
+  m_Script: {fileID: 11500000, guid: 266990d319a43f4408af521b4c2548f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useLightCollection: 1
   lightCollection: {fileID: 11400000, guid: ee3ec82111384f148a093b812ff1bcee, type: 2}
   lights:
   - {fileID: 2050808783068702235}
+  - {fileID: 2050808783107306126}
+  useParticleCollection: 1
+  particleCollection: {fileID: 11400000, guid: 411a0add6bac77a4186131b753ac5246, type: 2}
+  particleSystems:
+  - {fileID: 2050808781739624104}
 --- !u!114 &1182654035933087848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +765,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.68235296, b: 0, a: 1}
+      maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

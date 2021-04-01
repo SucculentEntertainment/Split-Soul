@@ -6,7 +6,7 @@ using UnityEngine;
 public class ParticleProfile
 {
     public string dimension;
-    public ParticleSystem particleSystem;
+    public Gradient gradient;
 }
 
 [CreateAssetMenu(menuName="Particle Collection")]

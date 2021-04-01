@@ -15,10 +15,15 @@ public class CollectionManager : MonoBehaviour
 
     private void OnDimensionEnable(string dimension)
     {
-        LightProfile profile = lightCollection.profiles.Find(x => x.dimension == dimension);
-        foreach(Light2D l in lights) { l.color = profile.color; }
+        LightProfile lProfile = lightCollection.profiles.Find(x => x.dimension == dimension);
+        foreach(Light2D l in lights) { l.color = lProfile.color; }
 
-        
+        ParticleProfile pProfile = particleCollection.profiles.Find(x => x.dimension == dimension);
+        foreach(ParticleSystem p in particleSystems)
+        {
+            ParticleSystem.ColorOverLifetimeModule col = p.colorOverLifetime;
+            col.color = pProfile.gradient;
+        }
     }
 
     private void OnDimensionDisable(string dimension) { }

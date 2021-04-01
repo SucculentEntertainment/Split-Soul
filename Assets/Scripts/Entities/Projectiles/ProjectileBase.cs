@@ -128,6 +128,8 @@ public class ProjectileBase : MonoBehaviour
 
     protected void destroyState()
     {
+        GetComponent<DimensionEvent>().unregister();
+
         animator.speed = 0;
 
         if(useParticles && particles.particleCount > 0) return;

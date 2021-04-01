@@ -5241,9 +5241,10 @@ MonoBehaviour:
   lights:
   - {fileID: 6643827993390768257}
   - {fileID: 3747190655502703928}
-  useParticleCollection: 0
-  particleCollection: {fileID: 0}
-  particleSystems: []
+  useParticleCollection: 1
+  particleCollection: {fileID: 11400000, guid: 411a0add6bac77a4186131b753ac5246, type: 2}
+  particleSystems:
+  - {fileID: 3747190656279709467}
 --- !u!114 &6643827995403897713
 MonoBehaviour:
   m_ObjectHideFlags: 0

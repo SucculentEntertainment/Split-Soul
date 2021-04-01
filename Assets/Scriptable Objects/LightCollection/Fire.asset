@@ -16,4 +16,4 @@ MonoBehaviour:
   - dimension: alive
     color: {r: 1, g: 0.68235296, b: 0, a: 0}
   - dimension: dead
-    color: {r: 0, g: 0.5930424, b: 1, a: 0}
+    color: {r: 0, g: 0.7833333, b: 1, a: 1}
