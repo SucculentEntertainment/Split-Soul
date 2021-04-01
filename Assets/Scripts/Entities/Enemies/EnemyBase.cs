@@ -34,7 +34,7 @@ public class EnemyBase : MonoBehaviour
 
 	[Header("Ranged")]
     public bool isRanged = false;
-    public GameObject projectile;
+    public ProjectileSpawner projectileSpawner;
 
 	[Header("Base")]
     public float maxHealth;
@@ -114,6 +114,7 @@ public class EnemyBase : MonoBehaviour
         animator = GetComponent<Animator>();
 
         pathLine = GetComponent<LineRenderer>();
+        GetComponent<DimensionEvent>().changeDimension(LevelManager.dimension);
 
         additionalStart();
     }
@@ -299,7 +300,7 @@ public class EnemyBase : MonoBehaviour
         if(attackTimer < attackCooldown) return;
         
         attackTimer = 0f;
-        if(!isRanged) attack();
+        if(!isRanged || (isRanged && isTooClose)) attack();
         else attackRanged();
 
         StartCoroutine(setState(State.IDLE));
@@ -394,14 +395,10 @@ public class EnemyBase : MonoBehaviour
     }
 
     public virtual void attackRanged() { }
-
-    public virtual void spawnProjectile()
-    {
-        GameObject instance = Instantiate(projectile, transform.position, Quaternion.identity, LevelManager.current.projectileContainer.transform);
+    
+    private void invokeSpawnProjectile() {
         if (targetObject != null) aimPosition = (Vector2) targetObject.transform.position;
-
-        Vector2 dir = (aimPosition - (Vector2) transform.position).normalized;
-        instance.GetComponent<ProjectileBase>().init(dir, this.name);
+        projectileSpawner.spawnProjectile(aimPosition);
     }
 
     // --------------------------------
