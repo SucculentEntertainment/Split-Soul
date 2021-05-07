@@ -271,7 +271,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 56597231}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822727851}
+        m_TargetAssemblyTypeName: MainBook, Assembly-CSharp
+        m_MethodName: OnExitButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &56597231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,6 +578,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107331434}
+  - component: {fileID: 107331436}
   - component: {fileID: 107331435}
   m_Layer: 0
   m_Name: UI
@@ -600,6 +613,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83b5eb2610c06c74da7f16232a74ebcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTitleScreen: 0
+  menues:
+  - menuID: MainBook
+    menuContainer: {fileID: 1822727849}
+--- !u!114 &107331436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107331433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76fca960588b04449e46f176f0d8cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &130799496
@@ -873,7 +902,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 161062872}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822727851}
+        m_TargetAssemblyTypeName: MainBook, Assembly-CSharp
+        m_MethodName: OnSettingsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &161062872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,7 +1035,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 183972824}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822727851}
+        m_TargetAssemblyTypeName: MainBook, Assembly-CSharp
+        m_MethodName: OnStatsButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &183972824
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59275,7 +59328,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 406765775}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822727851}
+        m_TargetAssemblyTypeName: MainBook, Assembly-CSharp
+        m_MethodName: OnResumeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &406765775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66228,7 +66293,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 586425244}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822727851}
+        m_TargetAssemblyTypeName: MainBook, Assembly-CSharp
+        m_MethodName: OnSavesButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &586425244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69590,7 +69667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00004142403}
+  m_AnchoredPosition: {x: 0, y: -0.000050615447}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &904207580
@@ -70100,7 +70177,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1384865401}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1822727851}
+        m_TargetAssemblyTypeName: MainBook, Assembly-CSharp
+        m_MethodName: OnInventoryButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1384865401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72635,7 +72724,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1414826077}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.999988
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
