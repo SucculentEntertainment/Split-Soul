@@ -2,25 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DebugController : MonoBehaviour
 {
     public Camera cam;
     public Font font;
 
-    public Transform player;
-    public Transform enemies;
-    public Transform npcs;
+	public Transform outputTextContainer;
+	public GameObject fadingTextElement;
 
-    bool showConsole = false;
-    bool showHelp = false;
-    bool showIDs = false;
-    private bool showUnknown = false;
-
-    private string unknownCommand = "";
-
-    Vector2 scroll;
-    string input = "";
+    private bool showIDs = false;
+	private int prevChildCount = 0;
 
     public List<object> commandList;
 
@@ -36,107 +29,70 @@ public class DebugController : MonoBehaviour
     // ================================
     //  Events
     // ================================
-    public void OnConsole(InputValue val)
-    {
-        showConsole = !showConsole;
-        showHelp = false;
-        showUnknown = false;
-    }
 
-    public void OnReturn(InputValue val)
-    {
-        if (!showConsole) return;
-        HandleInput();
-        input = "";
-    }
 
-    public void OnEscape(InputValue val)
-    {
-        if (!showConsole) return;
 
-        showConsole = false;
-        showHelp = false;
-        showUnknown = false;
-        input = "";
-    }
+	// ================================
+    //  Functions
+    // ================================
 
-    private void OnGUI()
-    {
-        if (showIDs) drawIDs();
-        if (!showConsole) return;
-
-        GUI.skin.font = font;
-        GUI.skin.label.alignment = TextAnchor.MiddleLeft;
-
-        float y = 0f;
-        if (showHelp) y = drawHelp(y);
-
-        GUI.Box(new Rect(0, y, Screen.width, 32), "");
-        GUI.backgroundColor = new Color(0, 0, 0, 0);
-        input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
-        y += 32;
-
-        if (showUnknown) y = drawUnknown(y);
-    }
-
-    private float drawHelp(float y)
+	private void OnEnable()
 	{
-        GUI.Box(new Rect(0, y, Screen.width, 128), "");
+		transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
+	}
 
-        Rect viewport = new Rect(0, y, Screen.width - 30, 20 * commandList.Count);
-        scroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 114), scroll, viewport);
+	private void Update()
+	{
+		int childCount = outputTextContainer.childCount;
+		if(prevChildCount == childCount) return;
+		prevChildCount = childCount;
 
+		float width = outputTextContainer.GetComponent<RectTransform>().sizeDelta.x;
+		float height = childCount * fadingTextElement.GetComponent<RectTransform>().sizeDelta.y;
+
+		outputTextContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+	}
+
+	private void textOutput(string text, Font font, float lifetime, Color startColor, Color endColor)
+	{
+		//Instantiate
+		GameObject obj = Instantiate(fadingTextElement, outputTextContainer);
+		FadingTextElement fte = obj.GetComponent<FadingTextElement>();
+
+		//Set text, font and lifetime
+		fte.text = text;
+		fte.font = font;
+		fte.lifetime = lifetime;
+
+		//Set Gradient
+		if(startColor == null) startColor = Color.white;
+		if(endColor == null) endColor = startColor;
+
+		GradientColorKey[] colorKey = new GradientColorKey[2];
+        colorKey[0].color = startColor;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = endColor;
+        colorKey[1].time = 1.0f;
+
+        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        fte.gradient.SetKeys(colorKey, alphaKey);
+
+	}
+
+    private void printHelp()
+	{
         for (int i = 0; i < commandList.Count; i++)
         {
             DebugCommandBase command = commandList[i] as DebugCommandBase;
 
-            string label = $"{command.commandFormat}";
-            Rect cmdRect = new Rect(5, 20 * i, (viewport.width - 100) / 3, 20);
-            GUI.Label(cmdRect, label);
-
-            label = $"{command.commandDescription}";
-            Rect labelRect = new Rect(5 + (viewport.width - 100) / 3, 20 * i, (viewport.width - 100) / 3 * 2, 20);
-            GUI.Label(labelRect, label);
+            string text = $"{command.commandFormat}" + " => " + $"{command.commandDescription}";
+            textOutput(text, font, 10, Color.white, Color.white);
         }
-
-        GUI.EndScrollView();
-
-        return y + 128;
-    }
-
-    private float drawUnknown(float y)
-    {
-        GUI.color = Color.red;
-        GUI.Box(new Rect(0, y, Screen.width, 32), "Unknown command: " + unknownCommand);
-        GUI.color = Color.white;
-
-        return y + 32;
-    }
-
-    private void drawIDs()
-	{
-        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-
-        GUI.color = Color.cyan;
-        Vector2 playerPos = cam.WorldToScreenPoint(player.position - new Vector3(0.5f, 0, 0));
-        GUI.Box(new Rect(playerPos.x, Screen.height - playerPos.y, 100, 22), player.name);
-
-        GUI.color = Color.yellow;
-        foreach (Transform e in enemies)
-        {
-            Vector2 ePos = cam.WorldToScreenPoint(e.position - new Vector3(0.5f, 0, 0));
-            GUI.Box(new Rect(ePos.x, Screen.height - ePos.y, 100, 22), e.name);
-        }
-
-        GUI.color = Color.green;
-        foreach (Transform n in npcs)
-        {
-            Vector2 nPos = cam.WorldToScreenPoint(n.position - new Vector3(0.5f, 0, 0));
-            GUI.Box(new Rect(nPos.x, Screen.height - nPos.y, 100, 22), n.name);
-        }
-
-        GUI.skin.label.alignment = TextAnchor.MiddleCenter;
-        GUI.color = Color.white;
     }
 
     // ================================
@@ -147,9 +103,9 @@ public class DebugController : MonoBehaviour
     {
         Help = new DebugCommand("help", "Shows a list of available commands", "help", () =>
         {
-            showHelp = true;
+            printHelp();
         });
-        
+
         Kill = new DebugCommand<string>("kill", "Kills the specified entity", "kill [entity ID]", (id) =>
         {
             GameEventSystem.current.GiveDamage(id, 999999999f);
@@ -164,7 +120,7 @@ public class DebugController : MonoBehaviour
         {
             GameEventSystem.current.GiveDamage(id, damage);
         });
-        
+
         Heal = new DebugCommand<string, float>("heal", "Heals the specified entity by amount", "heal [entity ID] [amount]", (id, damage) =>
         {
             GameEventSystem.current.Heal(id, damage);
@@ -177,7 +133,7 @@ public class DebugController : MonoBehaviour
 
         IDs = new DebugCommand("ids", "Displays the entity IDs above the entities", "ids", () =>
         {
-            showIDs = !showIDs;
+
         });
 
         Paths = new DebugCommand("paths", "Displays all AI paths", "path", () =>
@@ -198,12 +154,15 @@ public class DebugController : MonoBehaviour
         };
     }
 
-    void HandleInput()
+    public void HandleInput()
     {
-        showUnknown = false;
-        string[] args = input.Split(' ');
+		string input = transform.GetChild(0).GetComponent<InputField>().text;
+		transform.GetChild(0).GetComponent<InputField>().text = "";
+		transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
 
+        string[] args = input.Split(' ');
         bool found = false;
+
         for(int i = 0; i < commandList.Count; i++)
         {
             DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
@@ -226,10 +185,6 @@ public class DebugController : MonoBehaviour
             }
         }
 
-        if(!found)
-        {
-            unknownCommand = args[0];
-            showUnknown = true;
-        }
+        if(!found) { textOutput("Unknown command: " + args[0], font, 5, Color.red, Color.red); }
     }
 }

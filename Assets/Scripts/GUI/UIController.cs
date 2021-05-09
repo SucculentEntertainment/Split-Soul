@@ -28,7 +28,11 @@ public class UIController : MonoBehaviour
 
 	UnityEngine.Rendering.Universal.DepthOfField dof;
 
-	private void Start() { if(!postProcessingProfile.TryGet(out dof)) throw new System.NullReferenceException(nameof(dof)); }
+	private void Start()
+	{
+		if(!postProcessingProfile.TryGet(out dof)) throw new System.NullReferenceException(nameof(dof));
+		dof.focusDistance.Override(deafultDoF);
+	}
 
 	// ================================
 	//  Action Matching
@@ -42,6 +46,8 @@ public class UIController : MonoBehaviour
 			else closeMenu(openedMenu);
 		}
 
+		if(action == "Enter") { if(openedMenu == "Console") menues.Find(x => x.menuID == "Console").menuContainer.GetComponent<DebugController>().HandleInput(); }
+		if(action == "Console") { if(openedMenu == "") openMenu("Console"); }
 		if(action == "MainReturn") { closeMenu("MainBook"); }
 		if(action == "MainInventory") { }
 		if(action == "MainStats") { }
@@ -68,8 +74,6 @@ public class UIController : MonoBehaviour
 
 		menues.Find(x => x.menuID == menuID).menuContainer.SetActive(false);
 		openedMenu = "";
-
-		dof.focusDistance.Override(deafultDoF);
 	}
 
 	IEnumerator blurAnimation(bool invert, float duration)

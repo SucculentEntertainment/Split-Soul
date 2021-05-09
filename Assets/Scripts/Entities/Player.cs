@@ -56,6 +56,7 @@ public class Player : MonoBehaviour
     public Transform attackPoint;
     public Transform interactPoint;
     public GUIManager guiManager; //TODO: Rename to HUDManager
+	public UIController uiController;
     public Light2D lamp;
 
     // ================================
@@ -219,14 +220,17 @@ public class Player : MonoBehaviour
 
     private void OnConsole(InputValue val)
     {
-        disableMovement = !disableMovement;
-        dir = new Vector2(0, 0);
+		GameEventSystem.current.UIAction("Console");
     }
 
     private void OnEscape(InputValue val)
     {
 		GameEventSystem.current.UIAction("ESC");
-        disableMovement = false;
+    }
+
+	private void OnReturn(InputValue val)
+    {
+		GameEventSystem.current.UIAction("Enter");
     }
 
     private void OnInteract(InputValue val)
