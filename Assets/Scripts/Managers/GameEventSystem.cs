@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class GameEventSystem : MonoBehaviour
 {
     public static GameEventSystem current;
-    
+
     private void Awake()
     {
         current = this;
@@ -34,7 +34,7 @@ public class GameEventSystem : MonoBehaviour
     {
         if (onReceiveDamage != null) onReceiveDamage(id, damage);
     }
-    
+
     // --------------------------------
     //  Heal Event
     // --------------------------------
@@ -136,5 +136,15 @@ public class GameEventSystem : MonoBehaviour
     public void NightTime()
     {
         if (onNightTime != null) onNightTime();
+    }
+
+	// --------------------------------
+    //  UI Action Event
+    // --------------------------------
+
+    public event Action<string> onUIAction;
+    public void UIAction(string action)
+    {
+        if (onUIAction != null) onUIAction(action);
     }
 }

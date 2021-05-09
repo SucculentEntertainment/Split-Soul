@@ -1,6 +1,29 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8921083593423110311
+--- !u!114 &-5986247773786093363
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.8789693, z: 0.8043381, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.9877408, y: 0.9945722, z: 1, w: 0.088364445}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 1, z: 1, w: 0.19471486}
+--- !u!114 &-5805252196904454359
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -35,7 +58,7 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 4.51
+    m_Value: 4
     min: 0.1
   aperture:
     m_OverrideState: 0
@@ -62,29 +85,6 @@ MonoBehaviour:
     m_Value: 0
     min: -180
     max: 180
---- !u!114 &-5986247773786093363
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
-  m_Name: LiftGammaGain
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  lift:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 0.8789693, z: 0.8043381, w: 0}
-  gamma:
-    m_OverrideState: 1
-    m_Value: {x: 0.9877408, y: 0.9945722, z: 1, w: 0.088364445}
-  gain:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.19471486}
 --- !u!114 &-123403857854343260
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -115,12 +115,12 @@ MonoBehaviour:
   m_Name: PostProcessing Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -8921083593423110311}
   - {fileID: -123403857854343260}
   - {fileID: -5986247773786093363}
   - {fileID: 3393731591553759046}
   - {fileID: 8229373517451052443}
   - {fileID: 2970542323364582188}
+  - {fileID: -5805252196904454359}
 --- !u!114 &2970542323364582188
 MonoBehaviour:
   m_ObjectHideFlags: 3

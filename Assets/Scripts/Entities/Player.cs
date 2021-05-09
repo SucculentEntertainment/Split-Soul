@@ -55,7 +55,8 @@ public class Player : MonoBehaviour
 
     public Transform attackPoint;
     public Transform interactPoint;
-    public GUIManager guiManager;
+    public GUIManager guiManager; //TODO: Rename to HUDManager
+	public UIController uiController;
     public Light2D lamp;
 
     // ================================
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
             GameEventSystem.current.GiveDamage(enemy.name, baseAttack);
 		}
 	}
-	
+
 	public void OnReceiveDamage(float damage)
 	{
 	    health -= damage;
@@ -126,7 +127,7 @@ public class Player : MonoBehaviour
 
 	    if(health <= 0) die();
 	}
-	
+
 	public void OnReceiveHeal(float amount)
 	{
 	    health += amount;
@@ -134,7 +135,7 @@ public class Player : MonoBehaviour
 
         if (health > maxHealth) health = maxHealth;
 	}
-	
+
 	private void die()
 	{
 	    if(deathState > 0)
@@ -205,7 +206,7 @@ public class Player : MonoBehaviour
     private void OnAttack(InputValue val)
     {
         if (Time.time >= nextAttackTime)
-        {   
+        {
             attack();
             nextAttackTime = Time.time + 1f / baseAttackRate;
         }
@@ -219,13 +220,17 @@ public class Player : MonoBehaviour
 
     private void OnConsole(InputValue val)
     {
-        disableMovement = !disableMovement;
-        dir = new Vector2(0, 0);
+		GameEventSystem.current.UIAction("Console");
     }
 
     private void OnEscape(InputValue val)
     {
-        disableMovement = false;
+		GameEventSystem.current.UIAction("ESC");
+    }
+
+	private void OnReturn(InputValue val)
+    {
+		GameEventSystem.current.UIAction("Enter");
     }
 
     private void OnInteract(InputValue val)
