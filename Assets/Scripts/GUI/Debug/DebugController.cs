@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Drawing;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -109,36 +110,42 @@ public class DebugController : MonoBehaviour
         Kill = new DebugCommand<string>("kill", "Kills the specified entity", "kill [entity ID]", (id) =>
         {
             GameEventSystem.current.GiveDamage(id, 999999999f);
+            textOutput("Killed " + id, font, 5, Color.white, Color.white);
         });
 
         Revive = new DebugCommand<string>("revive", "Revives the specified entity", "revive [entity ID]", (id) =>
         {
             GameEventSystem.current.Revive(id);
+            textOutput("Revived " + id, font, 5, Color.white, Color.white);
         });
 
         Damage = new DebugCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage [entity ID] [damage]", (id, damage) =>
         {
             GameEventSystem.current.GiveDamage(id, damage);
+            textOutput("Dealt " + damage + " damage to " + id, font, 5, Color.white, Color.white);
         });
 
         Heal = new DebugCommand<string, float>("heal", "Heals the specified entity by amount", "heal [entity ID] [amount]", (id, damage) =>
         {
             GameEventSystem.current.Heal(id, damage);
+            textOutput("Healed " + id + " by " + damage + " HP", font, 5, Color.white, Color.white);
         });
 
         ChangeDimension = new DebugCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension [dimension]", (dim) =>
         {
             LevelManager.dimension = dim;
+            textOutput("Changed dimension to " + dim, font, 5, Color.white, Color.white);
         });
 
         IDs = new DebugCommand("ids", "Displays the entity IDs above the entities", "ids", () =>
         {
-
+            textOutput("Toggled ID Labels", font, 5, Color.white, Color.white);
         });
 
-        Paths = new DebugCommand("paths", "Displays all AI paths", "path", () =>
+        Paths = new DebugCommand("paths", "Displays all AI paths", "paths", () =>
         {
             GameEventSystem.current.Debug("path");
+            textOutput("Toggled display of pathfinding paths", font, 5, Color.white, Color.white);
         });
 
         commandList = new List<object>
