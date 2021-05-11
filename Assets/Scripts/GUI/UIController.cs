@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour
 	private void Start()
 	{
 		if(!postProcessingProfile.TryGet(out dof)) throw new System.NullReferenceException(nameof(dof));
+		for(int i = 0; i < menues.Count; i++) closeMenu(menues[i].menuID, true);
 		dof.focusDistance.Override(deafultDoF);
 	}
 
@@ -68,9 +69,9 @@ public class UIController : MonoBehaviour
 		menues.Find(x => x.menuID == menuID).menuContainer.SetActive(true);
 	}
 
-	private void closeMenu(string menuID)
+	private void closeMenu(string menuID, bool noAnimation = false)
 	{
-		StartCoroutine(blurAnimation(true, blurAnimDuration));
+		if(!noAnimation) StartCoroutine(blurAnimation(true, blurAnimDuration));
 
 		menues.Find(x => x.menuID == menuID).menuContainer.SetActive(false);
 		openedMenu = "";
