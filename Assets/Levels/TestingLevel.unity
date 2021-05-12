@@ -707,6 +707,7 @@ MonoBehaviour:
   blurDoF: 0.1
   blurAnimDuration: 0.25
   isTitleScreen: 0
+  player: {fileID: 71806755}
   menues:
   - menuID: MainBook
     menuContainer: {fileID: 1822727849}
