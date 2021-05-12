@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [SerializableAttribute]
 public class Menu
@@ -20,9 +21,12 @@ public class UIController : MonoBehaviour
 	public float blurDoF = 0.1f;
 	public float blurAnimDuration = 0.5f;
 
+	[Header("References")]
+	public MainBook mainBook;
+	public Player player;
+
 	[Header("UI Controls")]
     public bool isTitleScreen;
-	public Player player;
 
 	public List<Menu> menues;
 	private string openedMenu = "";
@@ -32,8 +36,11 @@ public class UIController : MonoBehaviour
 	private void Start()
 	{
 		if(!postProcessingProfile.TryGet(out dof)) throw new System.NullReferenceException(nameof(dof));
-		for(int i = 0; i < menues.Count; i++) closeMenu(menues[i].menuID, true);
-		dof.focusDistance.Override(deafultDoF);
+		resetMenus();
+		dof.focusDistance.Override(isTitleScreen ? blurDoF : deafultDoF);
+
+		if(isTitleScreen) openMenu("TitleScreen", true);
+		mainBook.setTitleScreenMode(isTitleScreen);
 	}
 
 	// ================================
@@ -45,12 +52,26 @@ public class UIController : MonoBehaviour
 		if(action == "ESC")
 		{
 			if(openedMenu == "") openMenu("MainBook");
-			else closeMenu(openedMenu);
+			else
+			{
+				if(!isTitleScreen) closeMenu(openedMenu);
+				else openMenu("TitleScreen", true);
+			}
 		}
 
-		if(action == "Enter") { if(openedMenu == "Console") menues.Find(x => x.menuID == "Console").menuContainer.GetComponent<DebugController>().HandleInput(); }
+		if(action == "Enter")
+		{
+			if(openedMenu == "Console") menues.Find(x => x.menuID == "Console").menuContainer.GetComponent<DebugController>().HandleInput();
+			if(openedMenu == "TitleScreen") openMenu("MainBook", true); //TODO: Improve this
+		}
+
 		if(action == "Console") { if(openedMenu == "") openMenu("Console"); }
-		if(action == "MainReturn") { closeMenu("MainBook"); }
+		if(action == "MainReturn")
+		{
+			if(!isTitleScreen) closeMenu("MainBook");
+			else openMenu("TitleScreen", true);
+		}
+
 		if(action == "MainInventory") { }
 		if(action == "MainStats") { }
 		if(action == "MainSaves") { }
@@ -62,9 +83,12 @@ public class UIController : MonoBehaviour
 	//  Menu control
 	// ================================
 
-	private void openMenu(string menuID)
+	private void resetMenus(bool noAnimation = true) { for(int i = 0; i < menues.Count; i++) closeMenu(menues[i].menuID, noAnimation); }
+
+	private void openMenu(string menuID, bool noAnimation = false)
 	{
-		StartCoroutine(blurAnimation(false, blurAnimDuration));
+		resetMenus(noAnimation);
+		if(!noAnimation) StartCoroutine(blurAnimation(false, blurAnimDuration));
 
 		openedMenu = menuID;
 		menues.Find(x => x.menuID == menuID).menuContainer.SetActive(true);
