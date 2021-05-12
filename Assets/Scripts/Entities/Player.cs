@@ -238,6 +238,12 @@ public class Player : MonoBehaviour
         interact();
 	}
 
+	public void setMovementActive(bool active)
+	{
+		disableMovement = !active;
+		if(!active) dir = new Vector2(0, 0);
+	}
+
     // ================================
     //  Gizmos
     // ================================

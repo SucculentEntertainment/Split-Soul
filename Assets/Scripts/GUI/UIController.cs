@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour
 
 	[Header("UI Controls")]
     public bool isTitleScreen;
+	public Player player;
 
 	public List<Menu> menues;
 	private string openedMenu = "";
@@ -67,6 +68,8 @@ public class UIController : MonoBehaviour
 
 		openedMenu = menuID;
 		menues.Find(x => x.menuID == menuID).menuContainer.SetActive(true);
+
+		if(player != null) player.setMovementActive(false);
 	}
 
 	private void closeMenu(string menuID, bool noAnimation = false)
@@ -75,6 +78,8 @@ public class UIController : MonoBehaviour
 
 		menues.Find(x => x.menuID == menuID).menuContainer.SetActive(false);
 		openedMenu = "";
+
+		if(player != null) player.setMovementActive(true);
 	}
 
 	IEnumerator blurAnimation(bool invert, float duration)
@@ -83,7 +88,7 @@ public class UIController : MonoBehaviour
 
 		while(true)
 		{
-			timePassed += Time.deltaTime;
+			timePassed += Time.unscaledDeltaTime;
 			if(timePassed >= duration) break;
 
 			float val = timePassed / duration;
