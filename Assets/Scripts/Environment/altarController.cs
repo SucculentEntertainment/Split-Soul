@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class altarController : MonoBehaviour
+public class AltarController : MonoBehaviour
 {
     public float cooldown = 10f;
     public string target = "alive";

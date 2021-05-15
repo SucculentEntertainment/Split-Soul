@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEditor;
+using System.Collections;
 
 public enum SceneIndecies
 {
-    MANAGER = 0,
-    MAIN_MENU = 1,
-    TESTING = 2
+    Manager = 0,
+    TitleScreen = 1,
+    TestingLevel = 2
 }

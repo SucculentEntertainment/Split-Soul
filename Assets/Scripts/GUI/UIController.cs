@@ -74,6 +74,8 @@ public class UIController : MonoBehaviour
 
 		if(action == "MainInventory") { }
 		if(action == "MainStats") { }
+
+		if(action == "MainNewGame") { GameEventSystem.current.LevelChange((int) SceneIndecies.TestingLevel); }
 		if(action == "MainSaves") { }
 		if(action == "MainSettings") { }
 		if(action == "MainExit") { }
