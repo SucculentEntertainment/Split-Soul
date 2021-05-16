@@ -44,10 +44,13 @@ public class GameManager : MonoBehaviour
 
 	private void activateLevel(int level)
 	{
+		GameObject master = SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0];
+		master.Find("LevelManager").GetComponent<LevelManager>().previousLevel = currLevel;
+	
 		currLevel = level;
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(level));
 
-		SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0].SetActive(true);
+		master.SetActive(true);
 	}
 
 	// ================================
