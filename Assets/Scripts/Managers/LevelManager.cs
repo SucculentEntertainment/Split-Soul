@@ -16,6 +16,12 @@ public class LevelManager : MonoBehaviour
 	public GameObject projectileContainer;
 
 	// ================================
+	//  Values
+	// ================================
+
+	[HideInInspector] public int previousLevel = -1;
+
+	// ================================
 	//  Private values
 	// ================================
 
@@ -49,5 +55,11 @@ public class LevelManager : MonoBehaviour
             firstUpdate = false;
             dimension = "alive";
 		}
+	}
+
+	private void OnLevelChange(int targetLevel)
+	{
+		GameManager.current.loadLevel(targetLevel);
+		Debug.Log("Requesting to load level " + targetLevel);
 	}
 }

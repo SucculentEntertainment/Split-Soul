@@ -523,7 +523,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1438774233}
-  - component: {fileID: 1438774235}
   - component: {fileID: 1438774234}
   m_Layer: 0
   m_Name: GameManager
@@ -559,18 +558,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1875547497}
---- !u!114 &1438774235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1438774232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b849b4bab2b98a14d8706fc5b72b3948, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1765128011
 GameObject:
   m_ObjectHideFlags: 0

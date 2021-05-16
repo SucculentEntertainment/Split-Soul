@@ -14,4 +14,9 @@ public class TitleScreenManager : MonoBehaviour
     {
 		GameEventSystem.current.UIAction("Enter");
     }
+
+	private void OnLevelChange(int targetLevel)
+	{
+		GameManager.current.loadLevel(targetLevel);
+	}
 }

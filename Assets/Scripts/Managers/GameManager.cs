@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.IO;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,42 +7,63 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager current;
 	public GameObject loadingScreen;
 
 	private int currLevel = -1;
+	private List<int> loadedScenes = new List<int>();
+	private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     void Awake()
     {
-        instance = this;
-        loadLevel((int) SceneIndecies.TitleScreen);
+        current = this;
+		loadLevel((int) SceneIndecies.TitleScreen);
     }
-
-	List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
     public void loadLevel(int level)
 	{
 		loadingScreen.SetActive(true);
 
-		if(currLevel != -1) scenesLoading.Add(SceneManager.UnloadSceneAsync(currLevel));
+		if(loadedScenes.IndexOf(level) == -1)
+		{
+			scenesLoading.Add(SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive));
+			loadedScenes.Add(level);
+		}
 
+		StartCoroutine(GetSceneLoadProgreess(level));
+	}
+
+	private void disableAllScenes()
+	{
+		foreach(int scene in loadedScenes)
+		{
+			//Disable Master GameObject in every Scene
+			SceneManager.GetSceneByBuildIndex(scene).GetRootGameObjects()[0].SetActive(false);
+		}
+	}
+
+	private void activateLevel(int level)
+	{
 		currLevel = level;
-		scenesLoading.Add(SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive));
+		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(level));
 
-		StartCoroutine(GetSceneLoadProgreess());
+		SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0].SetActive(true);
 	}
 
 	// ================================
 	//  Coroutines
 	// ================================
 
-	public IEnumerator GetSceneLoadProgreess()
+	public IEnumerator GetSceneLoadProgreess(int level)
 	{
-		for(int i = 0; i < scenesLoading.Count; i++)
-		{
+		for(int i = 0; i < scenesLoading.Count; i++) {
 			while(!scenesLoading[i].isDone) { yield return null; }
 		}
 
+		disableAllScenes();
+		yield return new WaitForSeconds(1);
+
+		activateLevel(level);
 		loadingScreen.SetActive(false);
 	}
 

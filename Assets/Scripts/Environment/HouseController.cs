@@ -35,6 +35,7 @@ public class HouseController : MonoBehaviour
 	{
         if(!enableInteractions) { return; }
         GameEventSystem.current.LevelChange((int) targetScene);
+		Debug.Log((int) targetScene);
 	}
 
     private void OnInteractHighlight(bool activate)
