@@ -13,13 +13,14 @@ public class ProjectileSpawner : MonoBehaviour
 {
     public bool useDifferentProfiles = false;
     public List<ProjectileProfile> profiles;
+	public Transform projectileContainer;
 
     public void spawnProjectile(Vector2 aimPosition)
     {
         ProjectileProfile profile = profiles[0];
-        if(useDifferentProfiles) profile = profiles.Find(x => x.dimension == LevelManager.dimension);
+        if(useDifferentProfiles) profile = profiles.Find(x => x.dimension == GameManager.current.dimension);
 
-        GameObject instance = Instantiate(profile.projectile, transform.position, Quaternion.identity, LevelManager.current.projectileContainer.transform);
+        GameObject instance = Instantiate(profile.projectile, transform.position, Quaternion.identity, projectileContainer);
         Vector2 dir = (aimPosition - (Vector2) transform.position).normalized;
         instance.GetComponent<ProjectileBase>().init(dir, this.name);
     }

@@ -133,7 +133,7 @@ public class DebugController : MonoBehaviour
 
         ChangeDimension = new DebugCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension [dimension]", (dim) =>
         {
-            LevelManager.dimension = dim;
+            GameManager.current.changeDimension(dim);
             textOutput("Changed dimension to " + dim, font, 5, Color.white, Color.white);
         });
 

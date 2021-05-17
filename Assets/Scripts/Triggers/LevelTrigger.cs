@@ -12,10 +12,7 @@ public class LevelTrigger : MonoBehaviour
 
 	private void Start()
 	{
-		if(returnToPrevious) target = LevelManager.current.previousLevel;
-		else target = (int) destination;
-
-		if(target == -1) { Debug.LogError("Failed to set Target for LevelTrigger <" + this + ">"); }
+		StartCoroutine(setTarget());
 	}
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -26,5 +23,18 @@ public class LevelTrigger : MonoBehaviour
 
 		activated = true;
 		GameEventSystem.current.LevelChange(target);
+	}
+
+	IEnumerator setTarget()
+	{
+		while(target == -1)
+		{
+			if(returnToPrevious) target = LevelManager.current.previousLevel;
+			else target = (int) destination;
+
+			yield return null;
+		}
+
+		yield return null;
 	}
 }

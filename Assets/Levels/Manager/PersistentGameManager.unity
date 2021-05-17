@@ -558,6 +558,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1875547497}
+  dimensions:
+  - alive
+  - dead
+  currLevel: -1
+  dimension: alive
 --- !u!1 &1765128011
 GameObject:
   m_ObjectHideFlags: 0

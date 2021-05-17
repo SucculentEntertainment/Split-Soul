@@ -48,7 +48,7 @@ public class EnemyBase : MonoBehaviour
     public float interestCooldown;
     public float attackCooldown;
     public float specialAttackCooldown;
-    
+
     [Header("Ranges")]
     public Transform detectPoint;
     public float detectRange;
@@ -76,12 +76,12 @@ public class EnemyBase : MonoBehaviour
 
     protected float health;
     protected State state = State.IDLE;
-    
+
     protected float roamingTimer = 0f;
     protected float interestTimer = 0f;
     protected float attackTimer = 0f;
     protected float specialAttackTimer = 0f;
-    
+
     protected GameObject targetObject;
     protected Vector2 targetPosition;
     protected Vector2 aimPosition;
@@ -94,10 +94,10 @@ public class EnemyBase : MonoBehaviour
     protected bool isTooClose = false;
 
     protected GameObject mutationTarget;
-    protected int mutationID; 
+    protected int mutationID;
     protected bool isMutating = false;
     protected bool isMutateInit = false;
-    
+
     [HideInInspector] public bool specialAttackEnded = true;
 
     // ================================
@@ -114,7 +114,7 @@ public class EnemyBase : MonoBehaviour
         animator = GetComponent<Animator>();
 
         pathLine = GetComponent<LineRenderer>();
-        GetComponent<DimensionEvent>().changeDimension(LevelManager.dimension);
+        GetComponent<DimensionEvent>().changeDimension(GameManager.current.dimension);
 
         additionalStart();
     }
@@ -180,7 +180,7 @@ public class EnemyBase : MonoBehaviour
             case State.DEAD:
                 deadState();
                 break;
-            
+
             case State.MUTATE_INIT:
                 mutateInitState();
                 break;
@@ -188,7 +188,7 @@ public class EnemyBase : MonoBehaviour
             case State.MUTATE:
                 mutateState();
                 break;
-            
+
             case State.SPECIAL_ATTACK:
                 specialAttackState();
                 break;
@@ -228,13 +228,13 @@ public class EnemyBase : MonoBehaviour
             StartCoroutine(setState(State.SPECIAL_ATTACK));
             return;
         }
-        
+
         idle();
-        
+
         if(roamingTimer >= roamingCooldown)
 		{
             roamingTimer = 0f;
-            
+
             if((int) UnityEngine.Random.Range(1, 100) <= roamingProbability)
 			{
                 Vector2 dir = new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f));
@@ -286,7 +286,7 @@ public class EnemyBase : MonoBehaviour
             Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
             targetPosition += dir * attackRangePadding * 2;
         }
-        
+
         move();
     }
 
@@ -298,7 +298,7 @@ public class EnemyBase : MonoBehaviour
     {
         if(isDead || isMutating) return;
         if(attackTimer < attackCooldown) return;
-        
+
         attackTimer = 0f;
         if(!isRanged || (isRanged && isTooClose)) attack();
         else attackRanged();
@@ -339,21 +339,21 @@ public class EnemyBase : MonoBehaviour
     // --------------------------------
     //  State Handler -> Special Attack
     // --------------------------------
-    
+
     protected bool isFirstExec = true;
 
     protected void specialAttackState()
     {
         if(isDead || isMutating) return;
         if(specialAttackTimer < specialAttackCooldown) return;
-        
+
         if(isFirstExec)
         {
         	specialAttackTimer = 0f;
         	specialAttackEnded = false;
             isFirstExec = false;
         }
-        		
+
         specialAttack();
 
         if(specialAttackEnded)
@@ -395,7 +395,7 @@ public class EnemyBase : MonoBehaviour
     }
 
     public virtual void attackRanged() { }
-    
+
     private void invokeSpawnProjectile() {
         if (targetObject != null) aimPosition = (Vector2) targetObject.transform.position;
         projectileSpawner.spawnProjectile(aimPosition);
@@ -448,7 +448,7 @@ public class EnemyBase : MonoBehaviour
     protected IEnumerator setState(State _state = State.IDLE, float _delay = 0, bool changeAnim = true)
 	{
         yield return new WaitForSeconds(_delay);
-        
+
         if(isDead && _state != State.DEAD) yield break;
 
         if(changeAnim) animator.SetTrigger(animationTrigger[(int) _state]);
@@ -507,7 +507,7 @@ public class EnemyBase : MonoBehaviour
 
     protected virtual void OnDimensionEnable(string dimension)
     {
-        int index = LevelManager.dimensions.FindIndex(x => x.Contains(dimension));
+        int index = GameManager.current.dimensions.FindIndex(x => x.Contains(dimension));
         if(index == -1) index = 0;
 
         animator.SetInteger("Dim", index);

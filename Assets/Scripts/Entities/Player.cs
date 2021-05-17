@@ -152,7 +152,7 @@ public class Player : MonoBehaviour
         guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Die");
-        LevelManager.dimension = "dead";
+        GameManager.current.changeDimension("dead");
     }
 
     // ================================
@@ -167,7 +167,7 @@ public class Player : MonoBehaviour
         guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Revive");
-        LevelManager.dimension = "alive";
+        GameManager.current.changeDimension("alive");
 	}
 
     private void OnPickup(Item item)
