@@ -41,6 +41,5 @@ public class LevelManager : MonoBehaviour
 	private void OnLevelChange(int targetLevel)
 	{
 		GameManager.current.loadLevel(targetLevel);
-		Debug.Log("Requesting to load level " + targetLevel);
 	}
 }
