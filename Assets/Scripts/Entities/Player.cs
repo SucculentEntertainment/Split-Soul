@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         current = this;
     }
 
-    void Start()
+    private void Start()
     {
         health = maxHealth;
         deathState = 0;
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
     }
 
-    void Update()
+    private void Update()
     {
         animator.SetFloat("Mag", dir.magnitude);
 
@@ -101,10 +101,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         rb.AddForce(dir * speed, ForceMode2D.Impulse);
     }
+
+	public void stopMovement()
+	{
+		dir = new Vector2(0, 0);
+	}
 
     // ================================
     //  Damage
@@ -241,7 +246,7 @@ public class Player : MonoBehaviour
 	public void setMovementActive(bool active)
 	{
 		disableMovement = !active;
-		if(!active) dir = new Vector2(0, 0);
+		if(!active) stopMovement();
 	}
 
     // ================================

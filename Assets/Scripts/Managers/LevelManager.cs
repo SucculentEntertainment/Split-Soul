@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
 	// ================================
 
 	public static LevelManager current;
+	public Player player;
 
 	// ================================
 	//  Values
@@ -24,10 +25,18 @@ public class LevelManager : MonoBehaviour
 	//  Functions
 	// ================================
 
-	private void Awake()
-    {
-        current = this;
-    }
+	private void Awake() { activate(); }
+
+	public void activate()
+	{
+		current = this;
+
+		if(player != null) player.stopMovement();
+	}
+
+	// ================================
+	//  Events
+	// ================================
 
 	private void OnLevelChange(int targetLevel)
 	{

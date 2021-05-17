@@ -70,11 +70,15 @@ public class GameManager : MonoBehaviour
 	{
 		GameObject master = SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0];
 		Transform levelManager = master.transform.Find("LevelManager");
+		Transform ges = master.transform.Find("GameEventSystem");
+
 		if(levelManager != null)
 		{
 			levelManager.GetComponent<LevelManager>().previousLevel = currLevel;
-			Debug.Log(levelManager.GetComponent<LevelManager>().previousLevel);
+			levelManager.GetComponent<LevelManager>().activate();
 		}
+
+		if(ges != null) ges.GetComponent<GameEventSystem>().activate();
 
 		currLevel = level;
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(level));

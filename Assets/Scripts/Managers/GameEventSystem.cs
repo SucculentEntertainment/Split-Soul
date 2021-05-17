@@ -8,10 +8,8 @@ public class GameEventSystem : MonoBehaviour
 {
     public static GameEventSystem current;
 
-    private void Awake()
-    {
-        current = this;
-    }
+    private void Awake() { activate(); }
+	public void activate() { current = this; }
 
     // ================================
     //  Events
