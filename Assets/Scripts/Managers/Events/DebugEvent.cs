@@ -12,7 +12,7 @@ public class DebugEvent : MonoBehaviour
 
     private void onDebug(string debugType)
     {
-        gameObject.SendMessage("OnDebug", debugType);
+        gameObject.SendMessage("OnDebug", debugType, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

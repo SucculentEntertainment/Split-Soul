@@ -12,7 +12,7 @@ public class LevelEvent : MonoBehaviour
 
     private void onLevelChange(int levelID)
     {
-        gameObject.SendMessage("OnLevelChange", levelID);
+        gameObject.SendMessage("OnLevelChange", levelID, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

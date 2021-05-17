@@ -12,7 +12,7 @@ public class PickupEvent : MonoBehaviour
 
     private void onPickup(string id, Item item)
     {
-        if (id == gameObject.name) gameObject.SendMessage("OnPickup", item);
+        if (id == gameObject.name) gameObject.SendMessage("OnPickup", item, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

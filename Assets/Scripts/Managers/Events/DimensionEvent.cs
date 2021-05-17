@@ -19,8 +19,8 @@ public class DimensionEvent : MonoBehaviour
 
     private void onDimensionChange(string dimension)
     {
-        if (dimensions.Contains(dimension)) gameObject.SendMessage("OnDimensionEnable", dimension);
-        else gameObject.SendMessage("OnDimensionDisable", dimension);
+        if (dimensions.Contains(dimension)) gameObject.SendMessage("OnDimensionEnable", dimension, SendMessageOptions.DontRequireReceiver);
+        else gameObject.SendMessage("OnDimensionDisable", dimension, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

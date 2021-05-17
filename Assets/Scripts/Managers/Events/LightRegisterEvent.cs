@@ -14,12 +14,12 @@ public class LightRegisterEvent : MonoBehaviour
 
     private void onLightRegister(Light2D light)
     {
-        gameObject.SendMessage("OnLightRegister", light);
+        gameObject.SendMessage("OnLightRegister", light, SendMessageOptions.DontRequireReceiver);
     }
 
     private void onLightUnregister(Light2D light)
     {
-        gameObject.SendMessage("OnLightUnregister", light);
+        gameObject.SendMessage("OnLightUnregister", light, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()
