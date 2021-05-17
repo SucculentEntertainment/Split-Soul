@@ -507,7 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9bb2194eff7154599dca225019ecee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerContainer: {fileID: 825657183}
   player: {fileID: 71806755}
   previousLevel: -1
 --- !u!4 &186985816
