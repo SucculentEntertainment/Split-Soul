@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
         current = this;
     }
 
-    void Start()
+    private void Start()
     {
         health = maxHealth;
         deathState = 0;
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
     }
 
-    void Update()
+    private void Update()
     {
         animator.SetFloat("Mag", dir.magnitude);
 
@@ -101,10 +101,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         rb.AddForce(dir * speed, ForceMode2D.Impulse);
     }
+
+	public void stopMovement()
+	{
+		dir = new Vector2(0, 0);
+	}
 
     // ================================
     //  Damage
@@ -152,7 +157,7 @@ public class Player : MonoBehaviour
         guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Die");
-        LevelManager.dimension = "dead";
+        GameManager.current.changeDimension("dead");
     }
 
     // ================================
@@ -167,7 +172,7 @@ public class Player : MonoBehaviour
         guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Revive");
-        LevelManager.dimension = "alive";
+        GameManager.current.changeDimension("alive");
 	}
 
     private void OnPickup(Item item)
@@ -236,6 +241,12 @@ public class Player : MonoBehaviour
     private void OnInteract(InputValue val)
 	{
         interact();
+	}
+
+	public void setMovementActive(bool active)
+	{
+		disableMovement = !active;
+		if(!active) stopMovement();
 	}
 
     // ================================

@@ -12,7 +12,7 @@ public class UIActionEvent : MonoBehaviour
 
     private void onUIAction(string action)
     {
-        gameObject.SendMessage("OnUIAction", action);
+        gameObject.SendMessage("OnUIAction", action, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

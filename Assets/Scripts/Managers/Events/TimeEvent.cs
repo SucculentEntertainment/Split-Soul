@@ -15,22 +15,22 @@ public class TimeEvent : MonoBehaviour
 
     private void onSunrise()
     {
-        gameObject.SendMessage("OnSunrise");
+        gameObject.SendMessage("OnSunrise", null, SendMessageOptions.DontRequireReceiver);
     }
 
     private void onDayTime()
     {
-        gameObject.SendMessage("OnDayTime");
+        gameObject.SendMessage("OnDayTime", null, SendMessageOptions.DontRequireReceiver);
     }
 
     private void onSunset()
     {
-        gameObject.SendMessage("OnSunset");
+        gameObject.SendMessage("OnSunset", null, SendMessageOptions.DontRequireReceiver);
     }
 
     private void onNightTime()
     {
-        gameObject.SendMessage("OnNightTime");
+        gameObject.SendMessage("OnNightTime", null, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

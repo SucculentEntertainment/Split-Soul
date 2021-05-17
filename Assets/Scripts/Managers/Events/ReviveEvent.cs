@@ -12,7 +12,7 @@ public class ReviveEvent : MonoBehaviour
 
     private void onRevive(string id)
     {
-        if (id == gameObject.name) gameObject.SendMessage("OnRevive");
+        if (id == gameObject.name) gameObject.SendMessage("OnRevive", null, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

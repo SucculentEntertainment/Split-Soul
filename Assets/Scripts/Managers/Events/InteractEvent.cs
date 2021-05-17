@@ -13,12 +13,12 @@ public class InteractEvent : MonoBehaviour
 
     private void onInteract(string id)
     {
-        if (id == gameObject.name) gameObject.SendMessage("OnInteract");
+        if (id == gameObject.name) gameObject.SendMessage("OnInteract", null, SendMessageOptions.DontRequireReceiver);
     }
 
     private void onInteractHighlight(string id, bool activate)
     {
-        if (id == gameObject.name) gameObject.SendMessage("OnInteractHighlight", activate);
+        if (id == gameObject.name) gameObject.SendMessage("OnInteractHighlight", activate, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

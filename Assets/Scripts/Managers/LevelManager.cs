@@ -9,45 +9,37 @@ public class LevelManager : MonoBehaviour
 	// ================================
 
 	public static LevelManager current;
+	public Player player;
 
-	public List<string> dimensionInit;
-	public static List<string> dimensions;
+	// ================================
+	//  Values
+	// ================================
 
-	public GameObject projectileContainer;
+	[HideInInspector] public int previousLevel = -1;
 
 	// ================================
 	//  Private values
 	// ================================
 
-    private bool firstUpdate = true;
-
-    private static string _dimension;
-    public static string dimension {
-        set { GameEventSystem.current.DimensionChange(value); _dimension = value; }
-        get { return _dimension; }
-    }
-
 	// ================================
 	//  Functions
 	// ================================
 
-	private void Awake()
-    {
-        current = this;
-    }
+	private void Awake() { activate(); }
 
-    private void Start()
-    {
-        _dimension = "alive";
-		dimensions = dimensionInit;
-    }
-
-	private void Update()
+	public void activate()
 	{
-		if(firstUpdate)
-		{
-            firstUpdate = false;
-            dimension = "alive";
-		}
+		current = this;
+
+		if(player != null) player.stopMovement();
+	}
+
+	// ================================
+	//  Events
+	// ================================
+
+	private void OnLevelChange(int targetLevel)
+	{
+		GameManager.current.loadLevel(targetLevel);
 	}
 }

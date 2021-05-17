@@ -8,17 +8,15 @@ public class GameEventSystem : MonoBehaviour
 {
     public static GameEventSystem current;
 
-    private void Awake()
-    {
-        current = this;
-    }
+    private void Awake() { activate(); }
+	public void activate() { current = this; }
 
     // ================================
     //  Events
     // ================================
 
     // --------------------------------
-    //  Dimension Change
+    //  Dimension Event
     // --------------------------------
     public event Action<string> onDimensionChange;
     public void DimensionChange(string dimension)
@@ -146,5 +144,15 @@ public class GameEventSystem : MonoBehaviour
     public void UIAction(string action)
     {
         if (onUIAction != null) onUIAction(action);
+    }
+
+	// --------------------------------
+    //  Level Event
+    // --------------------------------
+
+	public event Action<int> onLevelChange;
+    public void LevelChange(int levelID)
+    {
+        if (onLevelChange != null) onLevelChange(levelID);
     }
 }

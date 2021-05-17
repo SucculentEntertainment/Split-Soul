@@ -123,7 +123,7 @@ public class DayNightCycle : MonoBehaviour
         foreach(Light2D l in lights)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0f, maxDelay / lights.Count));
-            l.gameObject.SetActive(!lightState);
+            if(l != null) l.gameObject.SetActive(!lightState);
         }
 
         lightState = !lightState;

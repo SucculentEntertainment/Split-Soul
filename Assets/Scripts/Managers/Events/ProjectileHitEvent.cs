@@ -15,7 +15,7 @@ public class ProjectileHitEvent : MonoBehaviour
     private void onProjectileHit(string id, ProjectileData data)
     {
         if(ignored.Contains(data.name)) return;
-        if (id == gameObject.name) gameObject.SendMessage("OnProjectileHit", data);
+        if (id == gameObject.name) gameObject.SendMessage("OnProjectileHit", data, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()
