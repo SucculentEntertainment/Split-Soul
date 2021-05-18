@@ -7,9 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+	// ================================
+	//  Parameters
+	// ================================
+
     public static GameManager current;
 	public GameObject loadingScreen;
-
+	public Player player;
+	public UIController ui;
+	public CameraRigManager cameraRig;
 	public List<string> dimensions;
 
 	private List<int> loadedScenes = new List<int>();
@@ -23,6 +29,14 @@ public class GameManager : MonoBehaviour
 	public int currLevel = -1;
 	public string dimension = "alive";
 
+	[Header("Player Variables")]
+	public float playerHealth;
+    public int playerDeathState = 0;
+    public float playerNextAttackTime = 0f;
+
+	public int playerCoins = 0;
+    public int playerSouls = 0;
+
 	// ================================
 	//  Functions
 	// ================================
@@ -30,7 +44,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-		loadLevel((int) SceneIndecies.TitleScreen);
+		loadLevel((int) SceneIndecies.TestingLevel);
     }
 
 	public void changeDimension(string dimension)
@@ -69,16 +83,28 @@ public class GameManager : MonoBehaviour
 	private void activateLevel(int level)
 	{
 		GameObject master = SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0];
-		Transform levelManager = master.transform.Find("LevelManager");
-		Transform ges = master.transform.Find("GameEventSystem");
+		LevelManager levelManager = master.GetComponent<LevelManager>();
 
 		if(levelManager != null)
 		{
-			levelManager.GetComponent<LevelManager>().previousLevel = currLevel;
-			levelManager.GetComponent<LevelManager>().activate();
-		}
+			//Normal Level
 
-		if(ges != null) ges.GetComponent<GameEventSystem>().activate();
+			if(!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+			if(!ui.titleScreen) ui.setTitleScreenMode(false);
+			if(!cameraRig.titleScreen) cameraRig.setTitleScreenMode(false);
+
+			levelManager.previousLevel = currLevel;
+			levelManager.player = player;
+			levelManager.activate();
+		}
+		else
+		{
+			//Title Screen
+
+			player.gameObject.SetActive(false);
+			ui.setTitleScreenMode(true);
+			cameraRig.setTitleScreenMode(true);
+		}
 
 		currLevel = level;
 		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(level));
@@ -97,8 +123,8 @@ public class GameManager : MonoBehaviour
 		}
 
 		yield return new WaitForSeconds(1);
-
 		activateLevel(level);
+
 		loadingScreen.SetActive(false);
 	}
 }
