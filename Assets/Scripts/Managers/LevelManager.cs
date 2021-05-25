@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-	// ================================
-	//  Parameters
-	// ================================
-
 	public static LevelManager current;
-	public Player player;
 
 	// ================================
 	//  Values
 	// ================================
 
-	[HideInInspector] public int previousLevel = -1;
+	public Transform spawnPoint;
 
-	// ================================
-	//  Private values
-	// ================================
+	[HideInInspector] public int previousLevel = -1;
+	[HideInInspector] public Vector2 previousPosition = Vector2.zero;
+	[HideInInspector] public Player player;
 
 	// ================================
 	//  Functions
@@ -27,11 +22,19 @@ public class LevelManager : MonoBehaviour
 
 	private void Awake() { activate(); }
 
+	public void Start()
+	{
+		previousPosition = spawnPoint.position;
+	}
+
 	public void activate()
 	{
 		current = this;
-
-		if(player != null) player.stopMovement();
+		if(player != null)
+		{
+			player.stopMovement();
+			player.transform.position = previousPosition;
+		}
 	}
 
 	// ================================
@@ -40,6 +43,7 @@ public class LevelManager : MonoBehaviour
 
 	private void OnLevelChange(int targetLevel)
 	{
+		previousPosition = (Vector2) player.transform.position;
 		GameManager.current.loadLevel(targetLevel);
 	}
 }

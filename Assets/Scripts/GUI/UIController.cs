@@ -26,7 +26,7 @@ public class UIController : MonoBehaviour
 	public Player player;
 
 	[Header("UI Controls")]
-    public bool isTitleScreen;
+    public bool titleScreen;
 
 	public List<Menu> menues;
 	private string openedMenu = "";
@@ -37,10 +37,15 @@ public class UIController : MonoBehaviour
 	{
 		if(!postProcessingProfile.TryGet(out dof)) throw new System.NullReferenceException(nameof(dof));
 		resetMenus();
-		dof.focusDistance.Override(isTitleScreen ? blurDoF : deafultDoF);
+	}
 
-		if(isTitleScreen) openMenu("TitleScreen", true);
-		mainBook.setTitleScreenMode(isTitleScreen);
+	public void setTitleScreenMode(bool mode)
+	{
+		titleScreen = mode;
+		dof.focusDistance.Override(mode ? blurDoF : deafultDoF);
+
+		if(mode) openMenu("TitleScreen", true);
+		mainBook.setTitleScreenMode(mode);
 	}
 
 	// ================================
@@ -54,7 +59,7 @@ public class UIController : MonoBehaviour
 			if(openedMenu == "") openMenu("MainBook");
 			else
 			{
-				if(!isTitleScreen) closeMenu(openedMenu);
+				if(!titleScreen) closeMenu(openedMenu);
 				else openMenu("TitleScreen", true);
 			}
 		}
@@ -68,7 +73,7 @@ public class UIController : MonoBehaviour
 		if(action == "Console") { if(openedMenu == "") openMenu("Console"); }
 		if(action == "MainReturn")
 		{
-			if(!isTitleScreen) closeMenu("MainBook");
+			if(!titleScreen) closeMenu("MainBook");
 			else openMenu("TitleScreen", true);
 		}
 

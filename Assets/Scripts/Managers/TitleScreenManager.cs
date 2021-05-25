@@ -18,5 +18,6 @@ public class TitleScreenManager : MonoBehaviour
 	private void OnLevelChange(int targetLevel)
 	{
 		GameManager.current.loadLevel(targetLevel);
+		Debug.Log("Changing Level");
 	}
 }

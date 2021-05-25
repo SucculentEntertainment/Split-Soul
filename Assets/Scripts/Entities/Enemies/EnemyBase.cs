@@ -114,8 +114,6 @@ public class EnemyBase : MonoBehaviour
         animator = GetComponent<Animator>();
 
         pathLine = GetComponent<LineRenderer>();
-        GetComponent<DimensionEvent>().changeDimension(GameManager.current.dimension);
-
         additionalStart();
     }
 

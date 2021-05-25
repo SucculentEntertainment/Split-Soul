@@ -27,21 +27,14 @@ public class Player : MonoBehaviour
     //  Internal Values
     // --------------------------------
 
-    private float health;
-    private int deathState;
-
-    private float nextAttackTime = 0f;
-
     private Vector2 dir;
     private Rigidbody2D rb;
 
     private GameObject sprite;
     private Animator animator;
 
-    private int coins = 0;
-    private int souls = 0;
-
     private Collider2D interactable;
+	private GameManager gm;
 
     // --------------------------------
     //  Flags
@@ -55,7 +48,6 @@ public class Player : MonoBehaviour
 
     public Transform attackPoint;
     public Transform interactPoint;
-    public GUIManager guiManager; //TODO: Rename to HUDManager
 	public UIController uiController;
     public Light2D lamp;
 
@@ -70,18 +62,19 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        health = maxHealth;
-        deathState = 0;
+		gm = GameManager.current;
 
-        rb = GetComponent<Rigidbody2D>();
+		rb = GetComponent<Rigidbody2D>();
         sprite = transform.Find("Sprite").gameObject;
         animator = sprite.GetComponent<Animator>();
 
-        guiManager.init(maxHealth, 10, 10);
         if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
+
+        gm.playerHealth = maxHealth;
+        gm.playerDeathState = 0;
     }
 
-    private void Update()
+	private void Update()
     {
         animator.SetFloat("Mag", dir.magnitude);
 
@@ -127,37 +120,31 @@ public class Player : MonoBehaviour
 
 	public void OnReceiveDamage(float damage)
 	{
-	    health -= damage;
-        guiManager.healthBar.setValue(health);
-
-	    if(health <= 0) die();
+	    gm.playerHealth -= damage;
+	    if(gm.playerHealth <= 0) die();
 	}
 
 	public void OnReceiveHeal(float amount)
 	{
-	    health += amount;
-        guiManager.healthBar.setValue(health);
-
-        if (health > maxHealth) health = maxHealth;
+	    gm.playerHealth += amount;
+        if (gm.playerHealth > maxHealth) gm.playerHealth = maxHealth;
 	}
 
 	private void die()
 	{
-	    if(deathState > 0)
+		gm.playerDeathState++;
+
+		animator.SetInteger("DeathState", gm.playerDeathState);
+        animator.SetTrigger("Die");
+
+	    if(gm.playerDeathState > 1)
         {
-            animator.SetTrigger("Die4Real");
-            deathState++;
             if(lamp != null) GameEventSystem.current.UnregisterLight(lamp);
             return;
         }
 
-        health = maxHealth;
-        deathState++;
-
-        guiManager.healthBar.setValue(health);
-
-        animator.SetTrigger("Die");
-        GameManager.current.changeDimension("dead");
+        gm.playerHealth = maxHealth;
+        gm.changeDimension("dead");
     }
 
     // ================================
@@ -166,13 +153,13 @@ public class Player : MonoBehaviour
 
     private void OnRevive()
 	{
-        health = maxHealth;
-        deathState--;
+        gm.playerHealth = maxHealth;
+        gm.playerDeathState--;
 
-        guiManager.healthBar.setValue(health);
+        animator.SetInteger("DeathState", gm.playerDeathState);
+        animator.SetTrigger("Die");
 
-        animator.SetTrigger("Revive");
-        GameManager.current.changeDimension("alive");
+        gm.changeDimension("alive");
 	}
 
     private void OnPickup(Item item)
@@ -180,13 +167,11 @@ public class Player : MonoBehaviour
         // IMPORTANT! Move this into inventory Item Handler
         if (item.type == "coin")
         {
-            coins++;
-            guiManager.coinCounter.setValue(coins);
+            gm.playerCoins++;
         }
         else if(item.type == "soul")
 		{
-            souls++;
-            guiManager.soulCounter.setValue(souls);
+            gm.playerSouls++;
         }
 	}
 
@@ -210,10 +195,10 @@ public class Player : MonoBehaviour
 
     private void OnAttack(InputValue val)
     {
-        if (Time.time >= nextAttackTime)
+        if (Time.time >= gm.playerNextAttackTime)
         {
             attack();
-            nextAttackTime = Time.time + 1f / baseAttackRate;
+            gm.playerNextAttackTime = Time.time + 1f / baseAttackRate;
         }
     }
 
