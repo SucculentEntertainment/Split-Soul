@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 8887340a0b7464041869a4d7bc7c1cfa
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Orkney
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 78a1e66613c03594fa592b835e9f9e10, type: 3}
+  - {fileID: 12800000, guid: 64754284a8bb10447b7dac1bb22a187d, type: 3}
+  - {fileID: 12800000, guid: b431e39a45be6f64e83de0ab54820b30, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -9,11 +9,14 @@ EditorBuildSettings:
     path: Assets/Levels/Manager/PersistentGameManager.unity
     guid: 261f1da5427de414ebef96a77fd86416
   - enabled: 1
-    path: Assets/Levels/GUI/MainMenu.unity
+    path: Assets/Levels/GUI/TitleScreen.unity
     guid: dd3fedba3c2b8434ca90508f08604343
   - enabled: 1
     path: Assets/Levels/TestingLevel.unity
     guid: 4ddff434ea54b954186b5e09911aa6df
+  - enabled: 1
+    path: Assets/Levels/SubLevels/HouseInside.unity
+    guid: eeac158f58edd8e4198eb54ea7c2525f
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: fa533499435d5604a857d7167a8a4abb,
       type: 2}

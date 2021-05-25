@@ -1,75 +1,99 @@
-﻿using System.Collections;
+﻿using System.Drawing;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class DebugController : MonoBehaviour
 {
-    bool showConsole = false;
-    bool showHelp = false;
-    Vector2 scroll;
+    public Camera cam;
+    public Font font;
 
-    string input = "";
+	public Transform outputTextContainer;
+	public GameObject fadingTextElement;
+
+    private bool showIDs = false;
+	private int prevChildCount = 0;
 
     public List<object> commandList;
+
     public static DebugCommand Help;
     public static DebugCommand<string> Kill;
     public static DebugCommand<string> Revive;
     public static DebugCommand<string, float> Damage;
     public static DebugCommand<string, float> Heal;
     public static DebugCommand<string> ChangeDimension;
+    public static DebugCommand IDs;
+    public static DebugCommand Paths;
 
     // ================================
     //  Events
     // ================================
-    public void OnConsole(InputValue val)
-    {
-        showConsole = !showConsole;
-    }
 
-    public void OnReturn(InputValue val)
-    {
-        if (!showConsole) return;
-        HandleInput();
-        input = "";
-    }
 
-    public void OnEscape(InputValue val)
-    {
-        if (!showConsole) return;
-        showConsole = false;
-        input = "";
-    }
 
-    private void OnGUI()
-    {
-        if (!showConsole) return;
-        float y = 0f;
+	// ================================
+    //  Functions
+    // ================================
 
-        if(showHelp)
+	private void OnEnable()
+	{
+		transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
+	}
+
+	private void Update()
+	{
+		int childCount = outputTextContainer.childCount;
+		if(prevChildCount == childCount) return;
+		prevChildCount = childCount;
+
+		float width = outputTextContainer.GetComponent<RectTransform>().sizeDelta.x;
+		float height = childCount * fadingTextElement.GetComponent<RectTransform>().sizeDelta.y;
+
+		outputTextContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+	}
+
+	private void textOutput(string text, Font font, float lifetime, Color startColor, Color endColor)
+	{
+		//Instantiate
+		GameObject obj = Instantiate(fadingTextElement, outputTextContainer);
+		FadingTextElement fte = obj.GetComponent<FadingTextElement>();
+
+		//Set text, font and lifetime
+		fte.text = text;
+		fte.font = font;
+		fte.lifetime = lifetime;
+
+		//Set Gradient
+		if(startColor == null) startColor = Color.white;
+		if(endColor == null) endColor = startColor;
+
+		GradientColorKey[] colorKey = new GradientColorKey[2];
+        colorKey[0].color = startColor;
+        colorKey[0].time = 0.0f;
+        colorKey[1].color = endColor;
+        colorKey[1].time = 1.0f;
+
+        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        fte.gradient.SetKeys(colorKey, alphaKey);
+
+	}
+
+    private void printHelp()
+	{
+        for (int i = 0; i < commandList.Count; i++)
         {
-            GUI.Box(new Rect(0, y, Screen.width, 128), "");
+            DebugCommandBase command = commandList[i] as DebugCommandBase;
 
-            Rect viewport = new Rect(0, y, Screen.width - 30, 20 * commandList.Count);
-            scroll = GUI.BeginScrollView(new Rect(0, y + 5f, Screen.width, 114), scroll, viewport);
-
-            for(int i = 0; i < commandList.Count; i++)
-            {
-                DebugCommandBase command = commandList[i] as DebugCommandBase;
-
-                string label = $"{command.commandFormat} - {command.commandDescription}";
-                Rect labelRect = new Rect(5, 20 * i, viewport.width - 100, 20);
-                GUI.Label(labelRect, label);
-            }
-
-            GUI.EndScrollView();
-
-            y += 128;
+            string text = $"{command.commandFormat}" + " => " + $"{command.commandDescription}";
+            textOutput(text, font, 10, Color.white, Color.white);
         }
-
-        GUI.Box(new Rect(0, y, Screen.width, 32), "");
-        GUI.backgroundColor = new Color(0, 0, 0, 0);
-        input = GUI.TextField(new Rect(10f, y + 5f, Screen.width - 20f, 20f), input);
     }
 
     // ================================
@@ -80,32 +104,48 @@ public class DebugController : MonoBehaviour
     {
         Help = new DebugCommand("help", "Shows a list of available commands", "help", () =>
         {
-            showHelp = true;
+            printHelp();
         });
-        
-        Kill = new DebugCommand<string>("kill", "Kills the specified entity", "kill <entity ID>", (id) =>
+
+        Kill = new DebugCommand<string>("kill", "Kills the specified entity", "kill [entity ID]", (id) =>
         {
             GameEventSystem.current.GiveDamage(id, 999999999f);
+            textOutput("Killed " + id, font, 5, Color.white, Color.white);
         });
 
-        Revive = new DebugCommand<string>("revive", "Revives the specified entity", "revive <entity ID>", (id) =>
+        Revive = new DebugCommand<string>("revive", "Revives the specified entity", "revive [entity ID]", (id) =>
         {
             GameEventSystem.current.Revive(id);
+            textOutput("Revived " + id, font, 5, Color.white, Color.white);
         });
 
-        Damage = new DebugCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage entity ID> <damage>", (id, damage) =>
+        Damage = new DebugCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage [entity ID] [damage]", (id, damage) =>
         {
             GameEventSystem.current.GiveDamage(id, damage);
-        });
-        
-        Heal = new DebugCommand<string, float>("heal", "Heals the specified entity by amount", "heal <entity ID> <amount>", (id, damage) =>
-        {
-            GameEventSystem.current.Heal(id, damage);
+            textOutput("Dealt " + damage + " damage to " + id, font, 5, Color.white, Color.white);
         });
 
-        ChangeDimension = new DebugCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension <dimension>", (dim) =>
+        Heal = new DebugCommand<string, float>("heal", "Heals the specified entity by amount", "heal [entity ID] [amount]", (id, damage) =>
         {
-            LevelManager.dimension = dim;
+            GameEventSystem.current.Heal(id, damage);
+            textOutput("Healed " + id + " by " + damage + " HP", font, 5, Color.white, Color.white);
+        });
+
+        ChangeDimension = new DebugCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension [dimension]", (dim) =>
+        {
+            GameManager.current.changeDimension(dim);
+            textOutput("Changed dimension to " + dim, font, 5, Color.white, Color.white);
+        });
+
+        IDs = new DebugCommand("ids", "Displays the entity IDs above the entities", "ids", () =>
+        {
+            textOutput("Toggled ID Labels", font, 5, Color.white, Color.white);
+        });
+
+        Paths = new DebugCommand("paths", "Displays all AI paths", "paths", () =>
+        {
+            GameEventSystem.current.Debug("path");
+            textOutput("Toggled display of pathfinding paths", font, 5, Color.white, Color.white);
         });
 
         commandList = new List<object>
@@ -116,18 +156,27 @@ public class DebugController : MonoBehaviour
             Damage,
             Heal,
             ChangeDimension,
+            IDs,
+            Paths,
         };
     }
 
-    void HandleInput()
+    public void HandleInput()
     {
+		string input = transform.GetChild(0).GetComponent<InputField>().text;
+		transform.GetChild(0).GetComponent<InputField>().text = "";
+		transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
+
         string[] args = input.Split(' ');
+        bool found = false;
 
         for(int i = 0; i < commandList.Count; i++)
         {
             DebugCommandBase commandBase = commandList[i] as DebugCommandBase;
             if(input.Contains(commandBase.commandID))
             {
+                found = true;
+
                 if (commandList[i] as DebugCommand != null)
                 {
                     (commandList[i] as DebugCommand).Invoke();
@@ -142,5 +191,7 @@ public class DebugController : MonoBehaviour
                 }
             }
         }
+
+        if(!found) { textOutput("Unknown command: " + args[0], font, 5, Color.red, Color.red); }
     }
 }

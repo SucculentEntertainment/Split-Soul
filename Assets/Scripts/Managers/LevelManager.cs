@@ -4,25 +4,42 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    private bool firstUpdate = true;
+	// ================================
+	//  Parameters
+	// ================================
 
-    private static string _dimension;
-    public static string dimension {
-        set { GameEventSystem.current.DimensionChange(value); _dimension = value; }
-        get { return _dimension; }
-    }
+	public static LevelManager current;
+	public Player player;
 
-    private void Start()
-    {
-        _dimension = "alive";
-    }
+	// ================================
+	//  Values
+	// ================================
 
-	private void Update()
+	[HideInInspector] public int previousLevel = -1;
+
+	// ================================
+	//  Private values
+	// ================================
+
+	// ================================
+	//  Functions
+	// ================================
+
+	private void Awake() { activate(); }
+
+	public void activate()
 	{
-		if(firstUpdate)
-		{
-            firstUpdate = false;
-            dimension = "alive";
-		}
+		current = this;
+
+		if(player != null) player.stopMovement();
+	}
+
+	// ================================
+	//  Events
+	// ================================
+
+	private void OnLevelChange(int targetLevel)
+	{
+		GameManager.current.loadLevel(targetLevel);
 	}
 }

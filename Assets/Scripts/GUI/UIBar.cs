@@ -15,8 +15,8 @@ public class UIBar : MonoBehaviour
     private float value = 0f;
 
     private float lerpTimer;
-    
-    public void setMaxValue(float maxValue)
+
+	public void setMaxValue(float maxValue)
     {
         if (slider == null || effectSlider == null) return;
 
@@ -51,8 +51,6 @@ public class UIBar : MonoBehaviour
 
         if(value < prevValue)
 		{
-            Debug.Log("Succ");
-
             slider.value = value;
             lerpTimer += Time.time;
             float progress = lerpTimer / speed;

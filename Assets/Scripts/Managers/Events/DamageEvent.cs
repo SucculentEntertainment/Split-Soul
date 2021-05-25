@@ -12,6 +12,11 @@ public class DamageEvent : MonoBehaviour
 
     private void onReceiveDamage(string id, float damage)
     {
-        if (id == gameObject.name) gameObject.SendMessage("OnReceiveDamage", damage);
+        if (id == gameObject.name) gameObject.SendMessage("OnReceiveDamage", damage, SendMessageOptions.DontRequireReceiver);
+    }
+
+    public void unregister()
+    {
+        GameEventSystem.current.onReceiveDamage -= onReceiveDamage;
     }
 }

@@ -19,7 +19,7 @@ TagManager:
   - Enemies
   - Interactables
   - Pickups
-  - 
+  - Triggers
   - 
   - 
   - 
@@ -49,4 +49,7 @@ TagManager:
     locked: 0
   - name: Objects
     uniqueID: 2568943767
+    locked: 0
+  - name: UI
+    uniqueID: 3965888853
     locked: 0

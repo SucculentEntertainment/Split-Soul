@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class Player : MonoBehaviour
     public float attackRange = 0.5f;
     public LayerMask enemyLayers;
 
+    public float interactRange = 0.5f;
+    public LayerMask interactLayers;
+
     // --------------------------------
     //  Internal Values
     // --------------------------------
@@ -34,6 +38,11 @@ public class Player : MonoBehaviour
     private GameObject sprite;
     private Animator animator;
 
+    private int coins = 0;
+    private int souls = 0;
+
+    private Collider2D interactable;
+
     // --------------------------------
     //  Flags
     // --------------------------------
@@ -45,7 +54,10 @@ public class Player : MonoBehaviour
     // --------------------------------
 
     public Transform attackPoint;
-    public GUIManager guiManager;
+    public Transform interactPoint;
+    public GUIManager guiManager; //TODO: Rename to HUDManager
+	public UIController uiController;
+    public Light2D lamp;
 
     // ================================
     //  Functions
@@ -56,19 +68,20 @@ public class Player : MonoBehaviour
         current = this;
     }
 
-    void Start()
+    private void Start()
     {
         health = maxHealth;
         deathState = 0;
 
         rb = GetComponent<Rigidbody2D>();
-        sprite = transform.GetChild(0).gameObject;
+        sprite = transform.Find("Sprite").gameObject;
         animator = sprite.GetComponent<Animator>();
 
         guiManager.init(maxHealth, 10, 10);
+        if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
     }
 
-    void Update()
+    private void Update()
     {
         animator.SetFloat("Mag", dir.magnitude);
 
@@ -77,12 +90,26 @@ public class Player : MonoBehaviour
             animator.SetFloat("DirX", dir.x);
             animator.SetFloat("DirY", dir.y);
         }
+
+        //Scan for interactables
+        Collider2D newInteractable = Physics2D.OverlapCircle(interactPoint.position, interactRange, interactLayers);
+        if (newInteractable != interactable)
+        {
+            if (interactable != null) GameEventSystem.current.InteractHighlight(interactable.name, false);
+            interactable = newInteractable;
+            if (interactable != null) GameEventSystem.current.InteractHighlight(interactable.name, true);
+        }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         rb.AddForce(dir * speed, ForceMode2D.Impulse);
     }
+
+	public void stopMovement()
+	{
+		dir = new Vector2(0, 0);
+	}
 
     // ================================
     //  Damage
@@ -94,11 +121,10 @@ public class Player : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
 		{
-            Debug.Log(enemy.name);
             GameEventSystem.current.GiveDamage(enemy.name, baseAttack);
 		}
 	}
-	
+
 	public void OnReceiveDamage(float damage)
 	{
 	    health -= damage;
@@ -106,7 +132,7 @@ public class Player : MonoBehaviour
 
 	    if(health <= 0) die();
 	}
-	
+
 	public void OnReceiveHeal(float amount)
 	{
 	    health += amount;
@@ -114,13 +140,14 @@ public class Player : MonoBehaviour
 
         if (health > maxHealth) health = maxHealth;
 	}
-	
+
 	private void die()
 	{
 	    if(deathState > 0)
         {
             animator.SetTrigger("Die4Real");
             deathState++;
+            if(lamp != null) GameEventSystem.current.UnregisterLight(lamp);
             return;
         }
 
@@ -130,7 +157,7 @@ public class Player : MonoBehaviour
         guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Die");
-        LevelManager.dimension = "dead";
+        GameManager.current.changeDimension("dead");
     }
 
     // ================================
@@ -145,8 +172,37 @@ public class Player : MonoBehaviour
         guiManager.healthBar.setValue(health);
 
         animator.SetTrigger("Revive");
-        LevelManager.dimension = "alive";
+        GameManager.current.changeDimension("alive");
 	}
+
+    private void OnPickup(Item item)
+	{
+        // IMPORTANT! Move this into inventory Item Handler
+        if (item.type == "coin")
+        {
+            coins++;
+            guiManager.coinCounter.setValue(coins);
+        }
+        else if(item.type == "soul")
+		{
+            souls++;
+            guiManager.soulCounter.setValue(souls);
+        }
+	}
+
+    private void OnProjectileHit(ProjectileData data)
+    {
+        OnReceiveDamage(data.damage);
+    }
+
+    // ================================
+    //  Interact
+    // ================================
+
+    private void interact()
+	{
+        if(interactable != null) GameEventSystem.current.Interact(interactable.name);
+    }
 
     // ================================
     //  Input
@@ -155,7 +211,7 @@ public class Player : MonoBehaviour
     private void OnAttack(InputValue val)
     {
         if (Time.time >= nextAttackTime)
-        {   
+        {
             attack();
             nextAttackTime = Time.time + 1f / baseAttackRate;
         }
@@ -169,14 +225,29 @@ public class Player : MonoBehaviour
 
     private void OnConsole(InputValue val)
     {
-        disableMovement = !disableMovement;
-        dir = new Vector2(0, 0);
+		GameEventSystem.current.UIAction("Console");
     }
 
     private void OnEscape(InputValue val)
     {
-        disableMovement = false;
+		GameEventSystem.current.UIAction("ESC");
     }
+
+	private void OnReturn(InputValue val)
+    {
+		GameEventSystem.current.UIAction("Enter");
+    }
+
+    private void OnInteract(InputValue val)
+	{
+        interact();
+	}
+
+	public void setMovementActive(bool active)
+	{
+		disableMovement = !active;
+		if(!active) stopMovement();
+	}
 
     // ================================
     //  Gizmos
@@ -184,7 +255,10 @@ public class Player : MonoBehaviour
 
     void OnDrawGizmosSelected()
 	{
-        if (attackPoint == null) return;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-	}
+        Gizmos.color = new Color(255, 0, 0);
+        if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+
+        Gizmos.color = new Color(0, 255, 0);
+        if (interactPoint != null) Gizmos.DrawWireSphere(interactPoint.position, interactRange);
+    }
 }

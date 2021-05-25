@@ -1,0 +1,72 @@
+{
+	"i_test1":
+	{
+		"name": "Test Item 1",
+		"type": "testing",
+		"subType": "testing",
+		"description": "One of the rare items used for Inventory Testing",
+		"stackSize": 64,
+		"numFrames": 1,
+		"canHold": false
+	},
+	
+	"i_test2":
+	{
+		"name": "Test Item 2",
+		"type": "testing",
+		"subType": "testing",
+		"description": "One of the rare items used for Inventory Testing",
+		"stackSize": 256,
+		"numFrames": 1,
+		"canHold": false
+	},
+	
+	"i_fireWand":
+	{
+		"name": "Fire Wand",
+		"type": "ranged",
+		"subType": "wand",
+		"description": "A magic stick that shoots fireballs",
+		"stackSize": 1,
+		"numFrames": 8,
+		"canHold": true,
+
+		"cooldown": 1,
+		"canCharge": true,
+		"offsets": {
+			"dir": 256,
+			"type": 0,
+			"dimension": [
+				0,
+				1024
+			]
+		},
+		
+		"layers": {
+			"d_alive": true,
+			"d_dead": true
+		},
+
+		"light": true,
+		"particles": true,
+		"lightColors": [
+			"#F18628",
+			"#28D5F1"
+		],
+		"particleResources": [
+			"res://Resources/Particles/FireAlive.tres",
+			"res://Resources/Particles/FireDead.tres"
+		]
+	},
+	
+	"i_slimeTear":
+	{
+		"name": "Slime Tear",
+		"type": "loot",
+		"subType": "mob",
+		"description": "A tear that represents the sadness of the slime you just killed... You monster!",
+		"stackSize": 20,
+		"numFrames": 7,
+		"canHold": false
+	}
+}
