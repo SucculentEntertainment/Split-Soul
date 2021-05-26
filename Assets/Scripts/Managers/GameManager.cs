@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         current = this;
-		loadLevel((int) SceneIndecies.TestingLevel);
+		loadLevel((int) SceneIndecies.TitleScreen);
     }
 
 	public void changeDimension(string dimension)
@@ -89,9 +89,11 @@ public class GameManager : MonoBehaviour
 		{
 			//Normal Level
 
+			ui.resetMenus();
+
 			if(!player.gameObject.activeSelf) player.gameObject.SetActive(true);
-			if(!ui.titleScreen) ui.setTitleScreenMode(false);
-			if(!cameraRig.titleScreen) cameraRig.setTitleScreenMode(false);
+			if(ui.titleScreen) ui.setTitleScreenMode(false);
+			if(cameraRig.titleScreen) cameraRig.setTitleScreenMode(false);
 
 			levelManager.previousLevel = currLevel;
 			levelManager.player = player;

@@ -5,6 +5,13 @@ using UnityEngine.InputSystem;
 
 public class TitleScreenManager : MonoBehaviour
 {
+	public GameObject levelTools;
+
+	private void Awake()
+	{
+		if(levelTools != null) levelTools.SetActive(false);
+	}
+
     private void OnEscape(InputValue val)
     {
 		GameEventSystem.current.UIAction("ESC");
@@ -18,6 +25,5 @@ public class TitleScreenManager : MonoBehaviour
 	private void OnLevelChange(int targetLevel)
 	{
 		GameManager.current.loadLevel(targetLevel);
-		Debug.Log("Changing Level");
 	}
 }
