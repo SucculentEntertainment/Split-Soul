@@ -3701,8 +3701,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -312.11185}
-  m_SizeDelta: {x: 750, y: 624.2237}
+  m_AnchoredPosition: {x: 0, y: -311.80933}
+  m_SizeDelta: {x: 750, y: 623.61865}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1359666306
 MonoBehaviour:
@@ -3997,8 +3997,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.00006, y: -567.5987}
-  m_SizeDelta: {x: 0, y: 935.1974}
+  m_AnchoredPosition: {x: 960.00006, y: -566.99365}
+  m_SizeDelta: {x: 0, y: 933.9873}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1411172346
 MonoBehaviour:
@@ -4095,6 +4095,7 @@ GameObject:
   - component: {fileID: 1462552632}
   - component: {fileID: 1462552631}
   - component: {fileID: 1462552630}
+  - component: {fileID: 1462552633}
   m_Layer: 5
   m_Name: Loading Screen
   m_TagString: Untagged
@@ -4183,6 +4184,20 @@ Canvas:
   m_SortingLayerID: -329078443
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1462552633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462552628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b3b377683b9d844a8987804c5bf484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageFile: {fileID: 4900000, guid: b8a16d9a5210c6b429f87242a5310462, type: 3}
+  label: {fileID: 1765128014}
 --- !u!1 &1468362452
 GameObject:
   m_ObjectHideFlags: 0
@@ -5212,8 +5227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -779.7106}
-  m_SizeDelta: {x: 2360, y: 310.9737}
+  m_AnchoredPosition: {x: 0, y: -778.803}
+  m_SizeDelta: {x: 1500, y: 310.36865}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1765128013
 MonoBehaviour:
@@ -5268,7 +5283,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Loading Screen Tips
+  m_Text: Loading...
 --- !u!222 &1765128015
 CanvasRenderer:
   m_ObjectHideFlags: 0
