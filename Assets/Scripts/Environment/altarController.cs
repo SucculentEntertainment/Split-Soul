@@ -13,7 +13,7 @@ public class AltarController : MonoBehaviour
     private bool onCooldown = false;
     private float cooldownTimer = 0f;
 
-    private Animator animator;
+    public Animator animator;
 
 	// ================================
 	//  Functions
@@ -24,7 +24,7 @@ public class AltarController : MonoBehaviour
         cooldownBar.setMaxValue(cooldown);
         cooldownBar.gameObject.SetActive(false);
 
-        animator = transform.Find("Sprite").GetComponent<Animator>();
+        if(animator == null) animator = transform.Find("Sprite").GetComponent<Animator>();
         animator.SetBool("isBroken", true);
 	}
 

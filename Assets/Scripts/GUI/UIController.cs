@@ -90,7 +90,7 @@ public class UIController : MonoBehaviour
 	//  Menu control
 	// ================================
 
-	private void resetMenus(bool noAnimation = true) { for(int i = 0; i < menues.Count; i++) closeMenu(menues[i].menuID, noAnimation); }
+	public void resetMenus(bool noAnimation = true) { for(int i = 0; i < menues.Count; i++) closeMenu(menues[i].menuID, noAnimation); }
 
 	private void openMenu(string menuID, bool noAnimation = false)
 	{
