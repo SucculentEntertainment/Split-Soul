@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
 	//  Values
 	// ================================
 
+	public GameObject levelTools;
 	public Transform spawnPoint;
 
 	[HideInInspector] public int previousLevel = -1;
@@ -20,7 +21,11 @@ public class LevelManager : MonoBehaviour
 	//  Functions
 	// ================================
 
-	private void Awake() { activate(); }
+	private void Awake()
+	{
+		if(levelTools != null) levelTools.SetActive(false);
+		activate();
+	}
 
 	public void Start()
 	{
@@ -30,6 +35,7 @@ public class LevelManager : MonoBehaviour
 	public void activate()
 	{
 		current = this;
+
 		if(player != null)
 		{
 			player.stopMovement();
@@ -41,7 +47,7 @@ public class LevelManager : MonoBehaviour
 	//  Events
 	// ================================
 
-	private void OnLevelChange(int targetLevel)
+	public void OnLevelChange(int targetLevel)
 	{
 		previousPosition = (Vector2) player.transform.position;
 		GameManager.current.loadLevel(targetLevel);
