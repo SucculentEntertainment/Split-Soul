@@ -54,10 +54,10 @@ public class GameEventSystem : MonoBehaviour
     // --------------------------------
     //  Pickup Event
     // --------------------------------
-    public event Action<string, Item> onPickup;
-    public void Pickup(string id, Item item)
+    public event Action<string, Collectable> onPickup;
+    public void Pickup(string id, Collectable collectable)
     {
-        if (onPickup != null) onPickup(id, item);
+        if (onPickup != null) onPickup(id, collectable);
     }
 
     // --------------------------------

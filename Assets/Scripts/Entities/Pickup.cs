@@ -8,7 +8,7 @@ public class Pickup : MonoBehaviour
     public float pickupRange = 0.25f;
     public LayerMask playerLayer;
 
-    public string type;
+    public string id;
     public int amount;
 
     private bool enablePickup = true;
@@ -24,7 +24,7 @@ public class Pickup : MonoBehaviour
         Collider2D player = Physics2D.OverlapCircle(pickupPoint.position, pickupRange, playerLayer);
         if (player == null) return;
 
-        GameEventSystem.current.Pickup(player.name, new Item(type, amount));
+        GameEventSystem.current.Pickup(player.name, new Collectable(id, amount));
         pickedUp();
     }
 
