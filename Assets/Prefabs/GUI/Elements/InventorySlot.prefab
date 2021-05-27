@@ -112,6 +112,7 @@ GameObject:
   - component: {fileID: 2350014397004180759}
   - component: {fileID: 2350014397004180968}
   - component: {fileID: 2350014397004180969}
+  - component: {fileID: 3105683770861091340}
   m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
@@ -196,6 +197,25 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!95 &3105683770861091340
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350014397004180971}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 1ab63a1b86ff7334f85cf9007eb38377, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2350014398135910066
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +229,7 @@ GameObject:
   - component: {fileID: 2350014398135910078}
   - component: {fileID: 2350014398135910064}
   - component: {fileID: 2350014398135910079}
+  - component: {fileID: 8807272687863471980}
   m_Layer: 5
   m_Name: InventorySlot
   m_TagString: Untagged
@@ -322,6 +343,25 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8807272687863471980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2350014398135910066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ff903b6aa6c1b0459644d4131868985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  amount: 0
+  nameLabel: {fileID: 2350014398445323464}
+  amountLabel: {fileID: 2350014396738889594}
+  animator: {fileID: 3105683770861091340}
+  missingIcon: {fileID: 22100000, guid: 1ab63a1b86ff7334f85cf9007eb38377, type: 2}
+  missingImage: {fileID: 22100000, guid: 351230c2680d1c44d85a988f016a350a, type: 2}
 --- !u!1 &2350014398445323466
 GameObject:
   m_ObjectHideFlags: 0

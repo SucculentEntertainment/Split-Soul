@@ -6,7 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
 	public string id;
-    public string name;
+    public string itemName;
     public string description;
     public AnimatorOverrideController icon;
     public AnimatorOverrideController highres;

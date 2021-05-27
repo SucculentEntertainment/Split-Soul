@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Missing
   m_EditorClassIdentifier: 
   id: test
-  name: Test Item 1
+  itemName: Test Item
   description: This item is only used while testing
   icon: {fileID: 0}
   highres: {fileID: 0}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SlimeTear
   m_EditorClassIdentifier: 
   id: SlimeTear
-  name: Slime Tear
+  itemName: Slime Tear
   description: A Tear of a slime you killed... you monster
   icon: {fileID: 22100000, guid: 62413539627e8c54cb193501adfd5a9a, type: 2}
   highres: {fileID: 22100000, guid: 16cdbb4b83dfedb449e55e2cbf36c87e, type: 2}
