@@ -39,6 +39,7 @@ public class InventorySlot : MonoBehaviour
 		if(item == null) return;
 
 		if(!item.stackable && amount > 1) amount = 1;
+		if(amount > 9999) amount = 9999;
 		if(amount <= 0)
 		{
 			Destroy(gameObject);
@@ -48,7 +49,7 @@ public class InventorySlot : MonoBehaviour
 		if(amount == 1) amountLabel.gameObject.SetActive(false);
 		else
 		{
-			amountLabel.text = amount.ToString();
+			amountLabel.text = "x" + amount.ToString();
 			amountLabel.gameObject.SetActive(true);
 		}
 

@@ -24,15 +24,20 @@ public class InventoryController : MonoBehaviour
 	public GameObject slotPrefab;
 	public Transform slotContainer;
 
-	private GameManager gm = GameManager.current;
+	private GameManager gm;
+
+	private void Start()
+	{
+		gm = GameManager.current;
+	}
 
 	public void updateSlot(int index)
 	{
 		Item item = gm.existingItems.Find(x => x.id == gm.playerInventory[index].id);
 		InventorySlot slot = gm.playerInventory[index].slot;
 
-		slot.item = item;
-		slot.amount = gm.playerInventory[index].amount;
+		slot.setValues(item, gm.playerInventory[index].amount);
+		if(gm.playerInventory[index].amount <= 0) gm.playerInventory.RemoveAt(index);
 	}
 
 	public void createNewSlot(string id, int amount)
@@ -44,10 +49,14 @@ public class InventoryController : MonoBehaviour
 	public void insert(string id, int amount)
 	{
 		//INFO: Does not accomodate for non stackable items
-		if(gm.playerInventory.FindIndex(x => x.id == id) == -1) return;
+		if(gm.existingItems.FindIndex(x => x.id == id) == -1) return;
 		int slotIndex = gm.playerInventory.FindIndex(x => x.id == id);
 
-		if(slotIndex == -1) createNewSlot(id, amount);
+		if(slotIndex == -1)
+		{
+			createNewSlot(id, amount);
+			slotIndex = gm.playerInventory.Count - 1;
+		}
 		else gm.playerInventory[slotIndex].amount += amount;
 
 		updateSlot(slotIndex);
@@ -69,17 +78,9 @@ public class InventoryController : MonoBehaviour
 	//  Events
 	// ================================
 
-	private void OnPickup(Collectable collectable)
+	private void OnInventoryInsert(Collectable collectable)
 	{
-        if (collectable.id == "coin")
-        {
-            gm.playerCoins++;
-        }
-        else if(collectable.id == "soul")
-		{
-            gm.playerSouls++;
-        }
-		else if(collectable.id == "item")
+        if(collectable.id == "item")
 		{
 			insert(collectable.item.id, collectable.amount);
 		}

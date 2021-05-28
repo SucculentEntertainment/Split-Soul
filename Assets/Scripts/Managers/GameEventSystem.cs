@@ -60,6 +60,15 @@ public class GameEventSystem : MonoBehaviour
         if (onPickup != null) onPickup(id, collectable);
     }
 
+	// --------------------------------
+    //  Inventory Event
+    // --------------------------------
+    public event Action<Collectable> onInventoryInsert;
+    public void InventoryInsert(Collectable collectable)
+    {
+        if (onInventoryInsert != null) onInventoryInsert(collectable);
+    }
+
     // --------------------------------
     //  Interact Event
     // --------------------------------

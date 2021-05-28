@@ -162,6 +162,22 @@ public class Player : MonoBehaviour
         gm.changeDimension("alive");
 	}
 
+    private void OnPickup(Collectable collectable)
+	{
+        if (collectable.id == "coin")
+        {
+            gm.playerCoins++;
+        }
+        else if(collectable.id == "soul")
+		{
+            gm.playerSouls++;
+        }
+		else if(collectable.id == "item")
+		{
+			GameEventSystem.current.InventoryInsert(collectable);
+		}
+	}
+
     private void OnProjectileHit(ProjectileData data)
     {
         OnReceiveDamage(data.damage);

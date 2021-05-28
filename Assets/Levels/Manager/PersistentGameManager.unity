@@ -4160,6 +4160,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1438774233}
   - component: {fileID: 1438774234}
+  - component: {fileID: 1438774236}
+  - component: {fileID: 1438774235}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4202,12 +4204,42 @@ MonoBehaviour:
   - dead
   currLevel: -1
   dimension: alive
+  existingItems:
+  - {fileID: 11400000, guid: 8cfd02e6692682849b14a827c536b8ee, type: 2}
+  - {fileID: 11400000, guid: 4df5e2a846cb76b43a3a0ff71658c1c0, type: 2}
   playerHealth: 0
   playerDeathState: 0
   playerNextAttackTime: 0
   playerInventory: []
   playerCoins: 0
   playerSouls: 0
+--- !u!114 &1438774235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438774232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ea8cab6d94322a41b58d53797c74e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1438774236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438774232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c735a22cb8aab1b41afc4b8ca565e426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotPrefab: {fileID: 2350014398135910066, guid: 2ef47d35a44f4ee4098d338492912c4c,
+    type: 3}
+  slotContainer: {fileID: 1787238872}
 --- !u!1 &1462552628
 GameObject:
   m_ObjectHideFlags: 0
@@ -5193,7 +5225,6 @@ GameObject:
   - component: {fileID: 1658513885}
   - component: {fileID: 1658513888}
   - component: {fileID: 1658513887}
-  - component: {fileID: 1658513886}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -5222,24 +5253,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 488, y: 684}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1658513886
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1658513884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c735a22cb8aab1b41afc4b8ca565e426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotPrefab: {fileID: 2350014398135910066, guid: 2ef47d35a44f4ee4098d338492912c4c,
-    type: 3}
-  slotContainer: {fileID: 1787238872}
-  existingItems:
-  - {fileID: 11400000, guid: 8cfd02e6692682849b14a827c536b8ee, type: 2}
-  - {fileID: 11400000, guid: 4df5e2a846cb76b43a3a0ff71658c1c0, type: 2}
 --- !u!114 &1658513887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5249,7 +5262,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1658513884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3d3a57ce6c71514e83a1c915deb262c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ea8cab6d94322a41b58d53797c74e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1658513888
