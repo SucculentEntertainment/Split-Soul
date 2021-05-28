@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
 	[Header("Slot Specific")]
-    public Item item;
-	public int amount;
+    public Item item = null;
+	public int amount = 0;
 
 	[Header("References")]
 	public Text nameLabel;
@@ -17,7 +17,7 @@ public class InventorySlot : MonoBehaviour
 	public AnimatorOverrideController missingIcon;
 	public AnimatorOverrideController missingImage;
 
-	private void Start() { setValues(item, amount); }
+	private void Start() { if(item != null && amount != 0) setValues(item, amount); }
 
 	public void setItem(Item item)
 	{

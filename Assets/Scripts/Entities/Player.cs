@@ -162,23 +162,6 @@ public class Player : MonoBehaviour
         gm.changeDimension("alive");
 	}
 
-    private void OnPickup(Collectable collectable)
-	{
-        // IMPORTANT! Move this into inventory Item Handler
-        if (collectable.id == "coin")
-        {
-            gm.playerCoins++;
-        }
-        else if(collectable.id == "soul")
-		{
-            gm.playerSouls++;
-        }
-		else if(collectable.id == "item")
-		{
-			//TODO: SOUL-194 Interaction between dropped Items and Inventory
-		}
-	}
-
     private void OnProjectileHit(ProjectileData data)
     {
         OnReceiveDamage(data.damage);
