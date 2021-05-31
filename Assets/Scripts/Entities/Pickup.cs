@@ -8,6 +8,9 @@ public class Pickup : MonoBehaviour
     public float pickupRange = 0.25f;
     public LayerMask playerLayer;
 
+	public Animator animator;
+	public AnimatorOverrideController missingIcon;
+
     public string id;
     public int amount;
 	public Item item = null;
@@ -17,6 +20,8 @@ public class Pickup : MonoBehaviour
     // ================================
     //  Functions
     // ================================
+
+	private void Start() { if(item != null) setItem(item); }
 
     void Update()
     {
@@ -34,6 +39,20 @@ public class Pickup : MonoBehaviour
         GetComponent<DimensionEvent>().unregister();
         Destroy(gameObject);
         this.enabled = false;
+	}
+
+	private void setItem(Item item)
+	{
+		if(item == null || id != "item")
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		if(item.icon != null) animator.runtimeAnimatorController = item.icon;
+		else animator.runtimeAnimatorController = missingIcon;
+
+		this.item = item;
 	}
 
     // ================================
