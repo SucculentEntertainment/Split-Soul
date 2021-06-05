@@ -149,10 +149,10 @@ public class GameEventSystem : MonoBehaviour
     //  UI Action Event
     // --------------------------------
 
-    public event Action<string> onUIAction;
-    public void UIAction(string action)
+    public event Action<UIAction> onUIAction;
+    public void ThrowUIAction(UIAction uiAction)
     {
-        if (onUIAction != null) onUIAction(action);
+        if (onUIAction != null) onUIAction(uiAction);
     }
 
 	// --------------------------------

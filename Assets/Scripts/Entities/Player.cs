@@ -213,17 +213,17 @@ public class Player : MonoBehaviour
 
     private void OnConsole(InputValue val)
     {
-		GameEventSystem.current.UIAction("Console");
+		GameEventSystem.current.ThrowUIAction(new UIAction("Console"));
     }
 
     private void OnEscape(InputValue val)
     {
-		GameEventSystem.current.UIAction("ESC");
+		GameEventSystem.current.ThrowUIAction(new UIAction("ESC"));
     }
 
 	private void OnReturn(InputValue val)
     {
-		GameEventSystem.current.UIAction("Enter");
+		GameEventSystem.current.ThrowUIAction(new UIAction("Enter"));
     }
 
     private void OnInteract(InputValue val)

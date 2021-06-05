@@ -56,6 +56,7 @@ public class InventoryController : MonoBehaviour
 		{
 			createNewSlot(id, amount);
 			slotIndex = gm.playerInventory.Count - 1;
+			gm.playerInventory[slotIndex].slot.setIndex(slotIndex);
 		}
 		else gm.playerInventory[slotIndex].amount += amount;
 

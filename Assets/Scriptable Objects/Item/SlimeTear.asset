@@ -15,6 +15,7 @@ MonoBehaviour:
   id: SlimeTear
   itemName: Slime Tear
   description: A Tear of a slime you killed... you monster
+  category: Mob Drop
   icon: {fileID: 22100000, guid: 62413539627e8c54cb193501adfd5a9a, type: 2}
   highres: {fileID: 22100000, guid: 16cdbb4b83dfedb449e55e2cbf36c87e, type: 2}
   stackable: 1

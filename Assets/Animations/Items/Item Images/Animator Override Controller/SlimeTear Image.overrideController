@@ -9,5 +9,5 @@ AnimatorOverrideController:
   m_Name: SlimeTear Image
   m_Controller: {fileID: 9100000, guid: f2331f92672202842ae2f49b41aac833, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: cfb31742cf0c9634eb368e80c4fcc715, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bb7d3a958af8147419bcc7b38f762099, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: 9b1be6db1d7cfe3418a25e2e1308303e, type: 2}

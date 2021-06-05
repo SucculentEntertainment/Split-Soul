@@ -14,12 +14,12 @@ public class TitleScreenManager : MonoBehaviour
 
     private void OnEscape(InputValue val)
     {
-		GameEventSystem.current.UIAction("ESC");
+		GameEventSystem.current.ThrowUIAction(new UIAction("ESC"));
     }
 
 	private void OnReturn(InputValue val)
     {
-		GameEventSystem.current.UIAction("Enter");
+		GameEventSystem.current.ThrowUIAction(new UIAction("Enter"));
     }
 
 	private void OnLevelChange(int targetLevel)

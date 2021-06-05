@@ -8,7 +8,7 @@
       "hash": "86ceea0dfe7bcd8db2a486bd68c4c095ae4299e0"
     },
     "com.unity.2d.animation": {
-      "version": "5.0.4",
+      "version": "5.0.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -62,7 +62,7 @@
       "dependencies": {}
     },
     "com.unity.2d.spriteshape": {
-      "version": "5.1.1",
+      "version": "5.1.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {

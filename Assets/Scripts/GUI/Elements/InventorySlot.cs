@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InventorySlot : MonoBehaviour
 {
 	[Header("Slot Specific")]
+	public int index = -1;
     public Item item = null;
 	public int amount = 0;
 
@@ -17,7 +18,8 @@ public class InventorySlot : MonoBehaviour
 	public AnimatorOverrideController missingIcon;
 	public AnimatorOverrideController missingImage;
 
-	private void Start() { if(item != null && amount != 0) setValues(item, amount); }
+	private void Start() {if(item != null && amount != 0) setValues(item, amount); }
+	public void setIndex(int index) { this.index = index; }
 
 	public void setItem(Item item)
 	{
@@ -62,4 +64,19 @@ public class InventorySlot : MonoBehaviour
 	{
 
 	}
+
+
+
+	public void throwUIActionEvent(string action)
+	{
+		GameEventSystem.current.ThrowUIAction(new UIAction(action));
+	}
+
+	public void throwIndexedUIActionEvent(string action, int index = -1)
+	{
+		GameEventSystem.current.ThrowUIAction(new UIAction(action, index));
+	}
+
+	private void OnEnable() { GetComponent<Button>().onClick.AddListener(() => throwIndexedUIActionEvent("InventoryInspect", index)); }
+	private void OnDisable() { GetComponent<Button>().onClick.RemoveAllListeners(); }
 }
