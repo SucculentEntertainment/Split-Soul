@@ -5,8 +5,13 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true,
         "**/*.meta": true,
-        "**/*.csproj": true,
+        "**/*.csproj": false,
         "**/.vscode": true
-    }
+    },
+    "explorerExclude.backup": null
 }

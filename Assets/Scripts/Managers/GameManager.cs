@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 	public CameraRigManager cameraRig;
 	public List<string> dimensions;
 
+	//TODO: Improve to accomodate all containers
+	public GameObject cItemContainer;
+
 	private List<int> loadedScenes = new List<int>();
 	private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
@@ -101,6 +104,8 @@ public class GameManager : MonoBehaviour
 			levelManager.previousLevel = currLevel;
 			levelManager.player = player;
 			levelManager.activate();
+
+			cItemContainer = levelManager.itemContainer;
 		}
 		else
 		{

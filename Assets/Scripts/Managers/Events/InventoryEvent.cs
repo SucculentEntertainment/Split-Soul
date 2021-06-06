@@ -7,16 +7,17 @@ public class InventoryEvent : MonoBehaviour
 {
     private void Start()
     {
-        GameEventSystem.current.onInventoryInsert += onInventoryInsert;
+        GameEventSystem.current.onInventory += onInventory;
     }
 
-    private void onInventoryInsert(Collectable collectable)
+    private void onInventory(string action, Collectable collectable)
     {
-        gameObject.SendMessage("OnInventoryInsert", collectable, SendMessageOptions.DontRequireReceiver);
+        if(action == "insert") gameObject.SendMessage("OnInventoryInsert", collectable, SendMessageOptions.DontRequireReceiver);
+		if(action == "drop") gameObject.SendMessage("OnInventoryDrop", collectable, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()
     {
-        GameEventSystem.current.onInventoryInsert -= onInventoryInsert;
+        GameEventSystem.current.onInventory -= onInventory;
     }
 }

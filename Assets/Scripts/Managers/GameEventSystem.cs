@@ -63,10 +63,10 @@ public class GameEventSystem : MonoBehaviour
 	// --------------------------------
     //  Inventory Event
     // --------------------------------
-    public event Action<Collectable> onInventoryInsert;
-    public void InventoryInsert(Collectable collectable)
+    public event Action<string, Collectable> onInventory;
+    public void Inventory(string action, Collectable collectable)
     {
-        if (onInventoryInsert != null) onInventoryInsert(collectable);
+        if (onInventory != null) onInventory(action, collectable);
     }
 
     // --------------------------------

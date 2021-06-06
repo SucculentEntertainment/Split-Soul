@@ -41,7 +41,7 @@ public class Pickup : MonoBehaviour
         this.enabled = false;
 	}
 
-	private void setItem(Item item)
+	public void setItem(Item item)
 	{
 		if(item == null || id != "item")
 		{

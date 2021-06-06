@@ -160,7 +160,7 @@ public class DebugController : MonoBehaviour
 
 			Item item = GameManager.current.existingItems[itemIndex];
 
-            GameEventSystem.current.InventoryInsert(new Collectable("item", (int) amount, item));
+            GameEventSystem.current.Inventory("insert", new Collectable("item", (int) amount, item));
             textOutput("Gave the player " + item.itemName + " x" + (int) amount, font, 5, Color.white, Color.white);
         });
 

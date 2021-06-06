@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
         }
 		else if(collectable.id == "item")
 		{
-			GameEventSystem.current.InventoryInsert(collectable);
+			GameEventSystem.current.Inventory("insert", collectable);
 		}
 	}
 

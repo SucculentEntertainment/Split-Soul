@@ -210,6 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelTools: {fileID: 2011261364}
   spawnPoint: {fileID: 593380762}
+  itemContainer: {fileID: 1897097668}
   previousLevel: -1
   previousPosition: {x: 0, y: 0}
   player: {fileID: 0}

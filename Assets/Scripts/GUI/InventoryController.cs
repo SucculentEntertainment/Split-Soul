@@ -19,10 +19,12 @@ public class ItemSlot
 	}
 }
 
+//TODO: Remove unneeded conversions from ItemObj to ItemID and back to ItemObj
 public class InventoryController : MonoBehaviour
 {
 	public GameObject slotPrefab;
 	public Transform slotContainer;
+	public ItemSpawner itemSpawner;
 
 	private GameManager gm;
 
@@ -63,7 +65,7 @@ public class InventoryController : MonoBehaviour
 		updateSlot(slotIndex);
 	}
 
-	public int remove(string id, int amount)
+	private int remove(string id, int amount)
 	{
 		int slotIndex = gm.playerInventory.FindIndex(x => x.id == id);
 		if(slotIndex == -1) return -1;
@@ -75,6 +77,12 @@ public class InventoryController : MonoBehaviour
 		return amount;
 	}
 
+	public void drop(string id, int amount)
+	{
+		amount = remove(id, amount);
+		itemSpawner.spawnItem(id, amount);
+	}
+
 	// ================================
 	//  Events
 	// ================================
@@ -84,6 +92,14 @@ public class InventoryController : MonoBehaviour
         if(collectable.id == "item")
 		{
 			insert(collectable.item.id, collectable.amount);
+		}
+	}
+
+	private void OnInventoryDrop(Collectable collectable)
+	{
+        if(collectable.id == "item")
+		{
+			drop(collectable.item.id, collectable.amount);
 		}
 	}
 }
