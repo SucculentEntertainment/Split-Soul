@@ -52,9 +52,11 @@ public class UIController : MonoBehaviour
 	//  Action Matching
 	// ================================
 
-    private void OnUIAction(string action)
+    private void OnUIAction(UIAction uiAction)
     {
-		if(action == "ESC")
+		Debug.Log("Thrown UI Action: " + uiAction.action + ", " + uiAction.index.ToString());
+
+		if(uiAction.action == "ESC")
 		{
 			if(openedMenu == "") openMenu("MainBook");
 			else
@@ -64,26 +66,34 @@ public class UIController : MonoBehaviour
 			}
 		}
 
-		if(action == "Enter")
+		if(uiAction.action == "Enter")
 		{
 			if(openedMenu == "Console") menues.Find(x => x.menuID == "Console").menuContainer.GetComponent<DebugController>().HandleInput();
 			if(openedMenu == "TitleScreen") openMenu("MainBook", true); //TODO: Improve this
 		}
 
-		if(action == "Console") { if(openedMenu == "") openMenu("Console"); }
-		if(action == "MainReturn")
+		if(uiAction.action == "Console") { if(openedMenu == "") openMenu("Console"); }
+		if(uiAction.action == "MainReturn")
 		{
 			if(!titleScreen) closeMenu("MainBook");
 			else openMenu("TitleScreen", true);
 		}
 
-		if(action == "MainInventory") { }
-		if(action == "MainStats") { }
+		if(uiAction.action == "MainInventory") { }
+		if(uiAction.action == "MainStats") { }
 
-		if(action == "MainNewGame") { GameEventSystem.current.LevelChange((int) SceneIndecies.TestingLevel); }
-		if(action == "MainSaves") { }
-		if(action == "MainSettings") { }
-		if(action == "MainExit") { }
+		if(uiAction.action == "MainNewGame") { GameEventSystem.current.LevelChange((int) SceneIndecies.TestingLevel); }
+		if(uiAction.action == "MainSaves") { }
+		if(uiAction.action == "MainSettings") { }
+		if(uiAction.action == "MainExit") { }
+
+		if(uiAction.action == "InventoryInspect" && uiAction.index > -1)
+		{
+			openMenu("Inspect", true);
+			menues.Find(x => x.menuID == "Inspect").menuContainer.GetComponent<InspectController>().setData(uiAction.index);
+		}
+
+		if(uiAction.action == "InspectClose") { openMenu("MainBook", true); }
     }
 
 	// ================================

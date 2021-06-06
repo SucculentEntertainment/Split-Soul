@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SlimeTear Icon
+  m_Controller: {fileID: 9100000, guid: 87bf51d784ee7264795e6ebe72797bd6, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: cfb31742cf0c9634eb368e80c4fcc715, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 672c79d4e204de344b8aa316396c87e8, type: 2}

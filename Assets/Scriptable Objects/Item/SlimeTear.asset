@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7e1c597ffbaab409f23dfb5ec258fa, type: 3}
+  m_Name: SlimeTear
+  m_EditorClassIdentifier: 
+  id: SlimeTear
+  itemName: Slime Tear
+  description: A Tear of a slime you killed... you monster
+  category: Mob Drop
+  icon: {fileID: 22100000, guid: 62413539627e8c54cb193501adfd5a9a, type: 2}
+  highres: {fileID: 22100000, guid: 16cdbb4b83dfedb449e55e2cbf36c87e, type: 2}
+  stackable: 1

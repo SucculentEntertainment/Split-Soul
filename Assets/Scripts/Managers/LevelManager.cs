@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
 
 	public GameObject levelTools;
 	public Transform spawnPoint;
+	public GameObject itemContainer;
 
 	[HideInInspector] public int previousLevel = -1;
 	[HideInInspector] public Vector2 previousPosition = Vector2.zero;

@@ -18,8 +18,8 @@ public class LoadingMessageManager : MonoBehaviour
 	private void Start() { messages = JsonUtility.FromJson<LoadingMessages>(messageFile.text); }
 	public void OnEnable()
 	{
-		int index = Random.Range(0, messages.items.Count - 1);
-		if(index == null) index = 0;
+		int index = 0;
+		index = Random.Range(0, messages.items.Count - 1);
 
 		label.text = messages.items[index];
 	}

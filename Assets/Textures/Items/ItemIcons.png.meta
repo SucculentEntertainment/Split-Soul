@@ -1,49 +1,49 @@
 fileFormatVersion: 2
-guid: 5d5c67669e589ff4083dffd1c8e43b18
+guid: 3f9088e1329fb9447a4d4f3c1717cf2c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 718847823688365954
-    second: Pickups_0
+      213: 720586757817451359
+    second: ItemIcons_0
   - first:
-      213: -3596705950354237480
-    second: Pickups_1
+      213: 3147117153359372007
+    second: ItemIcons_1
   - first:
-      213: 384700277192883564
-    second: Pickups_2
+      213: -8894057469729715593
+    second: ItemIcons_2
   - first:
-      213: 1294334034469808618
-    second: Pickups_3
+      213: -7592173143594474155
+    second: ItemIcons_3
   - first:
-      213: 6505592670093888716
-    second: Pickups_4
+      213: 3473067488844627539
+    second: ItemIcons_4
   - first:
-      213: -1719082941112871145
-    second: Pickups_5
+      213: -5967723925376488046
+    second: ItemIcons_5
   - first:
-      213: 5768830569012732974
-    second: Pickups_6
+      213: 5696811465416703826
+    second: ItemIcons_6
   - first:
-      213: -8049761921673440841
-    second: Pickups_7
+      213: -4878780369741212085
+    second: ItemIcons_7
   - first:
-      213: 3705364044644354023
-    second: Pickups_8
+      213: -6533504416836700589
+    second: ItemIcons_8
   - first:
-      213: 1391368052908442165
-    second: Pickups_9
+      213: -2625536876281230515
+    second: ItemIcons_9
   - first:
-      213: 1861386955807250875
-    second: Pickups_10
+      213: -4842568390458905036
+    second: ItemIcons_10
   - first:
-      213: 3830307008732912787
-    second: Pickups_11
+      213: -3105660766707295509
+    second: ItemIcons_11
   - first:
-      213: -6017008802232493218
-    second: Pickups_12
+      213: -1248516885935246668
+    second: ItemIcons_12
   - first:
-      213: -5488847485061783787
-    second: Pickups_13
+      213: 953937541953608028
+    second: ItemIcons_13
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -65,6 +65,7 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -74,8 +75,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -96,9 +97,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -129,7 +133,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Pickups_0
+      name: ItemIcons_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +147,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 287f18a794cd9f900800000000000000
-      internalID: 718847823688365954
+      spriteID: f534f81a6d9000a00800000000000000
+      internalID: 720586757817451359
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_1
+      name: ItemIcons_1
       rect:
         serializedVersion: 2
         x: 16
@@ -164,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d71a9b8efee51ec0800000000000000
-      internalID: -3596705950354237480
+      spriteID: 7ee1688706eccab20800000000000000
+      internalID: 3147117153359372007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_2
+      name: ItemIcons_2
       rect:
         serializedVersion: 2
         x: 32
@@ -185,14 +189,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6d73172ddab65500800000000000000
-      internalID: 384700277192883564
+      spriteID: 77ac9d0aad5f19480800000000000000
+      internalID: -8894057469729715593
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_3
+      name: ItemIcons_3
       rect:
         serializedVersion: 2
         x: 48
@@ -206,14 +210,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae9654952f566f110800000000000000
-      internalID: 1294334034469808618
+      spriteID: 5556ace30ce23a690800000000000000
+      internalID: -7592173143594474155
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_4
+      name: ItemIcons_4
       rect:
         serializedVersion: 2
         x: 64
@@ -227,14 +231,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cccc45ab012884a50800000000000000
-      internalID: 6505592670093888716
+      spriteID: 35eba81ea70d23030800000000000000
+      internalID: 3473067488844627539
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_5
+      name: ItemIcons_5
       rect:
         serializedVersion: 2
         x: 80
@@ -248,14 +252,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71798835c279428e0800000000000000
-      internalID: -1719082941112871145
+      spriteID: 29da55e45b26e2da0800000000000000
+      internalID: -5967723925376488046
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_6
+      name: ItemIcons_6
       rect:
         serializedVersion: 2
         x: 96
@@ -269,35 +273,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e242b6386d00f0050800000000000000
-      internalID: 5768830569012732974
+      spriteID: 25ff88448d32f0f40800000000000000
+      internalID: 5696811465416703826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_7
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b150348e20894090800000000000000
-      internalID: -8049761921673440841
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Pickups_8
+      name: ItemIcons_7
       rect:
         serializedVersion: 2
         x: 0
@@ -311,14 +294,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7e7088c77f81c6330800000000000000
-      internalID: 3705364044644354023
+      spriteID: b461d644a171b4cb0800000000000000
+      internalID: -4878780369741212085
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_9
+      name: ItemIcons_8
       rect:
         serializedVersion: 2
         x: 16
@@ -332,14 +315,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5324f615fd12f4310800000000000000
-      internalID: 1391368052908442165
+      spriteID: 356b00059545455a0800000000000000
+      internalID: -6533504416836700589
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_10
+      name: ItemIcons_9
       rect:
         serializedVersion: 2
         x: 32
@@ -353,14 +336,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb9df620399f4d910800000000000000
-      internalID: 1861386955807250875
+      spriteID: d4b81982f18309bd0800000000000000
+      internalID: -2625536876281230515
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_11
+      name: ItemIcons_10
       rect:
         serializedVersion: 2
         x: 48
@@ -374,14 +357,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39cd63c3eebf72530800000000000000
-      internalID: 3830307008732912787
+      spriteID: 43e6926b4bdbbccb0800000000000000
+      internalID: -4842568390458905036
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_12
+      name: ItemIcons_11
       rect:
         serializedVersion: 2
         x: 64
@@ -395,14 +378,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5b9884bf5a4f7ca0800000000000000
-      internalID: -6017008802232493218
+      spriteID: bea5b87bcf976e4d0800000000000000
+      internalID: -3105660766707295509
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Pickups_13
+      name: ItemIcons_12
       rect:
         serializedVersion: 2
         x: 80
@@ -416,8 +399,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51f98922b42b3d3b0800000000000000
-      internalID: -5488847485061783787
+      spriteID: 4b2b0c5d1806caee0800000000000000
+      internalID: -1248516885935246668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ItemIcons_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c59dd06e3211d3d00800000000000000
+      internalID: 953937541953608028
       vertices: []
       indices: 
       edges: []

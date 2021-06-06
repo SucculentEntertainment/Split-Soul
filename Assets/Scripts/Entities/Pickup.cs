@@ -8,14 +8,20 @@ public class Pickup : MonoBehaviour
     public float pickupRange = 0.25f;
     public LayerMask playerLayer;
 
-    public string type;
+	public Animator animator;
+	public AnimatorOverrideController missingIcon;
+
+    public string id;
     public int amount;
+	public Item item = null;
 
     private bool enablePickup = true;
 
     // ================================
     //  Functions
     // ================================
+
+	private void Start() { if(item != null) setItem(item); }
 
     void Update()
     {
@@ -24,7 +30,7 @@ public class Pickup : MonoBehaviour
         Collider2D player = Physics2D.OverlapCircle(pickupPoint.position, pickupRange, playerLayer);
         if (player == null) return;
 
-        GameEventSystem.current.Pickup(player.name, new Item(type, amount));
+        GameEventSystem.current.Pickup(player.name, new Collectable(id, amount, item));
         pickedUp();
     }
 
@@ -33,6 +39,20 @@ public class Pickup : MonoBehaviour
         GetComponent<DimensionEvent>().unregister();
         Destroy(gameObject);
         this.enabled = false;
+	}
+
+	public void setItem(Item item)
+	{
+		if(item == null || id != "item")
+		{
+			Destroy(gameObject);
+			return;
+		}
+
+		if(item.icon != null) animator.runtimeAnimatorController = item.icon;
+		else animator.runtimeAnimatorController = missingIcon;
+
+		this.item = item;
 	}
 
     // ================================

@@ -10,9 +10,9 @@ public class PickupEvent : MonoBehaviour
         GameEventSystem.current.onPickup += onPickup;
     }
 
-    private void onPickup(string id, Item item)
+    private void onPickup(string id, Collectable collectable)
     {
-        if (id == gameObject.name) gameObject.SendMessage("OnPickup", item, SendMessageOptions.DontRequireReceiver);
+        if (id == gameObject.name) gameObject.SendMessage("OnPickup", collectable, SendMessageOptions.DontRequireReceiver);
     }
 
     public void unregister()

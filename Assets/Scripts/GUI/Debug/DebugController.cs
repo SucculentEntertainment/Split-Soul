@@ -26,6 +26,7 @@ public class DebugController : MonoBehaviour
     public static DebugCommand<string> ChangeDimension;
     public static DebugCommand IDs;
     public static DebugCommand Paths;
+	public static DebugCommand<string, float> Give;
 
     // ================================
     //  Events
@@ -148,6 +149,21 @@ public class DebugController : MonoBehaviour
             textOutput("Toggled display of pathfinding paths", font, 5, Color.white, Color.white);
         });
 
+		Give = new DebugCommand<string, float>("give", "Gives a specified amount of a specified item to the player", "give [item] [amount]", (itemID, amount) =>
+        {
+			int itemIndex = GameManager.current.existingItems.FindIndex(x => x.id == itemID);
+			if(itemIndex == -1)
+			{
+				textOutput("Item with id " + itemID + " does not exist", font, 5, Color.red, Color.red);
+				return;
+			}
+
+			Item item = GameManager.current.existingItems[itemIndex];
+
+            GameEventSystem.current.Inventory("insert", new Collectable("item", (int) amount, item));
+            textOutput("Gave the player " + item.itemName + " x" + (int) amount, font, 5, Color.white, Color.white);
+        });
+
         commandList = new List<object>
         {
             Help,
@@ -158,6 +174,7 @@ public class DebugController : MonoBehaviour
             ChangeDimension,
             IDs,
             Paths,
+			Give
         };
     }
 

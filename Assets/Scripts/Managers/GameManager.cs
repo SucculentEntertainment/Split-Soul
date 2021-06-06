@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
 	public CameraRigManager cameraRig;
 	public List<string> dimensions;
 
+	//TODO: Improve to accomodate all containers
+	public GameObject cItemContainer;
+
 	private List<int> loadedScenes = new List<int>();
 	private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
 
@@ -29,11 +32,14 @@ public class GameManager : MonoBehaviour
 	public int currLevel = -1;
 	public string dimension = "alive";
 
+	public List<Item> existingItems;
+
 	[Header("Player Variables")]
 	public float playerHealth;
     public int playerDeathState = 0;
     public float playerNextAttackTime = 0f;
 
+	public List<ItemSlot> playerInventory;
 	public int playerCoins = 0;
     public int playerSouls = 0;
 
@@ -98,6 +104,8 @@ public class GameManager : MonoBehaviour
 			levelManager.previousLevel = currLevel;
 			levelManager.player = player;
 			levelManager.activate();
+
+			cItemContainer = levelManager.itemContainer;
 		}
 		else
 		{

@@ -54,10 +54,19 @@ public class GameEventSystem : MonoBehaviour
     // --------------------------------
     //  Pickup Event
     // --------------------------------
-    public event Action<string, Item> onPickup;
-    public void Pickup(string id, Item item)
+    public event Action<string, Collectable> onPickup;
+    public void Pickup(string id, Collectable collectable)
     {
-        if (onPickup != null) onPickup(id, item);
+        if (onPickup != null) onPickup(id, collectable);
+    }
+
+	// --------------------------------
+    //  Inventory Event
+    // --------------------------------
+    public event Action<string, Collectable> onInventory;
+    public void Inventory(string action, Collectable collectable)
+    {
+        if (onInventory != null) onInventory(action, collectable);
     }
 
     // --------------------------------
@@ -140,10 +149,10 @@ public class GameEventSystem : MonoBehaviour
     //  UI Action Event
     // --------------------------------
 
-    public event Action<string> onUIAction;
-    public void UIAction(string action)
+    public event Action<UIAction> onUIAction;
+    public void ThrowUIAction(UIAction uiAction)
     {
-        if (onUIAction != null) onUIAction(action);
+        if (onUIAction != null) onUIAction(uiAction);
     }
 
 	// --------------------------------

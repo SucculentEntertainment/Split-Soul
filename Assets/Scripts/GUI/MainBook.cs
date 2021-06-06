@@ -9,7 +9,12 @@ public class MainBook : MonoBehaviour
 
 	public void throwUIActionEvent(string action)
 	{
-		GameEventSystem.current.UIAction(action);
+		GameEventSystem.current.ThrowUIAction(new UIAction(action));
+	}
+
+	public void throwIndexedUIActionEvent(string action, int index = -1)
+	{
+		GameEventSystem.current.ThrowUIAction(new UIAction(action, index));
 	}
 
 	public void setTitleScreenMode(bool active)
