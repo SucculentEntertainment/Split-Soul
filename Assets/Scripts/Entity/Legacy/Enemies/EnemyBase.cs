@@ -5,578 +5,588 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class EnemyBase : MonoBehaviour
+using SplitSoul.Core;
+using SplitSoul.Core.Events;
+using SplitSoul.Data.Entity;
+using SplitSoul.Data.Scriptable.Entity;
+using SplitSoul.Utility.Spawner;
+
+namespace SplitSoul.Entity.Legacy.Enemies
 {
-    // ================================
-    //  Parameters
-    // ================================
-
-    // --------------------------------
-    //  Parameters -> States
-    // --------------------------------
-
-    protected enum State
+	public class EnemyBase : MonoBehaviour
 	{
-        IDLE,
-        MOVE,
-        ATTACK,
-        DEAD,
-        MUTATE_INIT,
-        MUTATE,
-        SPECIAL_ATTACK
-	}
+		// ================================
+		//  Parameters
+		// ================================
 
-    protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die", "MutateInit", "", "SpecialAttack" };
+		// --------------------------------
+		//  Parameters -> States
+		// --------------------------------
 
-    // --------------------------------
-    //  Parameters -> Attributes
-    // --------------------------------
-
-	[Header("Ranged")]
-    public bool isRanged = false;
-    public ProjectileSpawner projectileSpawner;
-
-	[Header("Base")]
-    public float maxHealth;
-    public float baseAttack;
-    public string damageType;
-
-	[Header("Cooldowns")]
-    public float roamingProbability;
-
-    public float roamingCooldown;
-    public float interestCooldown;
-    public float attackCooldown;
-    public float specialAttackCooldown;
-
-    [Header("Ranges")]
-    public Transform detectPoint;
-    public float detectRange;
-    public LayerMask detectLayers;
-
-    public Transform attackPoint;
-    public float attackRange;
-    public float attackRangePadding;
-
-	[Header("Mutation")]
-	public bool canMutate;
-	public List<Mutation> mutations;
-
-    [Header("Common Special Attack")]
-    public float damageFactor = 1;
-
-    [Header("References")]
-    public Light2D lamp;
-
-    // --------------------------------
-    //  Parameters -> Internal Values
-    // --------------------------------
-
-    protected NavMeshAgent agent;
-
-    protected float health;
-    protected State state = State.IDLE;
-
-    protected float roamingTimer = 0f;
-    protected float interestTimer = 0f;
-    protected float attackTimer = 0f;
-    protected float specialAttackTimer = 0f;
-
-    protected GameObject targetObject;
-    protected Vector2 targetPosition;
-    protected Vector2 aimPosition;
-
-    protected Animator animator;
-    protected LineRenderer pathLine;
-
-    protected bool isDead = false;
-    protected bool isInRange = false;
-    protected bool isTooClose = false;
-
-    protected GameObject mutationTarget;
-    protected int mutationID;
-    protected bool isMutating = false;
-    protected bool isMutateInit = false;
-
-    [HideInInspector] public bool specialAttackEnded = true;
-
-    // ================================
-    //  Functions
-    // ================================
-
-    protected void Start()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
-        agent.updateUpAxis = false;
-
-        health = maxHealth;
-        animator = GetComponent<Animator>();
-
-        pathLine = GetComponent<LineRenderer>();
-        additionalStart();
-    }
-
-    protected void Update()
-    {
-        Collider2D target = Physics2D.OverlapCircle(detectPoint.position, detectRange, detectLayers);
-        if(lamp != null) GameEventSystem.current.RegisterLight(lamp);
-
-        if (target != null)
-        {
-            if (target.gameObject == targetObject) interestTimer = 0f;
-            else
-            {
-                targetObject = target.gameObject;
-                StartCoroutine(setState(State.MOVE));
-            }
-        }
-
-        if(targetObject != null)
-        {
-            if(state != State.SPECIAL_ATTACK) interestTimer += Time.deltaTime;
-
-            isTooClose = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRangePadding && isRanged;
-            isInRange = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRange && !isTooClose;
-        }
-        else isInRange = isTooClose = false;
-
-        if (interestTimer >= interestCooldown)
-        {
-            targetObject = null;
-            targetPosition = aimPosition = Vector2.zero;
-            interestTimer = 0f;
-            pathLine.positionCount = 0;
-            agent.SetDestination(transform.position);
-
-            StartCoroutine(setState(State.IDLE));
-        }
-
-        attackTimer += Time.deltaTime;
-        specialAttackTimer += Time.deltaTime;
-        roamingTimer += Time.deltaTime;
-
-        additionalUpdate();
-    }
-
-	protected void FixedUpdate()
-	{
-		switch(state)
+		protected enum State
 		{
-            case State.IDLE:
-                idleState();
-                break;
+			IDLE,
+			MOVE,
+			ATTACK,
+			DEAD,
+			MUTATE_INIT,
+			MUTATE,
+			SPECIAL_ATTACK
+		}
 
-            case State.MOVE:
-                moveState();
-                break;
+		protected string[] animationTrigger = { "Idle", "Move", "Attack", "Die", "MutateInit", "", "SpecialAttack" };
 
-            case State.ATTACK:
-                attackState();
-                break;
+		// --------------------------------
+		//  Parameters -> Attributes
+		// --------------------------------
 
-            case State.DEAD:
-                deadState();
-                break;
+		[Header("Ranged")]
+		public bool isRanged = false;
+		public ProjectileSpawner projectileSpawner;
 
-            case State.MUTATE_INIT:
-                mutateInitState();
-                break;
+		[Header("Base")]
+		public float maxHealth;
+		public float baseAttack;
+		public string damageType;
 
-            case State.MUTATE:
-                mutateState();
-                break;
+		[Header("Cooldowns")]
+		public float roamingProbability;
 
-            case State.SPECIAL_ATTACK:
-                specialAttackState();
-                break;
-        }
-	}
+		public float roamingCooldown;
+		public float interestCooldown;
+		public float attackCooldown;
+		public float specialAttackCooldown;
 
-    public virtual void additionalStart()
-	{
+		[Header("Ranges")]
+		public Transform detectPoint;
+		public float detectRange;
+		public LayerMask detectLayers;
 
-	}
+		public Transform attackPoint;
+		public float attackRange;
+		public float attackRangePadding;
 
-    public virtual void additionalUpdate()
-	{
+		[Header("Mutation")]
+		public bool canMutate;
+		public List<Mutation> mutations;
 
-	}
+		[Header("Common Special Attack")]
+		public float damageFactor = 1;
 
-    // ================================
-    //  State Handler
-    // ================================
+		[Header("References")]
+		public Light2D lamp;
 
-    // --------------------------------
-    //  State Handler -> Idle
-    // --------------------------------
+		// --------------------------------
+		//  Parameters -> Internal Values
+		// --------------------------------
 
-    protected void idleState()
-	{
-        if(isDead || isMutating) return;
-        if(isTooClose)
-        {
-            if(isInRange) StartCoroutine(setState(State.ATTACK));
-            else StartCoroutine(setState(State.MOVE));
-            return;
-        }
+		protected NavMeshAgent agent;
 
-        if(targetObject != null && isSpecialAttackEligable(targetObject))
-        {
-            StartCoroutine(setState(State.SPECIAL_ATTACK));
-            return;
-        }
+		protected float health;
+		protected State state = State.IDLE;
 
-        idle();
+		protected float roamingTimer = 0f;
+		protected float interestTimer = 0f;
+		protected float attackTimer = 0f;
+		protected float specialAttackTimer = 0f;
 
-        if(roamingTimer >= roamingCooldown)
+		protected GameObject targetObject;
+		protected Vector2 targetPosition;
+		protected Vector2 aimPosition;
+
+		protected Animator animator;
+		protected LineRenderer pathLine;
+
+		protected bool isDead = false;
+		protected bool isInRange = false;
+		protected bool isTooClose = false;
+
+		protected GameObject mutationTarget;
+		protected int mutationID;
+		protected bool isMutating = false;
+		protected bool isMutateInit = false;
+
+		[HideInInspector] public bool specialAttackEnded = true;
+
+		// ================================
+		//  Functions
+		// ================================
+
+		protected void Start()
 		{
-            roamingTimer = 0f;
+			agent = GetComponent<NavMeshAgent>();
+			agent.updateRotation = false;
+			agent.updateUpAxis = false;
 
-            if((int) UnityEngine.Random.Range(1, 100) <= roamingProbability)
+			health = maxHealth;
+			animator = GetComponent<Animator>();
+
+			pathLine = GetComponent<LineRenderer>();
+			additionalStart();
+		}
+
+		protected void Update()
+		{
+			Collider2D target = Physics2D.OverlapCircle(detectPoint.position, detectRange, detectLayers);
+			if (lamp != null) GameEventSystem.current.RegisterLight(lamp);
+
+			if (target != null)
 			{
-                Vector2 dir = new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f));
-                targetPosition = (Vector2) transform.position + dir;
+				if (target.gameObject == targetObject) interestTimer = 0f;
+				else
+				{
+					targetObject = target.gameObject;
+					StartCoroutine(setState(State.MOVE));
+				}
+			}
 
-                StartCoroutine(setState(State.MOVE));
-            }
+			if (targetObject != null)
+			{
+				if (state != State.SPECIAL_ATTACK) interestTimer += Time.deltaTime;
+
+				isTooClose = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRangePadding && isRanged;
+				isInRange = Vector2.Distance(attackPoint.position, targetObject.transform.position) <= attackRange && !isTooClose;
+			}
+			else isInRange = isTooClose = false;
+
+			if (interestTimer >= interestCooldown)
+			{
+				targetObject = null;
+				targetPosition = aimPosition = Vector2.zero;
+				interestTimer = 0f;
+				pathLine.positionCount = 0;
+				agent.SetDestination(transform.position);
+
+				StartCoroutine(setState(State.IDLE));
+			}
+
+			attackTimer += Time.deltaTime;
+			specialAttackTimer += Time.deltaTime;
+			roamingTimer += Time.deltaTime;
+
+			additionalUpdate();
 		}
-	}
 
-    // --------------------------------
-    //  State Handler -> Move
-    // --------------------------------
-
-    protected void moveState()
-    {
-        if(isDead || isMutating) return;
-        if (targetObject != null) targetPosition = (Vector2) targetObject.transform.position;
-        aimPosition = targetPosition;
-
-        pathLine.positionCount = agent.path.corners.Length;
-
-        if(targetObject != null && !isInRange)
-        {
-            Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
-            float scalar = Vector2.Distance(targetPosition, transform.position) - attackRangePadding * 1.25f;
-            targetPosition = (Vector2) transform.position + dir * scalar;
-        }
-
-        if(agent.path.corners != null && agent.path.corners.Length > 1)
-        {
-            for(int i = 0; i < agent.path.corners.Length; i++) pathLine.SetPosition(i, agent.path.corners[i]);
-        }
-
-        if(isInRange && !isTooClose && targetObject != null)
+		protected void FixedUpdate()
 		{
-            StartCoroutine(setState(State.ATTACK));
-            return;
+			switch (state)
+			{
+				case State.IDLE:
+					idleState();
+					break;
+
+				case State.MOVE:
+					moveState();
+					break;
+
+				case State.ATTACK:
+					attackState();
+					break;
+
+				case State.DEAD:
+					deadState();
+					break;
+
+				case State.MUTATE_INIT:
+					mutateInitState();
+					break;
+
+				case State.MUTATE:
+					mutateState();
+					break;
+
+				case State.SPECIAL_ATTACK:
+					specialAttackState();
+					break;
+			}
 		}
 
-        if(targetObject != null && isSpecialAttackEligable(targetObject))
-        {
-            StartCoroutine(setState(State.SPECIAL_ATTACK));
-            return;
-        }
+		public virtual void additionalStart()
+		{
 
-        if(isTooClose)
-        {
-            Vector2 dir = (targetPosition - (Vector2) transform.position).normalized;
-            targetPosition += dir * attackRangePadding * 2;
-        }
+		}
 
-        move();
-    }
+		public virtual void additionalUpdate()
+		{
 
-    // --------------------------------
-    //  State Handler -> Attack
-    // --------------------------------
+		}
 
-    protected void attackState()
-    {
-        if(isDead || isMutating) return;
-        if(attackTimer < attackCooldown) return;
+		// ================================
+		//  State Handler
+		// ================================
 
-        attackTimer = 0f;
-        if(!isRanged || (isRanged && isTooClose)) attack();
-        else attackRanged();
+		// --------------------------------
+		//  State Handler -> Idle
+		// --------------------------------
 
-        StartCoroutine(setState(State.IDLE));
-    }
+		protected void idleState()
+		{
+			if (isDead || isMutating) return;
+			if (isTooClose)
+			{
+				if (isInRange) StartCoroutine(setState(State.ATTACK));
+				else StartCoroutine(setState(State.MOVE));
+				return;
+			}
 
-    // --------------------------------
-    //  State Handler -> Death
-    // --------------------------------
+			if (targetObject != null && isSpecialAttackEligable(targetObject))
+			{
+				StartCoroutine(setState(State.SPECIAL_ATTACK));
+				return;
+			}
 
-    protected void deadState()
-    {
-        dead();
-    }
+			idle();
 
-    // --------------------------------
-    //  State Handler -> Mutation
-    // --------------------------------
+			if (roamingTimer >= roamingCooldown)
+			{
+				roamingTimer = 0f;
 
-    protected void mutateInitState()
-    {
-        if(isDead) return;
+				if ((int)UnityEngine.Random.Range(1, 100) <= roamingProbability)
+				{
+					Vector2 dir = new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), UnityEngine.Random.Range(-0.5f, 0.5f));
+					targetPosition = (Vector2)transform.position + dir;
 
-        if(isMutateInit) return;
-        isMutateInit = true;
+					StartCoroutine(setState(State.MOVE));
+				}
+			}
+		}
 
-        mutateInit();
-    }
+		// --------------------------------
+		//  State Handler -> Move
+		// --------------------------------
 
-    protected void mutateState()
-    {
-        if(isDead) return;
-        mutate();
-        dead();
-    }
+		protected void moveState()
+		{
+			if (isDead || isMutating) return;
+			if (targetObject != null) targetPosition = (Vector2)targetObject.transform.position;
+			aimPosition = targetPosition;
 
-    // --------------------------------
-    //  State Handler -> Special Attack
-    // --------------------------------
+			pathLine.positionCount = agent.path.corners.Length;
 
-    protected bool isFirstExec = true;
+			if (targetObject != null && !isInRange)
+			{
+				Vector2 dir = (targetPosition - (Vector2)transform.position).normalized;
+				float scalar = Vector2.Distance(targetPosition, transform.position) - attackRangePadding * 1.25f;
+				targetPosition = (Vector2)transform.position + dir * scalar;
+			}
 
-    protected void specialAttackState()
-    {
-        if(isDead || isMutating) return;
-        if(specialAttackTimer < specialAttackCooldown) return;
+			if (agent.path.corners != null && agent.path.corners.Length > 1)
+			{
+				for (int i = 0; i < agent.path.corners.Length; i++) pathLine.SetPosition(i, agent.path.corners[i]);
+			}
 
-        if(isFirstExec)
-        {
-        	specialAttackTimer = 0f;
-        	specialAttackEnded = false;
-            isFirstExec = false;
-        }
+			if (isInRange && !isTooClose && targetObject != null)
+			{
+				StartCoroutine(setState(State.ATTACK));
+				return;
+			}
 
-        specialAttack();
+			if (targetObject != null && isSpecialAttackEligable(targetObject))
+			{
+				StartCoroutine(setState(State.SPECIAL_ATTACK));
+				return;
+			}
 
-        if(specialAttackEnded)
-        {
-        	StartCoroutine(setState(State.IDLE));
-        	isFirstExec = true;
-        }
-    }
+			if (isTooClose)
+			{
+				Vector2 dir = (targetPosition - (Vector2)transform.position).normalized;
+				targetPosition += dir * attackRangePadding * 2;
+			}
 
-    // ================================
-    //  States (To be overriden)
-    // ================================
+			move();
+		}
 
-    // --------------------------------
-    //  States -> Idle
-    // --------------------------------
+		// --------------------------------
+		//  State Handler -> Attack
+		// --------------------------------
 
-    public virtual void idle() { }
+		protected void attackState()
+		{
+			if (isDead || isMutating) return;
+			if (attackTimer < attackCooldown) return;
 
-    // --------------------------------
-    //  States -> Move
-    // --------------------------------
+			attackTimer = 0f;
+			if (!isRanged || (isRanged && isTooClose)) attack();
+			else attackRanged();
 
-    public virtual void move()
-    {
-        agent.SetDestination(targetPosition);
-    }
+			StartCoroutine(setState(State.IDLE));
+		}
 
-    // --------------------------------
-    //  States -> Attack
-    // --------------------------------
+		// --------------------------------
+		//  State Handler -> Death
+		// --------------------------------
 
-    public virtual void attack()
-    {
-        float damage = baseAttack;
-        if(state == State.SPECIAL_ATTACK) damage *= damageFactor;
+		protected void deadState()
+		{
+			dead();
+		}
 
-        GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
-    }
+		// --------------------------------
+		//  State Handler -> Mutation
+		// --------------------------------
 
-    public virtual void attackRanged() { }
+		protected void mutateInitState()
+		{
+			if (isDead) return;
 
-    private void invokeSpawnProjectile() {
-        if (targetObject != null) aimPosition = (Vector2) targetObject.transform.position;
-        projectileSpawner.spawnProjectile(aimPosition);
-    }
+			if (isMutateInit) return;
+			isMutateInit = true;
 
-    // --------------------------------
-    //  States -> Death
-    // --------------------------------
+			mutateInit();
+		}
 
-    public virtual void dead()
-    {
-        //TODO: Spwan Loot
+		protected void mutateState()
+		{
+			if (isDead) return;
+			mutate();
+			dead();
+		}
 
-        GetComponent<ProjectileHitEvent>().unregister();
-        GetComponent<DimensionEvent>().unregister();
-        GetComponent<DamageEvent>().unregister();
-        GetComponent<DebugEvent>().unregister();
+		// --------------------------------
+		//  State Handler -> Special Attack
+		// --------------------------------
 
-        if(lamp != null) GameEventSystem.current.UnregisterLight(lamp);
+		protected bool isFirstExec = true;
 
-        Destroy(gameObject);
-    }
+		protected void specialAttackState()
+		{
+			if (isDead || isMutating) return;
+			if (specialAttackTimer < specialAttackCooldown) return;
 
-    // --------------------------------
-    //  States -> Mutation
-    // --------------------------------
+			if (isFirstExec)
+			{
+				specialAttackTimer = 0f;
+				specialAttackEnded = false;
+				isFirstExec = false;
+			}
 
-    public virtual void mutateInit()
-    {
-        animator.SetInteger("MutationID", mutationID);
-        animator.SetTrigger("Mutate");
-        StartCoroutine(setState(State.MUTATE, animator.GetCurrentAnimatorStateInfo(0).length, false));
-    }
+			specialAttack();
 
-    public virtual void mutate()
-    {
-        Instantiate(mutationTarget, transform.position, Quaternion.identity, transform.parent);
-    }
+			if (specialAttackEnded)
+			{
+				StartCoroutine(setState(State.IDLE));
+				isFirstExec = true;
+			}
+		}
 
-    // --------------------------------
-    //  States -> Special Attack
-    // --------------------------------
+		// ================================
+		//  States (To be overriden)
+		// ================================
 
-    public virtual void specialAttack() { }
+		// --------------------------------
+		//  States -> Idle
+		// --------------------------------
 
-    // ================================
-    //  Coroutines
-    // ================================
+		public virtual void idle() { }
 
-    protected IEnumerator setState(State _state = State.IDLE, float _delay = 0, bool changeAnim = true)
-	{
-        yield return new WaitForSeconds(_delay);
+		// --------------------------------
+		//  States -> Move
+		// --------------------------------
 
-        if(isDead && _state != State.DEAD) yield break;
+		public virtual void move()
+		{
+			agent.SetDestination(targetPosition);
+		}
 
-        if(changeAnim) animator.SetTrigger(animationTrigger[(int) _state]);
-        state = _state;
-    }
+		// --------------------------------
+		//  States -> Attack
+		// --------------------------------
 
-    // ================================
-    //  Actions
-    // ================================
+		public virtual void attack()
+		{
+			float damage = baseAttack;
+			if (state == State.SPECIAL_ATTACK) damage *= damageFactor;
 
-    protected void die()
-    {
-        if(isDead) return;
+			GameEventSystem.current.GiveDamage(targetObject.name, baseAttack);
+		}
 
-        isDead = true;
-        animator.SetTrigger(animationTrigger[(int) State.DEAD]);
+		public virtual void attackRanged() { }
 
-        StartCoroutine(setState(State.DEAD, animator.GetCurrentAnimatorStateInfo(0).length, false));
-    }
+		private void invokeSpawnProjectile()
+		{
+			if (targetObject != null) aimPosition = (Vector2)targetObject.transform.position;
+			projectileSpawner.spawnProjectile(aimPosition);
+		}
 
-    protected void setEnabled(bool active)
-    {
-        GetComponent<CapsuleCollider2D>().enabled = active;
-        GetComponent<DamageEvent>().enabled = active;
-        animator.enabled = active;
-        agent.enabled = active;
-        transform.Find("Sprite").gameObject.SetActive(active);
-    }
+		// --------------------------------
+		//  States -> Death
+		// --------------------------------
 
-    // ================================
-    //  Events
-    // ================================
+		public virtual void dead()
+		{
+			//TODO: Spwan Loot
 
-    // --------------------------------
-    //  Events -> Damage
-    // --------------------------------
+			GetComponent<ProjectileHitEvent>().unregister();
+			GetComponent<DimensionEvent>().unregister();
+			GetComponent<DamageEvent>().unregister();
+			GetComponent<DebugEvent>().unregister();
 
-    public void OnReceiveDamage(float damage)
-	{
-        health -= damage;
-        if (health <= 0) die();
+			if (lamp != null) GameEventSystem.current.UnregisterLight(lamp);
+
+			Destroy(gameObject);
+		}
+
+		// --------------------------------
+		//  States -> Mutation
+		// --------------------------------
+
+		public virtual void mutateInit()
+		{
+			animator.SetInteger("MutationID", mutationID);
+			animator.SetTrigger("Mutate");
+			StartCoroutine(setState(State.MUTATE, animator.GetCurrentAnimatorStateInfo(0).length, false));
+		}
+
+		public virtual void mutate()
+		{
+			Instantiate(mutationTarget, transform.position, Quaternion.identity, transform.parent);
+		}
+
+		// --------------------------------
+		//  States -> Special Attack
+		// --------------------------------
+
+		public virtual void specialAttack() { }
+
+		// ================================
+		//  Coroutines
+		// ================================
+
+		protected IEnumerator setState(State _state = State.IDLE, float _delay = 0, bool changeAnim = true)
+		{
+			yield return new WaitForSeconds(_delay);
+
+			if (isDead && _state != State.DEAD) yield break;
+
+			if (changeAnim) animator.SetTrigger(animationTrigger[(int)_state]);
+			state = _state;
+		}
+
+		// ================================
+		//  Actions
+		// ================================
+
+		protected void die()
+		{
+			if (isDead) return;
+
+			isDead = true;
+			animator.SetTrigger(animationTrigger[(int)State.DEAD]);
+
+			StartCoroutine(setState(State.DEAD, animator.GetCurrentAnimatorStateInfo(0).length, false));
+		}
+
+		protected void setEnabled(bool active)
+		{
+			GetComponent<CapsuleCollider2D>().enabled = active;
+			GetComponent<DamageEvent>().enabled = active;
+			animator.enabled = active;
+			agent.enabled = active;
+			transform.Find("Sprite").gameObject.SetActive(active);
+		}
+
+		// ================================
+		//  Events
+		// ================================
+
+		// --------------------------------
+		//  Events -> Damage
+		// --------------------------------
+
+		public void OnReceiveDamage(float damage)
+		{
+			health -= damage;
+			if (health <= 0) die();
+		}
+
+		// --------------------------------
+		//  Events -> Debug
+		// --------------------------------
+
+		protected void OnDebug(string debugType)
+		{
+			if (debugType == "path") pathLine.enabled = !pathLine.enabled;
+		}
+
+		// --------------------------------
+		//  Events -> Dimension
+		// --------------------------------
+
+		protected virtual void OnDimensionEnable(string dimension)
+		{
+			int index = GameManager.current.dimensions.FindIndex(x => x.Contains(dimension));
+			if (index == -1) index = 0;
+
+			animator.SetInteger("Dim", index);
+			animator.SetTrigger(animationTrigger[(int)state]);
+			setEnabled(true);
+		}
+
+		public virtual void OnDimensionDisable(string dimension)
+		{
+			setEnabled(false);
+		}
+
+		// --------------------------------
+		//  Events -> Projectile
+		// --------------------------------
+
+		protected virtual void OnProjectileHit(ProjectileData pData)
+		{
+			if (canMutate)
+			{
+				int i = 0;
+				foreach (Mutation mData in mutations)
+				{
+					if (mData.useElement && pData.element == mData.element) mutateAction(i, mData.target);
+					else if (pData.name == mData.projectileID) mutateAction(i, mData.target);
+
+					i++;
+				}
+
+				return;
+			}
+
+			OnReceiveDamage(pData.damage);
+		}
+
+		// ================================
+		//  Mutations
+		// ================================
+
+		protected virtual void mutateAction(int mutationID, GameObject target)
+		{
+			mutationTarget = target;
+			this.mutationID = mutationID;
+
+			isMutating = true;
+			animator.SetTrigger(animationTrigger[(int)State.MUTATE_INIT]);
+			StartCoroutine(setState(State.MUTATE_INIT, animator.GetCurrentAnimatorStateInfo(0).length, false));
+		}
+
+		// ================================
+		//  Special Attack
+		// ================================
+
+		public virtual bool isSpecialAttackEligable(GameObject targetObject)
+		{
+			return false;
+		}
+
+		// ================================
+		//  Gizmos
+		// ================================
+
+		void OnDrawGizmosSelected()
+		{
+			Gizmos.color = new Color(255, 0, 0);
+			if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+
+			Gizmos.color = new Color(255, 255, 0);
+			if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRangePadding);
+
+			Gizmos.color = new Color(0, 0, 255);
+			if (detectPoint != null) Gizmos.DrawWireSphere(detectPoint.position, detectRange);
+		}
 	}
-
-    // --------------------------------
-    //  Events -> Debug
-    // --------------------------------
-
-    protected void OnDebug(string debugType)
-	{
-        if(debugType == "path") pathLine.enabled = !pathLine.enabled;
-	}
-
-    // --------------------------------
-    //  Events -> Dimension
-    // --------------------------------
-
-    protected virtual void OnDimensionEnable(string dimension)
-    {
-        int index = GameManager.current.dimensions.FindIndex(x => x.Contains(dimension));
-        if(index == -1) index = 0;
-
-        animator.SetInteger("Dim", index);
-        animator.SetTrigger(animationTrigger[(int) state]);
-        setEnabled(true);
-    }
-
-    public virtual void OnDimensionDisable(string dimension)
-    {
-        setEnabled(false);
-    }
-
-    // --------------------------------
-    //  Events -> Projectile
-    // --------------------------------
-
-    protected virtual void OnProjectileHit(ProjectileData pData)
-    {
-        if(canMutate)
-        {
-            int i = 0;
-            foreach(Mutation mData in mutations)
-            {
-                if(mData.useElement && pData.element == mData.element) mutateAction(i, mData.target);
-                else if(pData.name == mData.projectileID) mutateAction(i, mData.target);
-
-                i++;
-            }
-
-            return;
-        }
-
-        OnReceiveDamage(pData.damage);
-    }
-
-    // ================================
-    //  Mutations
-    // ================================
-
-    protected virtual void mutateAction(int mutationID, GameObject target)
-    {
-        mutationTarget = target;
-        this.mutationID = mutationID;
-
-        isMutating = true;
-        animator.SetTrigger(animationTrigger[(int) State.MUTATE_INIT]);
-        StartCoroutine(setState(State.MUTATE_INIT, animator.GetCurrentAnimatorStateInfo(0).length, false));
-    }
-
-    // ================================
-    //  Special Attack
-    // ================================
-
-    public virtual bool isSpecialAttackEligable(GameObject targetObject)
-    {
-        return false;
-    }
-
-    // ================================
-    //  Gizmos
-    // ================================
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(255, 0, 0);
-        if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-
-        Gizmos.color = new Color(255, 255, 0);
-        if (attackPoint != null) Gizmos.DrawWireSphere(attackPoint.position, attackRangePadding);
-
-        Gizmos.color = new Color(0, 0, 255);
-        if (detectPoint != null) Gizmos.DrawWireSphere(detectPoint.position, detectRange);
-    }
 }

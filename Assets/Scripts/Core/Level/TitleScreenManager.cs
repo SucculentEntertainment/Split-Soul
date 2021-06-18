@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TitleScreenManager : MonoBehaviour
+using SplitSoul.Core.Events;
+
+namespace SplitSoul.Core.Level
 {
-	public GameObject levelTools;
-
-	private void Awake()
+	public class TitleScreenManager : MonoBehaviour
 	{
-		if(levelTools != null) levelTools.SetActive(false);
-	}
+		public GameObject levelTools;
 
-    private void OnEscape(InputValue val)
-    {
-		GameEventSystem.current.ThrowUIAction(new UIAction("ESC"));
-    }
+		private void Awake()
+		{
+			if (levelTools != null) levelTools.SetActive(false);
+		}
 
-	private void OnReturn(InputValue val)
-    {
-		GameEventSystem.current.ThrowUIAction(new UIAction("Enter"));
-    }
+		private void OnEscape(InputValue val)
+		{
+			GameEventSystem.current.ThrowUIAction(new UIAction("ESC"));
+		}
 
-	private void OnLevelChange(int targetLevel)
-	{
-		GameManager.current.loadLevel(targetLevel);
+		private void OnReturn(InputValue val)
+		{
+			GameEventSystem.current.ThrowUIAction(new UIAction("Enter"));
+		}
+
+		private void OnLevelChange(int targetLevel)
+		{
+			GameManager.current.loadLevel(targetLevel);
+		}
 	}
 }

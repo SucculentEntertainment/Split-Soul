@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName="Item")]
-public class Item : ScriptableObject
+namespace SplitSoul.Data.Scriptable.Inventory
 {
-	public string id;
-    public string itemName;
-    public string description;
-	public string category;
-    public AnimatorOverrideController icon;
-    public AnimatorOverrideController highres;
-    public bool stackable;
+	[CreateAssetMenu(menuName = "Item")]
+	public class Item : ScriptableObject
+	{
+		public string id;
+		public string itemName;
+		public string description;
+		public string category;
+		public AnimatorOverrideController icon;
+		public AnimatorOverrideController highres;
+		public bool stackable;
+	}
 }

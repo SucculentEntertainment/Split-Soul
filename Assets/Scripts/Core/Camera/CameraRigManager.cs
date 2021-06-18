@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraRigManager : MonoBehaviour
+namespace SplitSoul.Core.Camera
 {
-	public float sizeNormal = 3;
-	public float sizeTitleScreen = 5;
-	public Camera camera;
-
-	[HideInInspector] public bool titleScreen = false;
-
-    public void setTitleScreenMode(bool mode)
+	public class CameraRigManager : MonoBehaviour
 	{
-		if(mode) camera.orthographicSize = sizeTitleScreen;
-		else     camera.orthographicSize = sizeNormal;
+		public float sizeNormal = 3;
+		public float sizeTitleScreen = 5;
+		public UnityEngine.Camera camera;
 
-		titleScreen = mode;
+		[HideInInspector] public bool titleScreen = false;
+
+		public void setTitleScreenMode(bool mode)
+		{
+			if (mode) camera.orthographicSize = sizeTitleScreen;
+			else camera.orthographicSize = sizeNormal;
+
+			titleScreen = mode;
+		}
 	}
 }

@@ -2,26 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class ProjectileProfile
+using SplitSoul.Core;
+using SplitSoul.Entity.Legacy.Projectiles;
+
+namespace SplitSoul.Utility.Spawner
 {
-    public string dimension;
-    public GameObject projectile;
-}
+	[System.Serializable]
+	public class ProjectileProfile
+	{
+		public string dimension;
+		public GameObject projectile;
+	}
 
-public class ProjectileSpawner : MonoBehaviour
-{
-    public bool useDifferentProfiles = false;
-    public List<ProjectileProfile> profiles;
-	public Transform projectileContainer;
+	public class ProjectileSpawner : MonoBehaviour
+	{
+		public bool useDifferentProfiles = false;
+		public List<ProjectileProfile> profiles;
+		public Transform projectileContainer;
 
-    public void spawnProjectile(Vector2 aimPosition)
-    {
-        ProjectileProfile profile = profiles[0];
-        if(useDifferentProfiles) profile = profiles.Find(x => x.dimension == GameManager.current.dimension);
+		public void spawnProjectile(Vector2 aimPosition)
+		{
+			ProjectileProfile profile = profiles[0];
+			if (useDifferentProfiles) profile = profiles.Find(x => x.dimension == GameManager.current.dimension);
 
-        GameObject instance = Instantiate(profile.projectile, transform.position, Quaternion.identity, projectileContainer);
-        Vector2 dir = (aimPosition - (Vector2) transform.position).normalized;
-        instance.GetComponent<ProjectileBase>().init(dir, this.name);
-    }
+			GameObject instance = Instantiate(profile.projectile, transform.position, Quaternion.identity, projectileContainer);
+			Vector2 dir = (aimPosition - (Vector2)transform.position).normalized;
+			instance.GetComponent<ProjectileBase>().init(dir, this.name);
+		}
+	}
 }

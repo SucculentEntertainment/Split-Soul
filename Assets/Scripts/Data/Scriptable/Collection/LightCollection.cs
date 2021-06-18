@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class LightProfile
+namespace SplitSoul.Data.Scriptable.Collection
 {
-    public string dimension;
-    public Color color;
-}
+	[System.Serializable]
+	public class LightProfile
+	{
+		public string dimension;
+		public Color color;
+	}
 
-[CreateAssetMenu(menuName="Light Collection")]
-public class LightCollection : ScriptableObject
-{
-    public List<LightProfile> profiles;
+	[CreateAssetMenu(menuName = "Light Collection")]
+	public class LightCollection : ScriptableObject
+	{
+		public List<LightProfile> profiles;
+	}
 }

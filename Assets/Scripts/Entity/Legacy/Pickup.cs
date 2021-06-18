@@ -2,82 +2,90 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup : MonoBehaviour
+using SplitSoul.Core;
+using SplitSoul.Core.Events;
+using SplitSoul.Data;
+using SplitSoul.Data.Scriptable.Inventory;
+
+namespace SplitSoul.Entity.Legacy
 {
-    public Transform pickupPoint;
-    public float pickupRange = 0.25f;
-    public LayerMask playerLayer;
-
-	public Animator animator;
-	public AnimatorOverrideController missingIcon;
-
-    public string id;
-    public int amount;
-	public Item item = null;
-
-    private bool enablePickup = true;
-
-    // ================================
-    //  Functions
-    // ================================
-
-	private void Start() { if(item != null) setItem(item); }
-
-    void Update()
-    {
-        if (!enablePickup) return;
-
-        Collider2D player = Physics2D.OverlapCircle(pickupPoint.position, pickupRange, playerLayer);
-        if (player == null) return;
-
-        GameEventSystem.current.Pickup(player.name, new Collectable(id, amount, item));
-        pickedUp();
-    }
-
-    private void pickedUp()
+	public class Pickup : MonoBehaviour
 	{
-        GetComponent<DimensionEvent>().unregister();
-        Destroy(gameObject);
-        this.enabled = false;
-	}
+		public Transform pickupPoint;
+		public float pickupRange = 0.25f;
+		public LayerMask playerLayer;
 
-	public void setItem(Item item)
-	{
-		if(item == null || id != "item")
+		public Animator animator;
+		public AnimatorOverrideController missingIcon;
+
+		public string id;
+		public int amount;
+		public Item item = null;
+
+		private bool enablePickup = true;
+
+		// ================================
+		//  Functions
+		// ================================
+
+		private void Start() { if (item != null) setItem(item); }
+
+		void Update()
 		{
-			Destroy(gameObject);
-			return;
+			if (!enablePickup) return;
+
+			Collider2D player = Physics2D.OverlapCircle(pickupPoint.position, pickupRange, playerLayer);
+			if (player == null) return;
+
+			GameEventSystem.current.Pickup(player.name, new Collectable(id, amount, item));
+			pickedUp();
 		}
 
-		if(item.icon != null) animator.runtimeAnimatorController = item.icon;
-		else animator.runtimeAnimatorController = missingIcon;
+		private void pickedUp()
+		{
+			GetComponent<DimensionEvent>().unregister();
+			Destroy(gameObject);
+			this.enabled = false;
+		}
 
-		this.item = item;
+		public void setItem(Item item)
+		{
+			if (item == null || id != "item")
+			{
+				Destroy(gameObject);
+				return;
+			}
+
+			if (item.icon != null) animator.runtimeAnimatorController = item.icon;
+			else animator.runtimeAnimatorController = missingIcon;
+
+			this.item = item;
+		}
+
+		// ================================
+		//  Events
+		// ================================
+
+		private void OnDimensionEnable(string dimension)
+		{
+			enablePickup = true;
+			foreach (Transform c in transform) { c.gameObject.SetActive(true); }
+		}
+
+		private void OnDimensionDisable(string dimension)
+		{
+			enablePickup = false;
+			foreach (Transform c in transform) { c.gameObject.SetActive(false); }
+		}
+
+		// ================================
+		//  Gizmos
+		// ================================
+
+		void OnDrawGizmosSelected()
+		{
+			if (pickupPoint == null) return;
+			Gizmos.DrawWireSphere(pickupPoint.position, pickupRange);
+		}
 	}
-
-    // ================================
-    //  Events
-    // ================================
-
-    private void OnDimensionEnable(string dimension)
-	{
-        enablePickup = true;
-        foreach(Transform c in transform) { c.gameObject.SetActive(true); }
-	}
-
-    private void OnDimensionDisable(string dimension)
-    {
-        enablePickup = false;
-        foreach (Transform c in transform) { c.gameObject.SetActive(false); }
-    }
-
-    // ================================
-    //  Gizmos
-    // ================================
-
-    void OnDrawGizmosSelected()
-    {
-        if (pickupPoint == null) return;
-        Gizmos.DrawWireSphere(pickupPoint.position, pickupRange);
-    }
 }

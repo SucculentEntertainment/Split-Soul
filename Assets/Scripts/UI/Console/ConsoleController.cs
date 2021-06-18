@@ -5,210 +5,218 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ConsoleController : MonoBehaviour
+using SplitSoul.Core;
+using SplitSoul.Data;
+using SplitSoul.Data.Scriptable.Inventory;
+using SplitSoul.UI.Elements;
+
+namespace SplitSoul.UI.Console
 {
-    public Camera cam;
-    public Font font;
-
-	public Transform outputTextContainer;
-	public GameObject fadingTextElement;
-
-    private bool showIDs = false;
-	private int prevChildCount = 0;
-
-    public List<object> commandList;
-
-    public static ConsoleCommand Help;
-    public static ConsoleCommand<string> Kill;
-    public static ConsoleCommand<string> Revive;
-    public static ConsoleCommand<string, float> Damage;
-    public static ConsoleCommand<string, float> Heal;
-    public static ConsoleCommand<string> ChangeDimension;
-    public static ConsoleCommand IDs;
-    public static ConsoleCommand Paths;
-	public static ConsoleCommand<string, float> Give;
-
-    // ================================
-    //  Events
-    // ================================
-
-
-
-	// ================================
-    //  Functions
-    // ================================
-
-	private void OnEnable()
+	public class ConsoleController : MonoBehaviour
 	{
-		transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
-	}
+		public Camera cam;
+		public Font font;
 
-	private void Update()
-	{
-		int childCount = outputTextContainer.childCount;
-		if(prevChildCount == childCount) return;
-		prevChildCount = childCount;
+		public Transform outputTextContainer;
+		public GameObject fadingTextElement;
 
-		float width = outputTextContainer.GetComponent<RectTransform>().sizeDelta.x;
-		float height = childCount * fadingTextElement.GetComponent<RectTransform>().sizeDelta.y;
+		private bool showIDs = false;
+		private int prevChildCount = 0;
 
-		outputTextContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
-	}
+		public List<object> commandList;
 
-	private void textOutput(string text, Font font, float lifetime, Color startColor, Color endColor)
-	{
-		//Instantiate
-		GameObject obj = Instantiate(fadingTextElement, outputTextContainer);
-		FadingTextElement fte = obj.GetComponent<FadingTextElement>();
+		public static ConsoleCommand Help;
+		public static ConsoleCommand<string> Kill;
+		public static ConsoleCommand<string> Revive;
+		public static ConsoleCommand<string, float> Damage;
+		public static ConsoleCommand<string, float> Heal;
+		public static ConsoleCommand<string> ChangeDimension;
+		public static ConsoleCommand IDs;
+		public static ConsoleCommand Paths;
+		public static ConsoleCommand<string, float> Give;
 
-		//Set text, font and lifetime
-		fte.text = text;
-		fte.font = font;
-		fte.lifetime = lifetime;
+		// ================================
+		//  Events
+		// ================================
 
-		//Set Gradient
-		if(startColor == null) startColor = Color.white;
-		if(endColor == null) endColor = startColor;
 
-		GradientColorKey[] colorKey = new GradientColorKey[2];
-        colorKey[0].color = startColor;
-        colorKey[0].time = 0.0f;
-        colorKey[1].color = endColor;
-        colorKey[1].time = 1.0f;
 
-        GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
-        alphaKey[0].alpha = 1.0f;
-        alphaKey[0].time = 0.0f;
-        alphaKey[1].alpha = 0.0f;
-        alphaKey[1].time = 1.0f;
+		// ================================
+		//  Functions
+		// ================================
 
-        fte.gradient.SetKeys(colorKey, alphaKey);
+		private void OnEnable()
+		{
+			transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
+		}
 
-	}
+		private void Update()
+		{
+			int childCount = outputTextContainer.childCount;
+			if (prevChildCount == childCount) return;
+			prevChildCount = childCount;
 
-    private void printHelp()
-	{
-        for (int i = 0; i < commandList.Count; i++)
-        {
-            ConsoleCommandBase command = commandList[i] as ConsoleCommandBase;
+			float width = outputTextContainer.GetComponent<RectTransform>().sizeDelta.x;
+			float height = childCount * fadingTextElement.GetComponent<RectTransform>().sizeDelta.y;
 
-            string text = $"{command.commandFormat}" + " => " + $"{command.commandDescription}";
-            textOutput(text, font, 10, Color.white, Color.white);
-        }
-    }
+			outputTextContainer.GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
+		}
 
-    // ================================
-    //  Commands
-    // ================================
+		private void textOutput(string text, Font font, float lifetime, Color startColor, Color endColor)
+		{
+			//Instantiate
+			GameObject obj = Instantiate(fadingTextElement, outputTextContainer);
+			FadingTextElement fte = obj.GetComponent<FadingTextElement>();
 
-    private void Awake()
-    {
-        Help = new ConsoleCommand("help", "Shows a list of available commands", "help", () =>
-        {
-            printHelp();
-        });
+			//Set text, font and lifetime
+			fte.text = text;
+			fte.font = font;
+			fte.lifetime = lifetime;
 
-        Kill = new ConsoleCommand<string>("kill", "Kills the specified entity", "kill [entity ID]", (id) =>
-        {
-            GameEventSystem.current.GiveDamage(id, 999999999f);
-            textOutput("Killed " + id, font, 5, Color.white, Color.white);
-        });
+			//Set Gradient
+			if (startColor == null) startColor = Color.white;
+			if (endColor == null) endColor = startColor;
 
-        Revive = new ConsoleCommand<string>("revive", "Revives the specified entity", "revive [entity ID]", (id) =>
-        {
-            GameEventSystem.current.Revive(id);
-            textOutput("Revived " + id, font, 5, Color.white, Color.white);
-        });
+			GradientColorKey[] colorKey = new GradientColorKey[2];
+			colorKey[0].color = startColor;
+			colorKey[0].time = 0.0f;
+			colorKey[1].color = endColor;
+			colorKey[1].time = 1.0f;
 
-        Damage = new ConsoleCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage [entity ID] [damage]", (id, damage) =>
-        {
-            GameEventSystem.current.GiveDamage(id, damage);
-            textOutput("Dealt " + damage + " damage to " + id, font, 5, Color.white, Color.white);
-        });
+			GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+			alphaKey[0].alpha = 1.0f;
+			alphaKey[0].time = 0.0f;
+			alphaKey[1].alpha = 0.0f;
+			alphaKey[1].time = 1.0f;
 
-        Heal = new ConsoleCommand<string, float>("heal", "Heals the specified entity by amount", "heal [entity ID] [amount]", (id, damage) =>
-        {
-            GameEventSystem.current.Heal(id, damage);
-            textOutput("Healed " + id + " by " + damage + " HP", font, 5, Color.white, Color.white);
-        });
+			fte.gradient.SetKeys(colorKey, alphaKey);
 
-        ChangeDimension = new ConsoleCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension [dimension]", (dim) =>
-        {
-            GameManager.current.changeDimension(dim);
-            textOutput("Changed dimension to " + dim, font, 5, Color.white, Color.white);
-        });
+		}
 
-        IDs = new ConsoleCommand("ids", "Displays the entity IDs above the entities", "ids", () =>
-        {
-            textOutput("Toggled ID Labels", font, 5, Color.white, Color.white);
-        });
-
-        Paths = new ConsoleCommand("paths", "Displays all AI paths", "paths", () =>
-        {
-            GameEventSystem.current.Debug("path");
-            textOutput("Toggled display of pathfinding paths", font, 5, Color.white, Color.white);
-        });
-
-		Give = new ConsoleCommand<string, float>("give", "Gives a specified amount of a specified item to the player", "give [item] [amount]", (itemID, amount) =>
-        {
-			int itemIndex = GameManager.current.existingItems.FindIndex(x => x.id == itemID);
-			if(itemIndex == -1)
+		private void printHelp()
+		{
+			for (int i = 0; i < commandList.Count; i++)
 			{
-				textOutput("Item with id " + itemID + " does not exist", font, 5, Color.red, Color.red);
-				return;
+				ConsoleCommandBase command = commandList[i] as ConsoleCommandBase;
+
+				string text = $"{command.commandFormat}" + " => " + $"{command.commandDescription}";
+				textOutput(text, font, 10, Color.white, Color.white);
+			}
+		}
+
+		// ================================
+		//  Commands
+		// ================================
+
+		private void Awake()
+		{
+			Help = new ConsoleCommand("help", "Shows a list of available commands", "help", () =>
+			{
+				printHelp();
+			});
+
+			Kill = new ConsoleCommand<string>("kill", "Kills the specified entity", "kill [entity ID]", (id) =>
+			{
+				GameEventSystem.current.GiveDamage(id, 999999999f);
+				textOutput("Killed " + id, font, 5, Color.white, Color.white);
+			});
+
+			Revive = new ConsoleCommand<string>("revive", "Revives the specified entity", "revive [entity ID]", (id) =>
+			{
+				GameEventSystem.current.Revive(id);
+				textOutput("Revived " + id, font, 5, Color.white, Color.white);
+			});
+
+			Damage = new ConsoleCommand<string, float>("damage", "Damages the specified entity by specified damage", "damage [entity ID] [damage]", (id, damage) =>
+			{
+				GameEventSystem.current.GiveDamage(id, damage);
+				textOutput("Dealt " + damage + " damage to " + id, font, 5, Color.white, Color.white);
+			});
+
+			Heal = new ConsoleCommand<string, float>("heal", "Heals the specified entity by amount", "heal [entity ID] [amount]", (id, damage) =>
+			{
+				GameEventSystem.current.Heal(id, damage);
+				textOutput("Healed " + id + " by " + damage + " HP", font, 5, Color.white, Color.white);
+			});
+
+			ChangeDimension = new ConsoleCommand<string>("dimension", "Changes the current dimension to the specified one", "dimension [dimension]", (dim) =>
+			{
+				GameManager.current.changeDimension(dim);
+				textOutput("Changed dimension to " + dim, font, 5, Color.white, Color.white);
+			});
+
+			IDs = new ConsoleCommand("ids", "Displays the entity IDs above the entities", "ids", () =>
+			{
+				textOutput("Toggled ID Labels", font, 5, Color.white, Color.white);
+			});
+
+			Paths = new ConsoleCommand("paths", "Displays all AI paths", "paths", () =>
+			{
+				GameEventSystem.current.Debug("path");
+				textOutput("Toggled display of pathfinding paths", font, 5, Color.white, Color.white);
+			});
+
+			Give = new ConsoleCommand<string, float>("give", "Gives a specified amount of a specified item to the player", "give [item] [amount]", (itemID, amount) =>
+			{
+				int itemIndex = GameManager.current.existingItems.FindIndex(x => x.id == itemID);
+				if (itemIndex == -1)
+				{
+					textOutput("Item with id " + itemID + " does not exist", font, 5, Color.red, Color.red);
+					return;
+				}
+
+				Item item = GameManager.current.existingItems[itemIndex];
+
+				GameEventSystem.current.Inventory("insert", new Collectable("item", (int)amount, item));
+				textOutput("Gave the player " + item.itemName + " x" + (int)amount, font, 5, Color.white, Color.white);
+			});
+
+			commandList = new List<object>
+		{
+			Help,
+			Kill,
+			Revive,
+			Damage,
+			Heal,
+			ChangeDimension,
+			IDs,
+			Paths,
+			Give
+		};
+		}
+
+		public void HandleInput()
+		{
+			string input = transform.GetChild(0).GetComponent<InputField>().text;
+			transform.GetChild(0).GetComponent<InputField>().text = "";
+			transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
+
+			string[] args = input.Split(' ');
+			bool found = false;
+
+			for (int i = 0; i < commandList.Count; i++)
+			{
+				ConsoleCommandBase commandBase = commandList[i] as ConsoleCommandBase;
+				if (input.Contains(commandBase.commandID))
+				{
+					found = true;
+
+					if (commandList[i] as ConsoleCommand != null)
+					{
+						(commandList[i] as ConsoleCommand).Invoke();
+					}
+					else if (commandList[i] as ConsoleCommand<string> != null && args.Length == 2)
+					{
+						(commandList[i] as ConsoleCommand<string>).Invoke(args[1]);
+					}
+					else if (commandList[i] as ConsoleCommand<string, float> != null && args.Length == 3)
+					{
+						(commandList[i] as ConsoleCommand<string, float>).Invoke(args[1], float.Parse(args[2]));
+					}
+				}
 			}
 
-			Item item = GameManager.current.existingItems[itemIndex];
-
-            GameEventSystem.current.Inventory("insert", new Collectable("item", (int) amount, item));
-            textOutput("Gave the player " + item.itemName + " x" + (int) amount, font, 5, Color.white, Color.white);
-        });
-
-        commandList = new List<object>
-        {
-            Help,
-            Kill,
-            Revive,
-            Damage,
-            Heal,
-            ChangeDimension,
-            IDs,
-            Paths,
-			Give
-        };
-    }
-
-    public void HandleInput()
-    {
-		string input = transform.GetChild(0).GetComponent<InputField>().text;
-		transform.GetChild(0).GetComponent<InputField>().text = "";
-		transform.GetChild(0).GetComponent<InputField>().ActivateInputField();
-
-        string[] args = input.Split(' ');
-        bool found = false;
-
-        for(int i = 0; i < commandList.Count; i++)
-        {
-            ConsoleCommandBase commandBase = commandList[i] as ConsoleCommandBase;
-            if(input.Contains(commandBase.commandID))
-            {
-                found = true;
-
-                if (commandList[i] as ConsoleCommand != null)
-                {
-                    (commandList[i] as ConsoleCommand).Invoke();
-                }
-                else if (commandList[i] as ConsoleCommand<string> != null && args.Length == 2)
-                {
-                    (commandList[i] as ConsoleCommand<string>).Invoke(args[1]);
-                }
-                else if (commandList[i] as ConsoleCommand<string, float> != null && args.Length == 3)
-                {
-                    (commandList[i] as ConsoleCommand<string, float>).Invoke(args[1], float.Parse(args[2]));
-                }
-            }
-        }
-
-        if(!found) { textOutput("Unknown command: " + args[0], font, 5, Color.red, Color.red); }
-    }
+			if (!found) { textOutput("Unknown command: " + args[0], font, 5, Color.red, Color.red); }
+		}
+	}
 }

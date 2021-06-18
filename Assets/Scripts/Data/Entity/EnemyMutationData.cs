@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SplitSoul.Data.Scriptable.Entity
+namespace SplitSoul.Data.Entity
 {
-	[CreateAssetMenu(menuName = "Mutation")]
-	public class Mutation : ScriptableObject
+	[SerializableAttribute]
+	public class EnemyMutationData
 	{
 		[Tooltip("If true, transition will occur when hit with elemental damage, else if projectile hits")]
 		public bool useElement;

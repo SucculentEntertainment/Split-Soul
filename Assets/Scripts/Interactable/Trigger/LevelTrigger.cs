@@ -2,31 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelTrigger : Trigger
+using SplitSoul.Core;
+using SplitSoul.Core.Level;
+
+namespace SplitSoul.Interactable.Trigger
 {
-	public bool returnToPrevious = true;
-	public SceneIndecies destination;
-
-	private int target = -1;
-
-	private void Start()
+	public class LevelTrigger : Trigger
 	{
-		StartCoroutine(setTarget());
-	}
+		public bool returnToPrevious = true;
+		public SceneIndecies destination;
 
-	protected override void actions() { GameEventSystem.current.LevelChange(target); }
-	protected override bool conditions() { return target != -1; }
+		private int target = -1;
 
-	IEnumerator setTarget()
-	{
-		while(target == -1)
+		private void Start()
 		{
-			if(returnToPrevious) target = LevelManager.current.previousLevel;
-			else target = (int) destination;
+			StartCoroutine(setTarget());
+		}
+
+		protected override void actions() { GameEventSystem.current.LevelChange(target); }
+		protected override bool conditions() { return target != -1; }
+
+		IEnumerator setTarget()
+		{
+			while (target == -1)
+			{
+				if (returnToPrevious) target = LevelManager.current.previousLevel;
+				else target = (int)destination;
+
+				yield return null;
+			}
 
 			yield return null;
 		}
-
-		yield return null;
 	}
 }

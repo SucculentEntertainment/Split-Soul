@@ -2,10 +2,13 @@
 using UnityEditor;
 using System.Collections;
 
-public enum SceneIndecies
+namespace SplitSoul.Core
 {
-    Manager = 0,
-    TitleScreen = 1,
-    TestingLevel = 2,
-	HouseInside = 3
+	public enum SceneIndecies
+	{
+		Manager = 0,
+		TitleScreen = 1,
+		TestingLevel = 2,
+		HouseInside = 3
+	}
 }

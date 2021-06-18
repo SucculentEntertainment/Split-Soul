@@ -5,136 +5,147 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+using SplitSoul.Core.Camera;
+using SplitSoul.Core.Level;
+using SplitSoul.Entity.Legacy;
+using SplitSoul.Data.Scriptable.Inventory;
+using SplitSoul.UI;
+using SplitSoul.UI.Inventory;
+
+namespace SplitSoul.Core
 {
-	// ================================
-	//  Parameters
-	// ================================
-
-    public static GameManager current;
-	public GameObject loadingScreen;
-	public Player player;
-	public UIController ui;
-	public CameraRigManager cameraRig;
-	public List<string> dimensions;
-
-	//TODO: Improve to accomodate all containers
-	public GameObject cItemContainer;
-
-	private List<int> loadedScenes = new List<int>();
-	private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
-
-	// ================================
-	//  Global Variables
-	// ================================
-
-	[Header("Globals")]
-	public int currLevel = -1;
-	public string dimension = "alive";
-
-	public List<Item> existingItems;
-
-	[Header("Player Variables")]
-	public float playerHealth;
-    public int playerDeathState = 0;
-    public float playerNextAttackTime = 0f;
-
-	public List<ItemSlot> playerInventory;
-	public int playerCoins = 0;
-    public int playerSouls = 0;
-
-	// ================================
-	//  Functions
-	// ================================
-
-    private void Awake()
-    {
-        current = this;
-		loadLevel((int) SceneIndecies.TitleScreen);
-    }
-
-	public void changeDimension(string dimension)
+	public class GameManager : MonoBehaviour
 	{
-		this.dimension = dimension;
-		GameEventSystem.current.DimensionChange(dimension);
-	}
+		// ================================
+		//  Parameters
+		// ================================
 
-	// ================================
-	//  Level Loading
-	// ================================
+		public static GameManager current;
+		public GameObject loadingScreen;
+		public Player player;
+		public UIController ui;
+		public CameraRigManager cameraRig;
+		public List<string> dimensions;
 
-    public void loadLevel(int level)
-	{
-		loadingScreen.SetActive(true);
-		disableAllScenes();
+		//TODO: Improve to accomodate all containers
+		public GameObject cItemContainer;
 
-		if(loadedScenes.IndexOf(level) == -1)
+		private List<int> loadedScenes = new List<int>();
+		private List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
+
+		// ================================
+		//  Global Variables
+		// ================================
+
+		[Header("Globals")]
+		public int currLevel = -1;
+		public string dimension = "alive";
+
+		public List<Item> existingItems;
+
+		[Header("Player Variables")]
+		public float playerHealth;
+		public int playerDeathState = 0;
+		public float playerNextAttackTime = 0f;
+
+		public List<ItemSlot> playerInventory;
+		public int playerCoins = 0;
+		public int playerSouls = 0;
+
+		// ================================
+		//  Functions
+		// ================================
+
+		private void Awake()
 		{
-			scenesLoading.Add(SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive));
-			loadedScenes.Add(level);
+			current = this;
+			loadLevel((int)SceneIndecies.TitleScreen);
 		}
 
-		StartCoroutine(GetSceneLoadProgreess(level));
-	}
-
-	private void disableAllScenes()
-	{
-		foreach(int scene in loadedScenes)
+		public void changeDimension(string dimension)
 		{
-			//Disable Master GameObject in every Scene
-			SceneManager.GetSceneByBuildIndex(scene).GetRootGameObjects()[0].SetActive(false);
+			this.dimension = dimension;
+			GameEventSystem.current.DimensionChange(dimension);
 		}
-	}
 
-	private void activateLevel(int level)
-	{
-		GameObject master = SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0];
-		LevelManager levelManager = master.GetComponent<LevelManager>();
+		// ================================
+		//  Level Loading
+		// ================================
 
-		if(levelManager != null)
+		public void loadLevel(int level)
 		{
-			//Normal Level
+			loadingScreen.SetActive(true);
+			disableAllScenes();
 
-			ui.resetMenus();
+			if (loadedScenes.IndexOf(level) == -1)
+			{
+				scenesLoading.Add(SceneManager.LoadSceneAsync(level, LoadSceneMode.Additive));
+				loadedScenes.Add(level);
+			}
 
-			if(!player.gameObject.activeSelf) player.gameObject.SetActive(true);
-			if(ui.titleScreen) ui.setTitleScreenMode(false);
-			if(cameraRig.titleScreen) cameraRig.setTitleScreenMode(false);
-
-			levelManager.previousLevel = currLevel;
-			levelManager.player = player;
-			levelManager.activate();
-
-			cItemContainer = levelManager.itemContainer;
+			StartCoroutine(GetSceneLoadProgreess(level));
 		}
-		else
+
+		private void disableAllScenes()
 		{
-			//Title Screen
-
-			player.gameObject.SetActive(false);
-			ui.setTitleScreenMode(true);
-			cameraRig.setTitleScreenMode(true);
+			foreach (int scene in loadedScenes)
+			{
+				//Disable Master GameObject in every Scene
+				SceneManager.GetSceneByBuildIndex(scene).GetRootGameObjects()[0].SetActive(false);
+			}
 		}
 
-		currLevel = level;
-		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(level));
+		private void activateLevel(int level)
+		{
+			GameObject master = SceneManager.GetSceneByBuildIndex(level).GetRootGameObjects()[0];
+			LevelManager levelManager = master.GetComponent<LevelManager>();
 
-		master.SetActive(true);
-	}
+			if (levelManager != null)
+			{
+				//Normal Level
 
-	// ================================
-	//  Coroutines
-	// ================================
+				ui.resetMenus();
 
-	public IEnumerator GetSceneLoadProgreess(int level)
-	{
-		for(int i = 0; i < scenesLoading.Count; i++) {
-			while(!scenesLoading[i].isDone) { yield return null; }
+				if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+				if (ui.titleScreen) ui.setTitleScreenMode(false);
+				if (cameraRig.titleScreen) cameraRig.setTitleScreenMode(false);
+
+				levelManager.previousLevel = currLevel;
+				levelManager.player = player;
+				levelManager.activate();
+
+				cItemContainer = levelManager.itemContainer;
+			}
+			else
+			{
+				//Title Screen
+
+				player.gameObject.SetActive(false);
+				ui.setTitleScreenMode(true);
+				cameraRig.setTitleScreenMode(true);
+			}
+
+			currLevel = level;
+			SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(level));
+
+			master.SetActive(true);
 		}
 
-		yield return new WaitForSeconds(1);
-		activateLevel(level);
+		// ================================
+		//  Coroutines
+		// ================================
 
-		loadingScreen.SetActive(false);
+		public IEnumerator GetSceneLoadProgreess(int level)
+		{
+			for (int i = 0; i < scenesLoading.Count; i++)
+			{
+				while (!scenesLoading[i].isDone) { yield return null; }
+			}
+
+			yield return new WaitForSeconds(1);
+			activateLevel(level);
+
+			loadingScreen.SetActive(false);
+		}
 	}
 }

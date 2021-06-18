@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class TabElement : MonoBehaviour
+namespace SplitSoul.UI.Elements.TabSystem
 {
-    public TabController tabController;
-	public string id;
-	private Button btn;
-
-	private void Start()
+	[RequireComponent(typeof(Button))]
+	public class TabElement : MonoBehaviour
 	{
-		tabController.register(this);
+		public TabController tabController;
+		public string id;
+		private Button btn;
 
-		btn = gameObject.GetComponent<Button>();
-		btn.onClick.AddListener(() => OnBtnClick());
+		private void Start()
+		{
+			tabController.register(this);
+
+			btn = gameObject.GetComponent<Button>();
+			btn.onClick.AddListener(() => OnBtnClick());
+		}
+
+		private void OnBtnClick() { tabController.OnElementClick(this); }
 	}
-
-	private void OnBtnClick() { tabController.OnElementClick(this); }
 }

@@ -4,27 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class LightRegisterEvent : MonoBehaviour
+namespace SplitSoul.Core.Events
 {
-    private void Start()
-    {
-        GameEventSystem.current.onLightRegister += onLightRegister;
-        GameEventSystem.current.onLightUnregister += onLightUnregister;
-    }
+	public class LightRegisterEvent : MonoBehaviour
+	{
+		private void Start()
+		{
+			GameEventSystem.current.onLightRegister += onLightRegister;
+			GameEventSystem.current.onLightUnregister += onLightUnregister;
+		}
 
-    private void onLightRegister(Light2D light)
-    {
-        gameObject.SendMessage("OnLightRegister", light, SendMessageOptions.DontRequireReceiver);
-    }
+		private void onLightRegister(Light2D light)
+		{
+			gameObject.SendMessage("OnLightRegister", light, SendMessageOptions.DontRequireReceiver);
+		}
 
-    private void onLightUnregister(Light2D light)
-    {
-        gameObject.SendMessage("OnLightUnregister", light, SendMessageOptions.DontRequireReceiver);
-    }
+		private void onLightUnregister(Light2D light)
+		{
+			gameObject.SendMessage("OnLightUnregister", light, SendMessageOptions.DontRequireReceiver);
+		}
 
-    public void unregister()
-    {
-        GameEventSystem.current.onLightRegister += onLightRegister;
-        GameEventSystem.current.onLightUnregister -= onLightUnregister;
-    }
+		public void unregister()
+		{
+			GameEventSystem.current.onLightRegister += onLightRegister;
+			GameEventSystem.current.onLightUnregister -= onLightUnregister;
+		}
+	}
 }

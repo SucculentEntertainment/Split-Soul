@@ -3,21 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryEvent : MonoBehaviour
+using SplitSoul.Data;
+
+namespace SplitSoul.Core.Events
 {
-    private void Start()
-    {
-        GameEventSystem.current.onInventory += onInventory;
-    }
+	public class InventoryEvent : MonoBehaviour
+	{
+		private void Start()
+		{
+			GameEventSystem.current.onInventory += onInventory;
+		}
 
-    private void onInventory(string action, Collectable collectable)
-    {
-        if(action == "insert") gameObject.SendMessage("OnInventoryInsert", collectable, SendMessageOptions.DontRequireReceiver);
-		if(action == "drop") gameObject.SendMessage("OnInventoryDrop", collectable, SendMessageOptions.DontRequireReceiver);
-    }
+		private void onInventory(string action, Collectable collectable)
+		{
+			if (action == "insert") gameObject.SendMessage("OnInventoryInsert", collectable, SendMessageOptions.DontRequireReceiver);
+			if (action == "drop") gameObject.SendMessage("OnInventoryDrop", collectable, SendMessageOptions.DontRequireReceiver);
+		}
 
-    public void unregister()
-    {
-        GameEventSystem.current.onInventory -= onInventory;
-    }
+		public void unregister()
+		{
+			GameEventSystem.current.onInventory -= onInventory;
+		}
+	}
 }

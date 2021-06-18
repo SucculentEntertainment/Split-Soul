@@ -2,84 +2,90 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AltarController : MonoBehaviour
+using SplitSoul.Core;
+using SplitSoul.UI.Elements;
+
+namespace SplitSoul.Interactable.Legacy
 {
-    public float cooldown = 10f;
-    public string target = "alive";
-
-    public BarElement cooldownBar;
-
-    private bool enableInteractions = false;
-    private bool onCooldown = false;
-    private float cooldownTimer = 0f;
-
-    public Animator animator;
-
-	// ================================
-	//  Functions
-	// ================================
-
-	private void Start()
+	public class AltarController : MonoBehaviour
 	{
-        cooldownBar.setMaxValue(cooldown);
-        cooldownBar.gameObject.SetActive(false);
+		public float cooldown = 10f;
+		public string target = "alive";
 
-        if(animator == null) animator = transform.Find("Sprite").GetComponent<Animator>();
-        animator.SetBool("isBroken", true);
-	}
+		public BarElement cooldownBar;
 
-	void Update()
-    {
-        if(onCooldown)
+		private bool enableInteractions = false;
+		private bool onCooldown = false;
+		private float cooldownTimer = 0f;
+
+		public Animator animator;
+
+		// ================================
+		//  Functions
+		// ================================
+
+		private void Start()
 		{
-            cooldownTimer += Time.deltaTime;
-            cooldownBar.setValue(cooldownTimer);
-            if(cooldownTimer >= cooldown)
-            {
-                onCooldown = false;
-                cooldownBar.gameObject.SetActive(false);
-            }
+			cooldownBar.setMaxValue(cooldown);
+			cooldownBar.gameObject.SetActive(false);
+
+			if (animator == null) animator = transform.Find("Sprite").GetComponent<Animator>();
+			animator.SetBool("isBroken", true);
 		}
-    }
 
-    // ================================
-    //  Events
-    // ================================
+		void Update()
+		{
+			if (onCooldown)
+			{
+				cooldownTimer += Time.deltaTime;
+				cooldownBar.setValue(cooldownTimer);
+				if (cooldownTimer >= cooldown)
+				{
+					onCooldown = false;
+					cooldownBar.gameObject.SetActive(false);
+				}
+			}
+		}
 
-    private void OnDimensionEnable(string dimension)
-	{
-        enableInteractions = true;
-        if(onCooldown) cooldownBar.gameObject.SetActive(true);
-        animator.SetBool("isBroken", false);
+		// ================================
+		//  Events
+		// ================================
+
+		private void OnDimensionEnable(string dimension)
+		{
+			enableInteractions = true;
+			if (onCooldown) cooldownBar.gameObject.SetActive(true);
+			animator.SetBool("isBroken", false);
+		}
+
+		private void OnDimensionDisable(string dimension)
+		{
+			enableInteractions = false;
+			cooldownBar.gameObject.SetActive(false);
+			animator.SetBool("isBroken", true);
+		}
+
+		private void OnInteract()
+		{
+			if (!enableInteractions) { return; }
+			if (onCooldown) { return; }
+
+			onCooldown = true;
+			cooldownTimer = 0f;
+			cooldownBar.gameObject.SetActive(true);
+
+			GameEventSystem.current.Revive("Player");
+		}
+
+		private void OnInteractHighlight(bool activate)
+		{
+			if (!enableInteractions || !activate)
+			{
+				transform.Find("Sprite").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
+				return;
+			}
+
+			transform.Find("Sprite").GetComponent<SpriteRenderer>().color = new Color(255, 255, 0);
+		}
 	}
-
-    private void OnDimensionDisable(string dimension)
-	{
-        enableInteractions = false;
-        cooldownBar.gameObject.SetActive(false);
-        animator.SetBool("isBroken", true);
-    }
-
-    private void OnInteract()
-	{
-        if(!enableInteractions) { return; }
-        if(onCooldown) { return; }
-
-        onCooldown = true;
-        cooldownTimer = 0f;
-        cooldownBar.gameObject.SetActive(true);
-
-        GameEventSystem.current.Revive("Player");
-	}
-
-    private void OnInteractHighlight(bool activate)
-	{
-        if (!enableInteractions ||!activate)
-        {
-            transform.Find("Sprite").GetComponent<SpriteRenderer>().color = new Color(255, 255, 255);
-            return;
-        }
-
-        transform.Find("Sprite").GetComponent<SpriteRenderer>().color = new Color(255, 255, 0);
-    }
 }
