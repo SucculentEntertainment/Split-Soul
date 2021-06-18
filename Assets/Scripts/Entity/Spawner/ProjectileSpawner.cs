@@ -5,7 +5,7 @@ using UnityEngine;
 using SplitSoul.Core;
 using SplitSoul.Entity.Legacy.Projectiles;
 
-namespace SplitSoul.Utility.Spawner
+namespace SplitSoul.Entity.Spawner
 {
 	[System.Serializable]
 	public class ProjectileProfile

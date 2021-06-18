@@ -6,7 +6,7 @@ using SplitSoul.Core;
 using SplitSoul.Data.Scriptable.Inventory;
 using SplitSoul.Entity.Legacy;
 
-namespace SplitSoul.Utility.Spawner
+namespace SplitSoul.Entity.Spawner
 {
 	public class ItemSpawner : MonoBehaviour
 	{

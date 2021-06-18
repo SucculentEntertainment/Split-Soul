@@ -6,26 +6,12 @@ using UnityEngine;
 
 using SplitSoul.Core;
 using SplitSoul.Data;
+using SplitSoul.Data.Inventory;
 using SplitSoul.Data.Scriptable.Inventory;
-using SplitSoul.Utility.Spawner;
+using SplitSoul.Entity.Spawner;
 
 namespace SplitSoul.UI.Inventory
 {
-	[SerializableAttribute]
-	public class ItemSlot
-	{
-		public string id;
-		public int amount;
-		public InventorySlot slot;
-
-		public ItemSlot(string id, int amount, InventorySlot slot)
-		{
-			this.id = id;
-			this.amount = amount;
-			this.slot = slot;
-		}
-	}
-
 	//TODO: Remove unneeded conversions from ItemObj to ItemID and back to ItemObj
 	public class InventoryController : MonoBehaviour
 	{
@@ -33,6 +19,7 @@ namespace SplitSoul.UI.Inventory
 		public Transform slotContainer;
 		public ItemSpawner itemSpawner;
 
+		private List<InventorySlot> slots;
 		private GameManager gm;
 
 		private void Start()
@@ -43,16 +30,21 @@ namespace SplitSoul.UI.Inventory
 		public void updateSlot(int index)
 		{
 			Item item = gm.existingItems.Find(x => x.id == gm.playerInventory[index].id);
-			InventorySlot slot = gm.playerInventory[index].slot;
 
-			slot.setValues(item, gm.playerInventory[index].amount);
+			slots[index].setValues(item, gm.playerInventory[index].amount);
 			if (gm.playerInventory[index].amount <= 0) gm.playerInventory.RemoveAt(index);
 		}
 
-		public void createNewSlot(string id, int amount)
+		public int createNewSlot(string id, int amount)
 		{
 			InventorySlot slot = Instantiate(slotPrefab, slotContainer).GetComponent<InventorySlot>();
-			gm.playerInventory.Add(new ItemSlot(id, amount, slot));
+			slots.Add(slot);
+
+			int index = slots.Count - 1;
+			slots[index].setIndex(index);
+			gm.playerInventory.Add(new ItemSlot(id, amount, index));
+
+			return index;
 		}
 
 		public void insert(string id, int amount)
@@ -61,12 +53,7 @@ namespace SplitSoul.UI.Inventory
 			if (gm.existingItems.FindIndex(x => x.id == id) == -1) return;
 			int slotIndex = gm.playerInventory.FindIndex(x => x.id == id);
 
-			if (slotIndex == -1)
-			{
-				createNewSlot(id, amount);
-				slotIndex = gm.playerInventory.Count - 1;
-				gm.playerInventory[slotIndex].slot.setIndex(slotIndex);
-			}
+			if (slotIndex == -1) { slotIndex = createNewSlot(id, amount); }
 			else gm.playerInventory[slotIndex].amount += amount;
 
 			updateSlot(slotIndex);

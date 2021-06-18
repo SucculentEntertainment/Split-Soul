@@ -10,7 +10,6 @@ using SplitSoul.Core.Events;
 using SplitSoul.UI.Console;
 using SplitSoul.UI.Inventory;
 using SplitSoul.UI.Menu;
-using SplitSoul.Entity.Legacy;
 
 namespace SplitSoul.UI
 {
@@ -32,7 +31,6 @@ namespace SplitSoul.UI
 
 		[Header("References")]
 		public MainBook mainBook;
-		public Player player;
 
 		[Header("UI Controls")]
 		public bool titleScreen;
@@ -64,6 +62,10 @@ namespace SplitSoul.UI
 		private void OnUIAction(UIAction uiAction)
 		{
 			Debug.Log("Thrown UI Action: " + uiAction.action + ", " + uiAction.index.ToString());
+
+			// --------------------------------
+			//  Actions
+			// --------------------------------
 
 			if (uiAction.action == "ESC")
 			{
@@ -103,6 +105,18 @@ namespace SplitSoul.UI
 			}
 
 			if (uiAction.action == "InspectClose") { openMenu("MainBook", true); }
+
+			// --------------------------------
+			//  Control
+			// --------------------------------
+
+			if (uiAction.action == "CTRL_SetNormalMode")
+			{
+				resetMenus();
+				if(titleScreen) setTitleScreenMode(false);
+			}
+
+			if (uiAction.action == "CTRL_SetTitleMode") { setTitleScreenMode(true); }
 		}
 
 		// ================================
@@ -119,7 +133,7 @@ namespace SplitSoul.UI
 			openedMenu = menuID;
 			menues.Find(x => x.menuID == menuID).menuContainer.SetActive(true);
 
-			if (player != null) player.setMovementActive(false);
+			GameManager.current.playerDisableMovement = true;
 		}
 
 		private void closeMenu(string menuID, bool noAnimation = false)
@@ -129,7 +143,7 @@ namespace SplitSoul.UI
 			menues.Find(x => x.menuID == menuID).menuContainer.SetActive(false);
 			openedMenu = "";
 
-			if (player != null) player.setMovementActive(true);
+			GameManager.current.playerDisableMovement = false;
 		}
 
 		IEnumerator blurAnimation(bool invert, float duration)

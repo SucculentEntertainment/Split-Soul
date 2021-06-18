@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 71806758}
   - component: {fileID: 71806760}
   - component: {fileID: 71806761}
+  - component: {fileID: 71806750}
   - component: {fileID: 71806755}
   m_Layer: 10
   m_Name: Player
@@ -400,6 +401,18 @@ SortingGroup:
   m_SortingLayerID: -1726023529
   m_SortingLayer: 3
   m_SortingOrder: 0
+--- !u!114 &71806750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71806748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5748c02b74a7c5846949f1a076161956, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!70 &71806751
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -513,7 +526,6 @@ MonoBehaviour:
     m_Bits: 512
   attackPoint: {fileID: 1098152910}
   interactPoint: {fileID: 1894996388}
-  uiController: {fileID: 107331435}
   lamp: {fileID: 245098963}
 --- !u!114 &71806756
 MonoBehaviour:
@@ -739,7 +751,6 @@ MonoBehaviour:
   blurDoF: 0.1
   blurAnimDuration: 0.25
   mainBook: {fileID: 1822727851}
-  player: {fileID: 71806755}
   titleScreen: 0
   menues:
   - menuID: MainBook
@@ -5715,8 +5726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 1462552628}
-  player: {fileID: 71806755}
-  ui: {fileID: 107331435}
+  player: {fileID: 71806748}
   cameraRig: {fileID: 1498298817}
   dimensions:
   - alive
@@ -5727,6 +5737,8 @@ MonoBehaviour:
   existingItems:
   - {fileID: 11400000, guid: 8cfd02e6692682849b14a827c536b8ee, type: 2}
   - {fileID: 11400000, guid: 4df5e2a846cb76b43a3a0ff71658c1c0, type: 2}
+  playerPosition: {x: 0, y: 0}
+  playerDisableMovement: 0
   playerHealth: 0
   playerDeathState: 0
   playerNextAttackTime: 0

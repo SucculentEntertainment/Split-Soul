@@ -170,5 +170,15 @@ namespace SplitSoul.Core
 		{
 			if (onLevelChange != null) onLevelChange(levelID);
 		}
+
+		// --------------------------------
+		//  Teleport Event
+		// --------------------------------
+
+		public event Action<string, Vector2> onTeleport;
+		public void Teleport(string id, Vector2 pos)
+		{
+			if (onTeleport != null) onTeleport(id, pos);
+		}
 	}
 }

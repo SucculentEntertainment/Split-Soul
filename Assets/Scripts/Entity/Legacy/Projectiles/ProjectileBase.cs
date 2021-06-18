@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using SplitSoul.Core;
-using SplitSoul.Data.Entity;
 using SplitSoul.Core.Events;
+using SplitSoul.Data.Entity;
 
 namespace SplitSoul.Entity.Legacy.Projectiles
 {

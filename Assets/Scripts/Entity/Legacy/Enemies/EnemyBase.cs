@@ -9,7 +9,6 @@ using SplitSoul.Core;
 using SplitSoul.Core.Events;
 using SplitSoul.Data.Entity;
 using SplitSoul.Data.Scriptable.Entity;
-using SplitSoul.Utility.Spawner;
 
 namespace SplitSoul.Entity.Legacy.Enemies
 {
@@ -42,7 +41,7 @@ namespace SplitSoul.Entity.Legacy.Enemies
 
 		[Header("Ranged")]
 		public bool isRanged = false;
-		public ProjectileSpawner projectileSpawner;
+		public Spawner.ProjectileSpawner projectileSpawner;
 
 		[Header("Base")]
 		public float maxHealth;

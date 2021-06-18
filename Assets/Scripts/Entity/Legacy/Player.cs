@@ -8,7 +8,6 @@ using SplitSoul.Core;
 using SplitSoul.Core.Events;
 using SplitSoul.Data;
 using SplitSoul.Data.Entity;
-using SplitSoul.UI;
 
 namespace SplitSoul.Entity.Legacy
 {
@@ -45,18 +44,11 @@ namespace SplitSoul.Entity.Legacy
 		private GameManager gm;
 
 		// --------------------------------
-		//  Flags
-		// --------------------------------
-
-		private bool disableMovement = false;
-
-		// --------------------------------
 		//  References
 		// --------------------------------
 
 		public Transform attackPoint;
 		public Transform interactPoint;
-		public UIController uiController;
 		public Light2D lamp;
 
 		// ================================
@@ -105,6 +97,7 @@ namespace SplitSoul.Entity.Legacy
 		private void FixedUpdate()
 		{
 			rb.AddForce(dir * speed, ForceMode2D.Impulse);
+			gm.playerPosition = transform.position;
 		}
 
 		public void stopMovement()
@@ -191,6 +184,11 @@ namespace SplitSoul.Entity.Legacy
 			OnReceiveDamage(data.damage);
 		}
 
+		private void OnTeleport(Vector2 pos)
+		{
+			stopMovement();
+		}
+
 		// ================================
 		//  Interact
 		// ================================
@@ -215,7 +213,12 @@ namespace SplitSoul.Entity.Legacy
 
 		private void OnMove(InputValue dirVal)
 		{
-			if (disableMovement) return;
+			if (gm.playerDisableMovement)
+			{
+				stopMovement();
+				return;
+			}
+
 			dir = dirVal.Get<Vector2>();
 		}
 
@@ -237,12 +240,6 @@ namespace SplitSoul.Entity.Legacy
 		private void OnInteract(InputValue val)
 		{
 			interact();
-		}
-
-		public void setMovementActive(bool active)
-		{
-			disableMovement = !active;
-			if (!active) stopMovement();
 		}
 
 		// ================================

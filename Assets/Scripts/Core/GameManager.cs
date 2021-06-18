@@ -5,12 +5,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using SplitSoul.Core.Camera;
 using SplitSoul.Core.Level;
-using SplitSoul.Entity.Legacy;
+using SplitSoul.Data.Inventory;
 using SplitSoul.Data.Scriptable.Inventory;
-using SplitSoul.UI;
-using SplitSoul.UI.Inventory;
 
 namespace SplitSoul.Core
 {
@@ -21,10 +18,10 @@ namespace SplitSoul.Core
 		// ================================
 
 		public static GameManager current;
+
 		public GameObject loadingScreen;
-		public Player player;
-		public UIController ui;
-		public CameraRigManager cameraRig;
+		public GameObject player;
+		public Camera.CameraRigManager cameraRig;
 		public List<string> dimensions;
 
 		//TODO: Improve to accomodate all containers
@@ -44,7 +41,9 @@ namespace SplitSoul.Core
 		public List<Item> existingItems;
 
 		[Header("Player Variables")]
-		public float playerHealth;
+		public Vector2 playerPosition = new Vector2(0, 0);
+		public bool playerDisableMovement = false;
+		public float playerHealth = 0;
 		public int playerDeathState = 0;
 		public float playerNextAttackTime = 0f;
 
@@ -104,15 +103,13 @@ namespace SplitSoul.Core
 			{
 				//Normal Level
 
-				ui.resetMenus();
-
-				if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
-				if (ui.titleScreen) ui.setTitleScreenMode(false);
+				if (!player.activeSelf) player.SetActive(true);
 				if (cameraRig.titleScreen) cameraRig.setTitleScreenMode(false);
 
 				levelManager.previousLevel = currLevel;
-				levelManager.player = player;
 				levelManager.activate();
+
+				GameEventSystem.current.ThrowUIAction(new Events.UIAction("CTRL_SetNormalMode"));
 
 				cItemContainer = levelManager.itemContainer;
 			}
@@ -120,9 +117,9 @@ namespace SplitSoul.Core
 			{
 				//Title Screen
 
-				player.gameObject.SetActive(false);
-				ui.setTitleScreenMode(true);
+				player.SetActive(false);
 				cameraRig.setTitleScreenMode(true);
+				GameEventSystem.current.ThrowUIAction(new Events.UIAction("CTRL_SetTitleMode"));
 			}
 
 			currLevel = level;
