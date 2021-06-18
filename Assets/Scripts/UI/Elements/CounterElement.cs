@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICounter : MonoBehaviour
+public class CoutnerElement : MonoBehaviour
 {
 	private Text text;
 	public int value = 0;

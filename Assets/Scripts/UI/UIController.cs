@@ -68,7 +68,7 @@ public class UIController : MonoBehaviour
 
 		if(uiAction.action == "Enter")
 		{
-			if(openedMenu == "Console") menues.Find(x => x.menuID == "Console").menuContainer.GetComponent<DebugController>().HandleInput();
+			if(openedMenu == "Console") menues.Find(x => x.menuID == "Console").menuContainer.GetComponent<ConsoleController>().HandleInput();
 			if(openedMenu == "TitleScreen") openMenu("MainBook", true); //TODO: Improve this
 		}
 

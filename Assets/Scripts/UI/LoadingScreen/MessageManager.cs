@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingMessages
+public class Messages
 {
 	public List<string> items = new List<string>();
 }
 
-public class LoadingMessageManager : MonoBehaviour
+public class MessageManager : MonoBehaviour
 {
     public TextAsset messageFile;
 	public Text label;
 
-	private LoadingMessages messages;
+	private Messages messages;
 
-	private void Start() { messages = JsonUtility.FromJson<LoadingMessages>(messageFile.text); }
+	private void Start() { messages = JsonUtility.FromJson<Messages>(messageFile.text); }
 	public void OnEnable()
 	{
 		int index = 0;

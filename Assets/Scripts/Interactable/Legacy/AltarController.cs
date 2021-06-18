@@ -7,7 +7,7 @@ public class AltarController : MonoBehaviour
     public float cooldown = 10f;
     public string target = "alive";
 
-    public UIBar cooldownBar;
+    public BarElement cooldownBar;
 
     private bool enableInteractions = false;
     private bool onCooldown = false;

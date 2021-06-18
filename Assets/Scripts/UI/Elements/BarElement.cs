@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIBar : MonoBehaviour
+public class BarElement : MonoBehaviour
 {
     public float speed;
 
