@@ -24,7 +24,7 @@ namespace SplitSoul.UI.Inventory
 		private GameManager gm;
 		private int index = -1;
 
-		private void Start()
+		private void Awake()
 		{
 			gm = GameManager.current;
 		}
@@ -32,6 +32,7 @@ namespace SplitSoul.UI.Inventory
 		public void setData(int index)
 		{
 			this.index = index;
+			// gm = GameManager.current;
 
 			item = gm.existingItems.Find(x => x.id == gm.playerInventory[index].id);
 			amountValue = gm.playerInventory[index].amount;

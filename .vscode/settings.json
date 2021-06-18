@@ -11,7 +11,8 @@
         "**/.factorypath": true,
         "**/*.meta": true,
         "**/*.csproj": false,
-        "**/.vscode": true
+        "**/.vscode": true,
+        "**/*.asmdef": true
     },
     "explorerExclude.backup": null
 }

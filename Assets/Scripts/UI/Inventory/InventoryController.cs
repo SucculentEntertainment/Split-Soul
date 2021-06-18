@@ -19,7 +19,7 @@ namespace SplitSoul.UI.Inventory
 		public Transform slotContainer;
 		public ItemSpawner itemSpawner;
 
-		private List<InventorySlot> slots;
+		private List<InventorySlot> slots = new List<InventorySlot>();
 		private GameManager gm;
 
 		private void Start()
@@ -32,7 +32,11 @@ namespace SplitSoul.UI.Inventory
 			Item item = gm.existingItems.Find(x => x.id == gm.playerInventory[index].id);
 
 			slots[index].setValues(item, gm.playerInventory[index].amount);
-			if (gm.playerInventory[index].amount <= 0) gm.playerInventory.RemoveAt(index);
+			if (gm.playerInventory[index].amount <= 0)
+			{
+				slots.RemoveAt(index);
+				gm.playerInventory.RemoveAt(index);
+			}
 		}
 
 		public int createNewSlot(string id, int amount)
