@@ -19,9 +19,6 @@ namespace SplitSoul.Entity.InputProvider
 		public LayerMask interactLayers;
 
 		private GameManager gm;
-		private Vector2 movDir = Vector2.zero;
-		private Vector2 mouseDir = new Vector2(0, -1);
-
 		private Collider2D interactable = null;
 
 		private void Awake()
@@ -38,6 +35,8 @@ namespace SplitSoul.Entity.InputProvider
 		private void throwUIAction(string action) { GameEventSystem.current.ThrowUIAction(new UIAction(action)); }
 		private void Update()
 		{
+			gm.playerPosition = transform.position;
+		
 			//Scan for interactables
 			Collider2D newInteractable = Physics2D.OverlapCircle(interactPoint.position, interactRange, interactLayers);
 			if (newInteractable != interactable)
@@ -57,11 +56,11 @@ namespace SplitSoul.Entity.InputProvider
 			if (disableDirectional) return;
 			movDir = dirVal.Get<Vector2>();
 
-			if(movDir.magnitude > 0) inputData.setData("move", movDir);
-			else inputData.setData("idle", mouseDir);
+			if(movDir.magnitude > 0) inputData.setData("move", moveDir, aimDir);
+			else inputData.setData("idle", moveDir, aimDir);
 		}
 
-		private void OnAttack(InputValue val) { /*if (!gm.playerDisableMovement)*/ inputData.setData(val.isPressed ? "attack" : "idle", mouseDir); }
+		private void OnAttack(InputValue val) { inputData.setData(val.isPressed ? "attack" : "idle", moveDir, aimDir); }
 		private void OnConsole(InputValue val) { throwUIAction("Console"); }
 		private void OnEscape(InputValue val) { throwUIAction("ESC"); }
 		private void OnReturn(InputValue val) { throwUIAction("Enter"); }

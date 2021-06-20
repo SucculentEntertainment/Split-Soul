@@ -12,7 +12,7 @@ namespace SplitSoul.Entity.Behaviour
 		public string type;
 		public AnimatorController animation;
 		public AnimationOverrideCollection dimensionOverrides;
-		public abstract void exec();
+		public abstract void exec(Vector2 moveDir, Vector2 aimDir);
 
 		public bool finished = false;
 	}
