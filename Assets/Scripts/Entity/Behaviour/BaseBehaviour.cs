@@ -13,5 +13,7 @@ namespace SplitSoul.Entity.Behaviour
 		public AnimatorController animation;
 		public AnimationOverrideCollection dimensionOverrides;
 		public abstract void exec();
+
+		public bool finished = false;
 	}
 }

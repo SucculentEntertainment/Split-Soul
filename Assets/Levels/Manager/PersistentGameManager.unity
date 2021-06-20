@@ -7225,6 +7225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableDirectional: 0
+  mainCamera: {fileID: 1498298816}
   interactPoint: {fileID: 1729136132}
   interactRange: 0.5
   interactLayers:

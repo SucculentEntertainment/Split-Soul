@@ -21,7 +21,7 @@ namespace SplitSoul.Entity
 			tmp = inputData;
 			inputData = inputProvider.getInputData();
 			// if (inputData != null && tmp != inputData)
-			Debug.Log("InputData: \"" + inputData.behaviourType + "\"" + inputData.dir);
+			// Debug.Log("InputData: \"" + inputData.behaviourType + "\"" + inputData.dir);
 		}
 	}
 }

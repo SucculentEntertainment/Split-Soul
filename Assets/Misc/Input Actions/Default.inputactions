@@ -6,9 +6,41 @@
             "id": "e779f48f-526e-4c84-bbf0-10fb458e980d",
             "actions": [
                 {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "9e96740a-331b-4405-873a-61c1a0936704",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "452990b2-95ea-4a3c-a554-cbb64fa116fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "9dcc5af0-c2f5-411c-a439-2e04645688c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "43952ecc-b2b4-4ed3-af78-378856d7d192",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "Console",
+                    "type": "Button",
+                    "id": "b83cbc68-9e70-4019-9379-c93aa6e3f4c1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -22,49 +54,9 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Inventory",
-                    "type": "Button",
-                    "id": "30cf0a61-ae01-4675-9d39-6238f04c9d6e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Console",
-                    "type": "Button",
-                    "id": "b83cbc68-9e70-4019-9379-c93aa6e3f4c1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Return",
                     "type": "Button",
                     "id": "6d1d5b68-983c-42b9-b1f4-4dce9aacff19",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "43952ecc-b2b4-4ed3-af78-378856d7d192",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Menu",
-                    "type": "Button",
-                    "id": "9da09c4e-e097-410f-a3cd-647ecd261492",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "9dcc5af0-c2f5-411c-a439-2e04645688c0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -88,7 +80,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -99,7 +91,7 @@
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -110,7 +102,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -121,32 +113,65 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "5ef499b6-c187-4c9b-be95-880000c729ef",
-                    "path": "<Keyboard>/escape",
+                    "name": "Arrows",
+                    "id": "b3b38d0e-0059-4c5e-a918-46ee2e8c23e2",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Escape",
-                    "isComposite": false,
+                    "groups": "Keyboard & Mouse",
+                    "action": "Move",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "4f7e9aa2-fadf-43ab-bae9-5287ab391cd6",
-                    "path": "<Keyboard>/f",
+                    "name": "up",
+                    "id": "8214c889-9b13-4a9c-9c8f-73e25f639e3e",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Inventory",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "90ddc4d5-b24c-41bd-baa6-94a7061dd381",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "bc093264-bac0-4b2b-ba4e-d04a1f60a156",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b85ccc03-ba0b-4d9f-99cb-4f493a318bd0",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -154,7 +179,7 @@
                     "path": "<Keyboard>/backslash",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Console",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -165,30 +190,19 @@
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Return",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "74b57ee0-cf6e-483a-acfc-0aff492d2580",
-                    "path": "<Mouse>/leftButton",
+                    "id": "bd2e0fdb-d738-41ed-bf98-ecf6f45f3650",
+                    "path": "<Pointer>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "047b1c39-3e13-417e-91b4-0312276ba8f7",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Menu",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -198,13 +212,52 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard & Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "74b57ee0-cf6e-483a-acfc-0aff492d2580",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5ef499b6-c187-4c9b-be95-880000c729ef",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Keyboard & Mouse",
+            "bindingGroup": "Keyboard & Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }
