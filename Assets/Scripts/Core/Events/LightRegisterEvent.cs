@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 namespace SplitSoul.Core.Events
 {
@@ -14,12 +14,12 @@ namespace SplitSoul.Core.Events
 			GameEventSystem.current.onLightUnregister += onLightUnregister;
 		}
 
-		private void onLightRegister(Light2D light)
+		private void onLightRegister(UnityEngine.Rendering.Universal.Light2D light)
 		{
 			gameObject.SendMessage("OnLightRegister", light, SendMessageOptions.DontRequireReceiver);
 		}
 
-		private void onLightUnregister(Light2D light)
+		private void onLightUnregister(UnityEngine.Rendering.Universal.Light2D light)
 		{
 			gameObject.SendMessage("OnLightUnregister", light, SendMessageOptions.DontRequireReceiver);
 		}

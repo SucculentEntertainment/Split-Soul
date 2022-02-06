@@ -11,15 +11,17 @@
                     "id": "9e96740a-331b-4405-873a-61c1a0936704",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Move",
                     "type": "Value",
                     "id": "452990b2-95ea-4a3c-a554-cbb64fa116fd",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",
@@ -27,7 +29,8 @@
                     "id": "9dcc5af0-c2f5-411c-a439-2e04645688c0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Attack",
@@ -35,7 +38,8 @@
                     "id": "43952ecc-b2b4-4ed3-af78-378856d7d192",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press(behavior=2)",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Console",
@@ -43,7 +47,8 @@
                     "id": "b83cbc68-9e70-4019-9379-c93aa6e3f4c1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Escape",
@@ -51,7 +56,8 @@
                     "id": "e8768f4f-09c2-470b-abe0-1a09e98e495d",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Return",
@@ -59,7 +65,8 @@
                     "id": "6d1d5b68-983c-42b9-b1f4-4dce9aacff19",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [

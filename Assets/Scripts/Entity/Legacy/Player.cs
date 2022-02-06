@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 using SplitSoul.Core;
 using SplitSoul.Core.Events;
@@ -49,7 +49,7 @@ namespace SplitSoul.Entity.Legacy
 
 		public Transform attackPoint;
 		public Transform interactPoint;
-		public Light2D lamp;
+		public UnityEngine.Rendering.Universal.Light2D lamp;
 
 		// ================================
 		//  Functions

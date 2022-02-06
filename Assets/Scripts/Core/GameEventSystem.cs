@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 using SplitSoul.Data;
 using SplitSoul.Data.Entity;
@@ -112,14 +112,14 @@ namespace SplitSoul.Core
 		// --------------------------------
 		//  Light Register Event
 		// --------------------------------
-		public event Action<Light2D> onLightRegister;
-		public void RegisterLight(Light2D light)
+		public event Action<UnityEngine.Rendering.Universal.Light2D> onLightRegister;
+		public void RegisterLight(UnityEngine.Rendering.Universal.Light2D light)
 		{
 			if (onLightRegister != null) onLightRegister(light);
 		}
 
-		public event Action<Light2D> onLightUnregister;
-		public void UnregisterLight(Light2D light)
+		public event Action<UnityEngine.Rendering.Universal.Light2D> onLightUnregister;
+		public void UnregisterLight(UnityEngine.Rendering.Universal.Light2D light)
 		{
 			if (onLightUnregister != null) onLightUnregister(light);
 		}

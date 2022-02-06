@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 using SplitSoul.Core;
 using SplitSoul.Core.Events;
@@ -73,7 +73,7 @@ namespace SplitSoul.Entity.Legacy.Enemies
 		public float damageFactor = 1;
 
 		[Header("References")]
-		public Light2D lamp;
+		public UnityEngine.Rendering.Universal.Light2D lamp;
 
 		// --------------------------------
 		//  Parameters -> Internal Values

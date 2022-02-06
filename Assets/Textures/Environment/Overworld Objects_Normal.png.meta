@@ -318,6 +318,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -327,8 +328,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -2452,6 +2453,105 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Overworld Objects_Normal_6: 2613775393782888551
+      Overworld Objects_Normal_29: 1493049556176701173
+      Overworld Objects_Normal_26: 3934486927226319344
+      Overworld Objects_Normal_33: -3519415711262123750
+      Overworld Objects_Normal_78: -2826126372486473300
+      Overworld Objects_Normal_21: 2661579432030486072
+      Overworld Objects_Normal_53: -8370904578094299357
+      Overworld Objects_Normal_22: -5301486475379418147
+      Overworld Objects_Normal_7: 6812857222654504329
+      Overworld Objects_Normal_59: 1425656636984250599
+      Overworld Objects_Normal_41: -2241246003834103748
+      Overworld Objects_Normal_4: -6754554507870993029
+      Overworld Objects_Normal_5: -903531397633520609
+      Overworld Objects_Normal_84: -2402510574200427294
+      Overworld Objects_Normal_89: -8951045087799966388
+      Overworld Objects_Normal_18: -2208671166990538397
+      Overworld Objects_Normal_25: -8336988857644707086
+      Overworld Objects_Normal_66: 3563167669787361383
+      Overworld Objects_Normal_57: -9139247558443925761
+      Overworld Objects_Normal_36: -5479404851182054646
+      Overworld Objects_Normal_38: -2411064100751931450
+      Overworld Objects_Normal_91: 4811925185336630166
+      Overworld Objects_Normal_74: 5503450789663564111
+      Overworld Objects_Normal_87: -5502404406956004981
+      Overworld Objects_Normal_95: 2521846645806080288
+      Overworld Objects_Normal_62: -820647888532556403
+      Overworld Objects_Normal_9: -856409932893605833
+      Overworld Objects_Normal_70: 6200844324549642399
+      Overworld Objects_Normal_47: -1767478119358012691
+      Overworld Objects_Normal_32: -8796241506573691329
+      Overworld Objects_Normal_79: 9157898006152552044
+      Overworld Objects_Normal_14: -1977534300560481937
+      Overworld Objects_Normal_35: -4821213961789526587
+      Overworld Objects_Normal_68: -3579776241797701188
+      Overworld Objects_Normal_45: 4466987313974525814
+      Overworld Objects_Normal_16: 6486546449979844290
+      Overworld Objects_Normal_56: 397913919193643612
+      Overworld Objects_Normal_28: -7899923317509859065
+      Overworld Objects_Normal_82: -42712098708745952
+      Overworld Objects_Normal_73: -6337106597334121711
+      Overworld Objects_Normal_30: 8949397517092329014
+      Overworld Objects_Normal_54: -7054075698124169118
+      Overworld Objects_Normal_0: -6048971779977027467
+      Overworld Objects_Normal_77: -4535969764453802611
+      Overworld Objects_Normal_23: 8133201717989658079
+      Overworld Objects_Normal_97: -2518938664734507091
+      Overworld Objects_Normal_12: -464265761383189853
+      Overworld Objects_Normal_52: 9053854079072686146
+      Overworld Objects_Normal_64: -6736729567164342511
+      Overworld Objects_Normal_10: -7432562813407727085
+      Overworld Objects_Normal_42: 943445385968928994
+      Overworld Objects_Normal_75: 1923985024697636223
+      Overworld Objects_Normal_2: -2363137825338136845
+      Overworld Objects_Normal_69: -6548121487234327794
+      Overworld Objects_Normal_24: -143586380914700792
+      Overworld Objects_Normal_58: -6999644201877647187
+      Overworld Objects_Normal_1: -7242617010176189351
+      Overworld Objects_Normal_31: 6552552425605660555
+      Overworld Objects_Normal_34: -3939761887712436321
+      Overworld Objects_Normal_63: -3954339087008735455
+      Overworld Objects_Normal_8: -4002548100405122427
+      Overworld Objects_Normal_3: 1280818529831521940
+      Overworld Objects_Normal_80: -973249308647885457
+      Overworld Objects_Normal_67: -8680399444210604688
+      Overworld Objects_Normal_90: 477129785360911215
+      Overworld Objects_Normal_27: 2014060628181298517
+      Overworld Objects_Normal_46: -9018382034058272805
+      Overworld Objects_Normal_85: 2733888049837653028
+      Overworld Objects_Normal_43: -3469573087267441366
+      Overworld Objects_Normal_72: -1515017515845912
+      Overworld Objects_Normal_86: -3722278483848641058
+      Overworld Objects_Normal_93: 3421448246428043639
+      Overworld Objects_Normal_20: -1393861634249353395
+      Overworld Objects_Normal_51: -4969181312567322044
+      Overworld Objects_Normal_92: -291638398257114669
+      Overworld Objects_Normal_83: 6309492903995829844
+      Overworld Objects_Normal_50: 7719131123180019393
+      Overworld Objects_Normal_37: 2755518948857800949
+      Overworld Objects_Normal_19: 5529233756612531121
+      Overworld Objects_Normal_71: -572410529932420733
+      Overworld Objects_Normal_60: 3164203684875550227
+      Overworld Objects_Normal_94: -2710488656141387652
+      Overworld Objects_Normal_39: -4328910356926769463
+      Overworld Objects_Normal_40: -3169723269657074285
+      Overworld Objects_Normal_61: 9108911735154921618
+      Overworld Objects_Normal_15: 9172468056071373604
+      Overworld Objects_Normal_13: 4739501051229753675
+      Overworld Objects_Normal_76: 8295784887359485910
+      Overworld Objects_Normal_11: 1902512283833160458
+      Overworld Objects_Normal_88: -8264718756223562120
+      Overworld Objects_Normal_65: -8441644559844171961
+      Overworld Objects_Normal_48: 4085175850569901152
+      Overworld Objects_Normal_81: 3853588232622822293
+      Overworld Objects_Normal_17: -2285911248843257124
+      Overworld Objects_Normal_49: 7872071843630024083
+      Overworld Objects_Normal_44: 8251124048470694774
+      Overworld Objects_Normal_55: -5984618256172862728
+      Overworld Objects_Normal_96: -3728971810146519926
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

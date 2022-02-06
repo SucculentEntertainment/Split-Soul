@@ -305,6 +305,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -314,8 +316,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -336,9 +338,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -2352,6 +2357,101 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      FireSlime_59: 8629066721047083298
+      FireSlime_62: -4301717594051661897
+      FireSlime_67: 4003434811379191788
+      FireSlime_41: -4721582483108329150
+      FireSlime_34: 2124902758509073109
+      FireSlime_60: 2359944388818317361
+      FireSlime_40: 7543067249767136313
+      FireSlime_12: -1848240767738667449
+      FireSlime_87: 5317119324860632848
+      FireSlime_89: 1600643007143158828
+      FireSlime_90: -2744473884933787175
+      FireSlime_92: -647728825231844414
+      FireSlime_56: 1944699049570082593
+      FireSlime_15: -6810354389231688955
+      FireSlime_63: -1579841238560675551
+      FireSlime_9: -3977803871054584574
+      FireSlime_5: -7664003802044903660
+      FireSlime_43: 2695208762706071525
+      FireSlime_51: -370556667575198873
+      FireSlime_25: 1560570538237032343
+      FireSlime_77: 7548682580682847357
+      FireSlime_78: -2671969936266862926
+      FireSlime_86: -648159582701019406
+      FireSlime_80: -5414747006066206812
+      FireSlime_22: 1531416262404284740
+      FireSlime_38: -3448056244571204057
+      FireSlime_49: 5204323018544082269
+      FireSlime_52: -2446133903626640280
+      FireSlime_88: -5196872425240199256
+      FireSlime_76: -7917753035467227820
+      FireSlime_0: -1886757339846038820
+      FireSlime_70: 1123471492942334385
+      FireSlime_37: 6698328750344058718
+      FireSlime_39: 8928243393622946177
+      FireSlime_1: -5998348708104924870
+      FireSlime_66: -4336945142590387388
+      FireSlime_17: -3715478695058470278
+      FireSlime_36: 4077152904925550899
+      FireSlime_58: -6682511129473129939
+      FireSlime_47: -4008020515150961224
+      FireSlime_72: 6091137632856018487
+      FireSlime_57: 480700787923137303
+      FireSlime_8: -1171578522550479429
+      FireSlime_45: 7082087593168282882
+      FireSlime_91: -5903025223037241255
+      FireSlime_6: -3989918769254777228
+      FireSlime_24: 5120839416629619856
+      FireSlime_35: -8266319977609585511
+      FireSlime_93: -3350847395254529714
+      FireSlime_21: -779181437073930730
+      FireSlime_10: -6781086206776168992
+      FireSlime_30: 8928511258576468704
+      FireSlime_46: -3612399036951287900
+      FireSlime_84: -63799176964748350
+      FireSlime_83: -1659841903637177602
+      FireSlime_82: 7854965259337578138
+      FireSlime_4: 3944344271224212058
+      FireSlime_13: 6380583033489695246
+      FireSlime_26: 6626741281662642181
+      FireSlime_74: -5918686542617562192
+      FireSlime_73: -8295048730115917673
+      FireSlime_7: -7158948296961439544
+      FireSlime_11: 3910175409095530808
+      FireSlime_3: 6805662691032722561
+      FireSlime_28: 8665851108448231896
+      FireSlime_29: 18598459675124734
+      FireSlime_2: -3442628010714129982
+      FireSlime_42: 6800366006018946418
+      FireSlime_81: 7579833660952750048
+      FireSlime_33: 6902378584783408001
+      FireSlime_54: 7213812549641397298
+      FireSlime_69: 1956280414349461336
+      FireSlime_31: -5782234559041646877
+      FireSlime_27: -162211391703967920
+      FireSlime_16: -4204611717189221016
+      FireSlime_79: 1554430226520316476
+      FireSlime_53: 6268572832628050499
+      FireSlime_55: 7732300567362672877
+      FireSlime_44: -7567493629664393256
+      FireSlime_65: 8649192924534895267
+      FireSlime_20: -9094908682333431786
+      FireSlime_48: 5168509265377317022
+      FireSlime_61: 6819033393613435276
+      FireSlime_64: -2793175537343326805
+      FireSlime_14: 1656265954591450943
+      FireSlime_18: 6990964067610486187
+      FireSlime_75: 6855222276511894411
+      FireSlime_85: -3312089370811618535
+      FireSlime_50: -4422051552075783112
+      FireSlime_71: 2859088902985712242
+      FireSlime_23: -903751488569971748
+      FireSlime_68: -6407513754576758576
+      FireSlime_19: 8241357130777665289
+      FireSlime_32: -6709462188684693064
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

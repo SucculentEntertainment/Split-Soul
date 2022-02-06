@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 using SplitSoul.Data.Scriptable.Collection;
 
@@ -11,7 +11,7 @@ namespace SplitSoul.Core.Collection
 	{
 		public bool useLightCollection;
 		public LightCollection lightCollection;
-		[SerializeField] public List<Light2D> lights;
+		[SerializeField] public List<UnityEngine.Rendering.Universal.Light2D> lights;
 
 		public bool useParticleCollection;
 		public ParticleCollection particleCollection;
@@ -20,7 +20,7 @@ namespace SplitSoul.Core.Collection
 		private void OnDimensionEnable(string dimension)
 		{
 			LightProfile lProfile = lightCollection.profiles.Find(x => x.dimension == dimension);
-			foreach (Light2D l in lights) { l.color = lProfile.color; }
+			foreach (UnityEngine.Rendering.Universal.Light2D l in lights) { l.color = lProfile.color; }
 
 			ParticleProfile pProfile = particleCollection.profiles.Find(x => x.dimension == dimension);
 			foreach (ParticleSystem p in particleSystems)

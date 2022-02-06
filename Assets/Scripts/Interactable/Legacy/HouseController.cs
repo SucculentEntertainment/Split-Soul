@@ -2,7 +2,7 @@ using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 using SplitSoul.Core;
 
@@ -22,7 +22,7 @@ namespace SplitSoul.Interactable.Legacy
 			sprites = transform.Find("Sprites").GetComponentsInChildren<SpriteRenderer>();
 			normalColor = Color.white;
 
-			foreach (Light2D light in transform.Find("Lighting").GetComponentsInChildren<Light2D>())
+			foreach (UnityEngine.Rendering.Universal.Light2D light in transform.Find("Lighting").GetComponentsInChildren<UnityEngine.Rendering.Universal.Light2D>())
 			{
 				GameEventSystem.current.RegisterLight(light);
 			}

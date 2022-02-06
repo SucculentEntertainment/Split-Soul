@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering.Universal;
+
 
 using SplitSoul.Core;
 
@@ -45,7 +45,7 @@ namespace SplitSoul.Environment
 		public float offTime = 1f;
 
 		[Tooltip("List of lights to be turned on/off")]
-		[SerializeField] public List<Light2D> lights;
+		[SerializeField] public List<UnityEngine.Rendering.Universal.Light2D> lights;
 
 		[Header("Events")]
 		[Range(0f, 1f)]
@@ -58,9 +58,9 @@ namespace SplitSoul.Environment
 		public float nightTime = 0.6f;
 
 		[Header("References")]
-		public Light2D sun;
-		public Light2D moon;
-		public Light2D globalLight;
+		public UnityEngine.Rendering.Universal.Light2D sun;
+		public UnityEngine.Rendering.Universal.Light2D moon;
+		public UnityEngine.Rendering.Universal.Light2D globalLight;
 
 		public Transform rig;
 
@@ -125,7 +125,7 @@ namespace SplitSoul.Environment
 
 		private IEnumerator toggleLights()
 		{
-			foreach (Light2D l in lights)
+			foreach (UnityEngine.Rendering.Universal.Light2D l in lights)
 			{
 				yield return new WaitForSeconds(UnityEngine.Random.Range(0f, maxDelay / lights.Count));
 				if (l != null) l.gameObject.SetActive(!lightState);
@@ -138,12 +138,12 @@ namespace SplitSoul.Environment
 		//  Events
 		// ================================
 
-		private void OnLightRegister(Light2D light)
+		private void OnLightRegister(UnityEngine.Rendering.Universal.Light2D light)
 		{
 			if (!lights.Contains(light)) lights.Add(light);
 		}
 
-		private void OnLightUnregister(Light2D light)
+		private void OnLightUnregister(UnityEngine.Rendering.Universal.Light2D light)
 		{
 			if (lights.Contains(light)) lights.Remove(light);
 		}

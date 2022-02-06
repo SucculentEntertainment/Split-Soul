@@ -19,7 +19,7 @@ namespace SplitSoul.Data.Entity
 		public void setData(string behaviourType, Vector2 moveDir, Vector2 aimDir)
 		{
 			_behaviourType = behaviourType;
-			_moveDir = Dir;
+			_moveDir = moveDir;
 			_aimDir = aimDir;
 		}
 

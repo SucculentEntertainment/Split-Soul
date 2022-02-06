@@ -92,6 +92,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -101,8 +103,8 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -123,9 +125,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -648,6 +653,30 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Collider_1: 3792428959212861014
+      Collider_0: 4407368245173168085
+      Collider_22: -6730115244586940778
+      Collider_3: 8651713343137728302
+      Collider_20: -799352845423930982
+      Collider_7: -4992875351101396263
+      Collider_12: 891395997219598980
+      Collider_11: 2450035854948224536
+      Collider_21: -7531987533415998059
+      Collider_17: -6357952603729428133
+      Collider_8: -6548788813482499822
+      Collider_9: 1048387831175276329
+      Collider_14: -3280785595267067269
+      Collider_6: -2465489979986742188
+      Collider_19: -6591731368912188979
+      Collider_4: 7310925826090119926
+      Collider_16: 5797991060136616963
+      Collider_2: 1365605007691454190
+      Collider_13: -7235660770413247184
+      Collider_5: 4175745883591222149
+      Collider_10: 170613705825960098
+      Collider_18: 8750941081580308624
+      Collider_15: 8268614365470160921
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

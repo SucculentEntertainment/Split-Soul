@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.Animations;
 
-using SplitSoul.Data.Scriptable.Collection;
-
-namespace SplitSoul.Entity.Behaviour
+public class BaseBehaviour : MonoBehaviour
 {
-	public abstract class BaseBehaviour : MonoBehaviour
-	{
-		public string type;
-		public AnimatorController animation;
-		public AnimationOverrideCollection dimensionOverrides;
-		public abstract void exec(Vector2 moveDir, Vector2 aimDir);
+    public string targetState;
+    public bool isOneshot;
 
-		public bool finished = false;
-	}
+    public virtual void exec(Vector2 moveDir, Vector2 aimDir, string returnState = "", float delta = 0)
+    {
+        // If returnState is unknown for oneshot mode behaviours, the entity would not know which state to return to when execution has finished
+        if(isOneshot && returnState == "")
+        {
+            Debug.LogError("returnState cannot be empty when behaviour is oneshot", this);
+            return;
+        }
+    }
 }

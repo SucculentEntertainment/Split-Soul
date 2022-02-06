@@ -150,6 +150,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1108,6 +1109,49 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      LoadingAnim_37: 5582292318487851853
+      LoadingAnim_2: 7533127522158156921
+      LoadingAnim_38: -9075452311256721145
+      LoadingAnim_10: -8020272868193253760
+      LoadingAnim_33: -7415800009133254126
+      LoadingAnim_7: 2402522896580948768
+      LoadingAnim_6: -2286262295013242106
+      LoadingAnim_11: 7449256326335907323
+      LoadingAnim_23: 4002070405269646814
+      LoadingAnim_41: -986767799455732953
+      LoadingAnim_26: -2526025382828956691
+      LoadingAnim_30: 6132279489548346699
+      LoadingAnim_24: -1726950373731771823
+      LoadingAnim_35: 1100379619863647742
+      LoadingAnim_1: 2786398373194508288
+      LoadingAnim_16: 8888247107377366868
+      LoadingAnim_19: 2539331662345967278
+      LoadingAnim_20: 6954290239998054160
+      LoadingAnim_40: 9006463647955978406
+      LoadingAnim_8: 4035818039357474913
+      LoadingAnim_25: 438791176393547690
+      LoadingAnim_4: 3243827288564644709
+      LoadingAnim_18: -321866504590294767
+      LoadingAnim_12: 5861398688127329922
+      LoadingAnim_15: 35812561692643691
+      LoadingAnim_36: 555354403117005222
+      LoadingAnim_9: -1211180415391935976
+      LoadingAnim_17: -9054909234564413453
+      LoadingAnim_29: -6765563008128262512
+      LoadingAnim_31: -121271832497672893
+      LoadingAnim_32: -8544285066041689624
+      LoadingAnim_14: -2665150700263048484
+      LoadingAnim_21: 2259940485590529145
+      LoadingAnim_39: -3418109201306528727
+      LoadingAnim_34: -741996727630382369
+      LoadingAnim_3: 3327438084738282340
+      LoadingAnim_28: -2602446911559493126
+      LoadingAnim_27: -764027229137411536
+      LoadingAnim_22: 248240570094800013
+      LoadingAnim_0: 3064211314473612416
+      LoadingAnim_5: 8611260992036966946
+      LoadingAnim_13: 2138595040640429287
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
